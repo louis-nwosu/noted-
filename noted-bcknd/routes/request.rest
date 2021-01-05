@@ -1,0 +1,28 @@
+GEt http://localhost:3000/users 
+
+####
+GET http://localhost:3000/users/5fe869b12538ec25e1c84fe2
+
+###
+
+POST  http://localhost:3000/post     
+Content-Type: application/json
+
+{
+    "name": "anene nwosu",
+    "password": "123",
+    "bio": "i love cooking"
+}
+
+###
+
+POST  http://localhost:3000/login     
+Content-Type: application/json
+
+{
+    "name": "anene nwosu",
+    "password": "123"
+}
+
+###
+DELETE  http://localhost:3000/5fe869b12538ec25e1c84fe2
