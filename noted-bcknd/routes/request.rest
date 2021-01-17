@@ -9,8 +9,8 @@ POST  http://localhost:3000/post
 Content-Type: application/json
 
 {
-    "name": "anene nwosu",
-    "password": "123",
+    "name": "nonso nwosu",
+    "password": "1236",
     "bio": "i love cooking"
 }
 
@@ -25,4 +25,4 @@ Content-Type: application/json
 }
 
 ###
-DELETE  http://localhost:3000/5fe869b12538ec25e1c84fe2
+DELETE  http://localhost:3000/5fe8fa5d00f793176e8ceae9
