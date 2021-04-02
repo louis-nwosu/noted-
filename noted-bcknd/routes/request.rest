@@ -1,28 +1,29 @@
-GEt http://localhost:3000/users 
+GEt http://localhost:8080/users 
 
 ####
-GET http://localhost:3000/users/5fe869b12538ec25e1c84fe2
+GET http://localhost:8080/users/5fe869b12538ec25e1c84fe2
 
 ###
 
-POST  http://localhost:3000/post     
+POST  http://localhost:8080/post     
 Content-Type: application/json
 
 {
-    "name": "nonso nwosu",
-    "password": "1236",
-    "bio": "i love cooking"
+    "firstName": "louis22",
+    "lastName": "nwosu22",
+    "password": "12366321",
+    "email": "dummy222@gmail.com"
 }
 
 ###
 
-POST  http://localhost:3000/login     
+POST  http://localhost:8080/login     
 Content-Type: application/json
 
 {
-    "name": "anene nwosu",
-    "password": "123"
+    "email": "dummy222@gmail.com",
+    "password": "12366321"
 }
 
-###
-DELETE  http://localhost:3000/5fe8fa5d00f793176e8ceae9
+# ###
+# DELETE  http://localhost:8080/5fe8fa5d00f793176e8ceae9
