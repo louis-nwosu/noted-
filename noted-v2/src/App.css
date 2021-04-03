@@ -1,13 +1,9 @@
 .landing-bg {
-  background-image: url("./assets/eye-for-ebony-7EpZ2IMxK7g-unsplash.jpg");
-  background-position: center;
-  background-size: cover;
-  padding: 7% 8%;
+  padding: 8% 8%;
 }
 
 .navbar-sec {
   background: rgba(255, 255, 255, 0.05);
-  box-shadow: 0 8px 32px 0 rgba(182, 183, 201, 0.37);
   backdrop-filter: blur(2.5px);
   -webkit-backdrop-filter: blur(4.5px);
   border: 1px solid rgba(255, 255, 255, 0.18);
