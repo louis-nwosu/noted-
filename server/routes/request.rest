@@ -27,3 +27,17 @@ Content-Type: application/json
 
 # ###
 # DELETE  http://localhost:8080/5fe8fa5d00f793176e8ceae9
+
+
+####
+GET http://localhost:8080/notes/getNotes/606800351b2e7118925bcfc3
+
+###
+
+POST  http://localhost:8080/notes/postNote/606800351b2e7118925bcfc3   
+Content-Type: application/json
+
+{
+    "title": "testing 5",
+    "description": "testting 0"
+}

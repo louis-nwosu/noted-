@@ -6,6 +6,7 @@ const dotenv = require("dotenv");
 dotenv.config();
 
 const loginRoutes = require("./routes/login");
+const notes = require("./routes/notes");
 
 const app = express();
 
@@ -28,6 +29,7 @@ db.once("open", () => console.log("connection to database initalized"));
 
 app.use(express.json());
 app.use("/", loginRoutes);
+app.use("/notes", notes);
 
 app.listen(8080, () => {
   console.log("app is running on port ", 8080);
