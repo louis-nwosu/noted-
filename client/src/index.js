@@ -7,10 +7,17 @@ import reportWebVitals from "./reportWebVitals";
 
 //iimport the store object
 import Store from "./store/store";
+import { createStore, applyMiddleware } from "redux";
+import { Provider } from "react-redux";
+import thunk from "redux-thunk";
+
+const store = createStore(Store, applyMiddleware(thunk));
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Provider store={store}>
+        <App />
+    </Provider>
   </React.StrictMode>,
   document.getElementById("root")
 );

@@ -8,20 +8,18 @@ const defaultState = {
 };
 
 const Store = (state = defaultState, action) => {
-  switch (action) {
+  switch (action.type) {
     case actions.actionCreateActions.submitForm:
       return {
         ...state,
         isloading: true,
         hasError: false,
       };
-      break;
     case actions.actionCreateActions.submitFormSuccess:
       return {
         ...state,
         user: action.payload,
       };
-      break;
     case actions.actionCreateActions.submitFormFailure:
       return {
         ...state,
@@ -29,6 +27,8 @@ const Store = (state = defaultState, action) => {
         hasError: true,
       };
     default:
-      break;
+      return state;
   }
 };
+
+export default Store;

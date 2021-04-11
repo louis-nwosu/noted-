@@ -1,9 +1,13 @@
 import React from "react";
-import PropTypes from "prop-types";
-import { makeStyles, createMuiTheme, ThemeProvider } from "@material-ui/core";
+import { Route, Switch, BrowserRouter } from "react-router-dom";
+
+//materialUI imports
+import { createMuiTheme, ThemeProvider } from "@material-ui/core";
 import { purple } from "@material-ui/core/colors";
 
-const useStyles = makeStyles({});
+//import local components
+import LandingPage from "./components/landingPage";
+
 const theme = createMuiTheme({
   palette: {
     secondary: purple,
@@ -11,11 +15,16 @@ const theme = createMuiTheme({
 });
 
 const App = () => {
-  const classes = useStyles();
   return (
-    <ThemeProvider theme={theme}>
-      
-    </ThemeProvider>
+    <>
+      <ThemeProvider theme={theme}>
+        <BrowserRouter>
+          <Switch>
+            <Route exact path="/" component={LandingPage} />
+          </Switch>
+        </BrowserRouter>
+      </ThemeProvider>
+    </>
   );
 };
 
