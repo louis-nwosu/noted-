@@ -128,6 +128,36 @@ const Features = () => {
             />
           </Grid>
         </Grid>
+        <Grid container spacing={5}>
+          <Grid item xs={12} md={6}>
+            <img
+              src="https://evernote.com/c/assets/homepage/feature_mobile__en.png?4ff8b1eb42e9761e"
+              alt=""
+              className={classes.image}
+            />
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <img
+              src="https://evernote.com/c/assets/homepage/rich_notes.svg?4be8ba71638c18bb"
+              className={classes.secImg}
+            />
+            <Typography
+              variant="h5"
+              component="h2"
+              color="initial"
+              className={classes.secHeader}
+            >
+              Rich notes
+            </Typography>
+            <Typography color="initial" className={classes.secText}>
+              Express ideas, capture images, and record audio in meetings or
+              lectures, all from your phone or tablet—even if you’re offline.
+            </Typography>
+            <Button variant="text" color="primary" className={classes.btn}>
+              Learn more
+            </Button>
+          </Grid>
+        </Grid>
       </Container>
     </>
   );
