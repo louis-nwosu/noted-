@@ -1,8 +1,11 @@
 import React from "react";
+//import material Ui components
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles, Button } from "@material-ui/core";
+//import the Link component
+import { Link } from "react-router-dom";
 
 //define the style hook
 const useStyle = makeStyles({
@@ -37,16 +40,18 @@ export default function HeroSection() {
             Take your note taking experience to the next level.
           </Typography>
           <Typography variant="p" color="initial">
-            Accomplish more with <span className={classes.span}>not3d</span>.
-            It helps you capture ideas and find them fast. keep inportant
-            info handy by syncing your notes to all you devices and capture what
+            Accomplish more with <span className={classes.span}>not3d</span>. It
+            helps you capture ideas and find them fast. keep inportant info
+            handy by syncing your notes to all you devices and capture what
             matters on the go.
           </Typography>
           <Grid container fluid className={classes.heroTextDesc}>
             <Grid item>
-              <Button variant="outlined" color="primary">
-                get started
-              </Button>
+              <Link to="sign-up">
+                <Button variant="outlined" color="primary">
+                  get started
+                </Button>
+              </Link>
             </Grid>
           </Grid>
         </Grid>

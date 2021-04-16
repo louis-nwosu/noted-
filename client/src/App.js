@@ -7,6 +7,7 @@ import { purple } from "@material-ui/core/colors";
 
 //import local components
 import LandingPage from "./components/landingPage";
+import Log from "./components/loginAndSignin";
 
 const theme = createMuiTheme({
   palette: {
@@ -21,6 +22,7 @@ const App = () => {
         <BrowserRouter>
           <Switch>
             <Route exact path="/" component={LandingPage} />
+            <Route exact path="/sign-up" component={Log} />
           </Switch>
         </BrowserRouter>
       </ThemeProvider>
