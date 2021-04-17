@@ -47,7 +47,7 @@ export default function HeroSection() {
           </Typography>
           <Grid container fluid className={classes.heroTextDesc}>
             <Grid item>
-              <Link to="sign-up">
+              <Link to="sign-up" style={{ textDecoration: "none" }}>
                 <Button variant="outlined" color="primary">
                   get started
                 </Button>

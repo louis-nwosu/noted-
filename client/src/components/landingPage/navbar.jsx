@@ -2,6 +2,7 @@ import React from "react";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core";
+import { Link } from "react-router-dom";
 
 const useStyle = makeStyles({
   navBar: {
@@ -22,6 +23,7 @@ const useStyle = makeStyles({
     paaddingLeft: 3,
     paddingRight: 3,
     cursor: "pointer",
+    color: "#fff",
   },
   container: {
     padding: 15,
@@ -29,7 +31,7 @@ const useStyle = makeStyles({
     color: "#fff",
     position: "fixed",
     width: "100%",
-    top: 0
+    top: 0,
   },
 });
 
@@ -48,9 +50,11 @@ export default function Navbar() {
             >
               not3d
             </Typography>
-            <Typography variant="p" color="initial" className={classes.links}>
-              Home
-            </Typography>
+            <Link to="/">
+              <Typography variant="p" color="initial" className={classes.links}>
+                Home
+              </Typography>
+            </Link>
             <Typography variant="p" color="initial" className={classes.links}>
               App
             </Typography>
