@@ -6,6 +6,7 @@ const noteschema = mongoose.Schema({
     {
       title: String,
       description: String,
+      category: String,
     },
   ],
   createAt: {
@@ -18,4 +19,4 @@ const noteschema = mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model("notes", noteschema);
+module.exports = mongoose.model("note", noteschema);

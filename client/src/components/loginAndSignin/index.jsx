@@ -65,8 +65,8 @@ function Log({ isLoading, hasError, dispatch }) {
   //toggle the state to switch the form
   const handleToggler = () => setToggleForm(!toggleForm);
   //handle the dispatch requests
-  const handleDispatch = (userData) =>
-    dispatch(createAccount(userData, history));
+  const handleDispatch = (userData, logFunc) =>
+    dispatch(logFunc(userData, history));
   //return either of the two components
   return toggleForm ? (
     <Signin toggle={handleToggler} dispatchHandler={handleDispatch} />
@@ -84,6 +84,11 @@ function Signin({ toggle, dispatchHandler }) {
   //set the form fields according to the form data entered
   const handleEmail = (e) => setEmail(e.target.value);
   const handlePassword = (e) => setPassword(e.target.value);
+  //clear the form;
+  const clearForm = () => {
+    setPassword("");
+    setEmail("");
+  };
 
   return (
     <React.Fragment>
@@ -130,6 +135,11 @@ function Signin({ toggle, dispatchHandler }) {
               variant="contained"
               color="primary"
               className={classes.submit}
+              onClick={(e) => {
+                e.preventDefault();
+                dispatchHandler({ email, password }, logIn);
+                clearForm();
+              }}
             >
               Sign In
             </Button>
@@ -167,7 +177,8 @@ function Signup({ toggle, dispatchHandler }) {
   const handlePassword = (e) => setPassword(e.target.value);
   const handleUsername = (e) => setUserName(e.target.value);
   //dispatch the sign up event
-  const handleSignup = () => dispatchHandler({ userName, email, password });
+  const handleSignup = () =>
+    dispatchHandler({ userName, email, password }, createAccount);
   //clear form
   const clearForm = () => {
     setUserName("");

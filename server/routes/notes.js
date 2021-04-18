@@ -9,7 +9,7 @@ const {
 } = require("../controllers/notesController");
 
 //route to handle creating a new note
-Notes.post("/new-note", createNote);
+Notes.post("/new-note/:ID", createNote);
 //route to handle deleting a note
 Notes.delete("/delNote", delNote);
 //route to handle editing a note

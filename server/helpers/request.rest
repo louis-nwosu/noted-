@@ -1,32 +1,21 @@
-GEt http://localhost:8080/users 
-
-####
-GET http://localhost:8080/users/5fe869b12538ec25e1c84fe2
-
-###
-
-POST  http://localhost:8080/post     
+POST  http://localhost:8080/signup     
 Content-Type: application/json
 
 {
-    "firstName": "louis22",
-    "lastName": "nwosu22",
+    "userName": "louis_the_writer",
     "password": "12366321",
-    "email": "dummy222@gmail.com"
+    "email": "dummy332@gmail.com"
 }
 
 ###
 
-POST  http://localhost:8080/login     
+POST  http://localhost:8080/signin     
 Content-Type: application/json
 
 {
-    "email": "dummy222@gmail.com",
-    "password": "12366321"
+    "email": "test@gmail.com",
+    "password": "mint4coding.com"
 }
-
-# ###
-# DELETE  http://localhost:8080/5fe8fa5d00f793176e8ceae9
 
 
 ####
@@ -34,10 +23,10 @@ GET http://localhost:8080/notes/getNotes/606800351b2e7118925bcfc3
 
 ###
 
-POST  http://localhost:8080/notes/postNote/606800351b2e7118925bcfc3   
+POST  http://localhost:8080/notes/new-note/607b8b021ad06e1bf0293269  
 Content-Type: application/json
 
 {
-    "title": "testing 5",
-    "description": "testting 0"
+    "title": "two more",
+    "description": "lets see!"
 }

@@ -30,20 +30,21 @@ export function createAccount(userData, history) {
     dispatch(submitForm());
     try {
       //make a post request to send the user entered data
-      const user = await fetch("", {
+      const data = await fetch("http://localhost:8080/signup", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(userData),
       });
+      const user = await data.json();
       console.log(user);
       //send the return user to the redux store
       dispatch(submitFormSuccess(user));
       //collect the token and save in localStorage
-      localStorage.setItem("token", user?.data?.token);
+      // localStorage.setItem("token", user?.data?.token);
       //send the user to the notes app
-      history.push("/notes");
+      history.push("/noted");
     } catch (error) {
       console.log(error);
       dispatch(submitFormFailure());
@@ -65,10 +66,11 @@ const submitLogInFormfailure = () => ({
 export function logIn(userData, history) {
   return async (dispatch) => {
     //change the state of the applciation to notifybthe user about the delay
+    console.log(userData);
     dispatch(submitLogInForm());
     try {
       //make a post request to send the user entered data
-      const user = await fetch("", {
+      const user = await fetch("http://localhost:8080/signin", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -79,9 +81,9 @@ export function logIn(userData, history) {
       //send the return user to the redux store
       dispatch(submitLogInFormSucces(user));
       //collect the token and save in localStorage
-      localStorage.setItem("token", user?.data?.token);
+      // localStorage.setItem("token", user?.data?.token);
       //send the user to the notes app
-      history.push("/notes");
+      history.push("/noted");
     } catch (error) {
       console.log(error);
       dispatch(submitLogInFormfailure());

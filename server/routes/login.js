@@ -10,4 +10,4 @@ Log.post("/signin", signIn);
 //route to handle creating a new user account
 Log.post("/signup", signUp);
 
-module.exports = login;
+module.exports = Log;

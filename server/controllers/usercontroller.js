@@ -23,7 +23,7 @@ const UserController = {
       const hashedPassword = await bcrypt.hash(req.body.password, 10);
       //create a new user
       const user = new Users({
-        username: req.body.userName,
+        userName: req.body.userName,
         email: req.body.email,
         password: hashedPassword,
       });
@@ -62,10 +62,10 @@ const UserController = {
     try {
       //validate the request body
       const { error } = loginValidation(req.body);
-      if (error) req.status(400).send(error.details[0].message);
+      if (error) res.status(400).send(error.details[0].message);
       ///check if the user exists
       const thisUser = await Users.findOne({ email: req.body.email });
-      if (!thisUser) return req.status(400).json({ error: "user not found" });
+      if (!thisUser) return res.status(400).json({ error: "user not found" });
       //check if password provided is corect
       const correctPassword = await bcrypt.compare(
         req.body.password,

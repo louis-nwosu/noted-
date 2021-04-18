@@ -13,14 +13,16 @@ const notesControllers = {
       userNote.notes.push({
         title: req.body.title,
         description: req.body.description,
+        category: req.body.category,
       });
-      //send the newly created note back to the user
-      return res.status(200).json({ userNote });
+      //save and send send the newly created note back to the user
+      await userNote.save().then((notes) => res.status(200).json({ userNote }));
+      return;
     } catch (error) {
       return res.status(400).json({ error: error.message });
     }
   },
-  //controller to handle editting of a particular note
+  //controller to handle editing of a particular note
   async editNote(req, res) {
     try {
       //get the particuler user note to edit
@@ -42,21 +44,29 @@ const notesControllers = {
       //handle error if note doesnt exist;
       if (!usersNotes) return res.status(401).send("something went wrong");
     } catch (error) {
-      return res.status(400).json({ error: error?.message });
+      return res.status(400).json({ error: error.message });
+    }
+  },
+  //controller to get a single note
+  async getNote(req, res) {
+    try {
+      //get all notes
+      const note = await Notes.findOne({ "notes._id": req.params.noteID });
+      return res.status(200).json({ note });
+    } catch (error) {
+      return res.status(400).json({ error: error.message });
     }
   },
   //controller to get all notes
-  async getNote() {},
-  //controller to get a single note
-  async getNotes() {
+  async getNotes(req, res) {
     try {
-      //get the users notes
-      const usersNotes = await Notes.findOne({ ID: req.params.ID });
-      //handle error if note doesnt exist;
-      if (!usersNotes) return res.status(401).send("something went wrong");
-      return res.status(200).json({ usersNotes });
+      //get the particular collection
+      const notes = await Notes.findOne({ ID: req.params.ID });
+      //return the notes
+      return res.status(200).json({ notes });
     } catch (error) {
-      return res.status(400).json({ error: error?.message });
+      //return error if any
+      return res.status(400).json({ error: error.message });
     }
   },
 };
