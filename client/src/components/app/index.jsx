@@ -10,32 +10,65 @@ import PrimarySearchAppBar from "./appbar";
 import SideNav from "./sidenav";
 
 //create the style hook
-const useStyles = makeStyles({
-  sidebar: {
-    backgroundColor: "pink",
+const useStyles = makeStyles((theme) => ({
+  sidenav: {
     height: "90vh",
-    display: "fixed",
+    marginTop: 63,
+    backgroundColor: "#333",
+    position: "fixed",
+    [theme.breakpoints.down("sm")]: {
+      display: "none",
+    },
   },
-});
+}));
 
 const NoteApp = () => {
   const classes = useStyles();
   return (
-    <React.Fragment>
+    <div>
       <Grid container>
-        <Grid item xs={12} md={12}>
+        <Grid item md={12} xs={12}>
           <PrimarySearchAppBar />
         </Grid>
       </Grid>
       <Grid container>
-        <Grid item md={2} className={classes.sidebar}>
+        <Grid container md={2} xs={12} className={classes.sidenav}>
           <SideNav />
         </Grid>
-        <Grid item md={10} style={{ backgroundColor: "green" }}>
-          <SideNav />
+        <Grid
+          container
+          md={10}
+          xs={12}
+          style={{ backgroundColor: "red", marginLeft: "auto", marginTop: 100 }}
+        >
+          <h1>test</h1>
+        </Grid>
+        <Grid
+          container
+          md={10}
+          xs={12}
+          style={{ backgroundColor: "red", marginLeft: "auto", marginTop: 100 }}
+        >
+          <h1>test</h1>
+        </Grid>
+        <Grid
+          container
+          md={10}
+          xs={12}
+          style={{ backgroundColor: "red", marginLeft: "auto", marginTop: 100 }}
+        >
+          <h1>test</h1>
+        </Grid>
+        <Grid
+          container
+          md={10}
+          xs={12}
+          style={{ backgroundColor: "red", marginLeft: "auto", marginTop: 100 }}
+        >
+          <h1>test</h1>
         </Grid>
       </Grid>
-    </React.Fragment>
+    </div>
   );
 };
 

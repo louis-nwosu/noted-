@@ -4,17 +4,11 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
-import InputBase from "@material-ui/core/InputBase";
 import Badge from "@material-ui/core/Badge";
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
-import MenuIcon from "@material-ui/icons/Menu";
-import SearchIcon from "@material-ui/icons/Search";
 import AccountCircle from "@material-ui/icons/AccountCircle";
-import MailIcon from "@material-ui/icons/Mail";
 import NotificationsIcon from "@material-ui/icons/Notifications";
-import MoreIcon from "@material-ui/icons/MoreVert";
-import { Box } from "@material-ui/core";
 //import slider component
 import TemporaryDrawer from "./slider";
 
@@ -44,12 +38,6 @@ const useStyles = makeStyles((theme) => ({
       display: "none",
     },
   },
-  // slider: {
-  //   display: "block",
-  //   [theme.breakpoints.up("sm")]: {
-  //     display: "none",
-  //   },
-  // },
   search: {
     position: "relative",
     borderRadius: theme.shape.borderRadius,
@@ -177,7 +165,7 @@ export default function PrimarySearchAppBar() {
 
   return (
     <div className={{}}>
-      <AppBar position="static">
+      <AppBar position="fixed" bgColor="#333">
         <Toolbar>
           <IconButton
             edge="start"
@@ -197,9 +185,6 @@ export default function PrimarySearchAppBar() {
             not3d
           </Typography>
           <div className={classes.grow}></div>
-          <IconButton aria-label="show 17 new notifications" color="inherit">
-            <AccountCircle />
-          </IconButton>
           <IconButton aria-label="show 17 new notifications" color="inherit">
             <Badge badgeContent={1} color="secondary">
               <NotificationsIcon />

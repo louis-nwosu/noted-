@@ -2,32 +2,79 @@ import React from "react";
 //import materialUI components
 import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
-import Typography from "@material-ui/core/Typography";
+import { makeStyles } from "@material-ui/core";
 //import material UI icons
-import AccessAlarmIcon from "@material-ui/icons/AccessAlarm";
+import Note from "@material-ui/icons/Note";
+
+const useStyles = makeStyles((theme) => ({
+  textColor: {
+    color: "#fff",
+    cursor: "pointer",
+  },
+}));
 
 const SideNav = () => {
+  const classes = useStyles();
   return (
     <div>
-      <Grid container>
+      <Grid container position="fixed">
         <Grid item md={12} xs={12}>
           <Grid container>
-            <Box
-              display="flex"
-              flexDirection="row"
-              bgcolor="background.paper"
-              marginY={3}
-              marginX={2}
-            >
-              <Box p={1} bgcolor="grey.300">
-                <AccessAlarmIcon />
+            <Box marginY={3}>
+              <Box
+                display="flex"
+                flexDirection="row"
+                bgcolor="#333"
+                marginX={3}
+                marginY={1}
+                className={classes.textColor}
+              >
+                <Box bgcolor="#333" px={1}>
+                  <Note />
+                </Box>
+                <Box bgcolor="#333">All notes</Box>
               </Box>
-              <Box p={1} bgcolor="grey.300">
-                Item 2
+              <Box
+                display="flex"
+                flexDirection="row"
+                bgcolor="#333"
+                marginX={3}
+                marginY={1}
+                className={classes.textColor}
+              >
+                <Box bgcolor="#333" px={1}>
+                  <Note />
+                </Box>
+                <Box bgcolor="#333">Notebook</Box>
+              </Box>
+              <Box
+                display="flex"
+                flexDirection="row"
+                bgcolor="#333"
+                marginX={3}
+                marginY={1}
+                className={classes.textColor}
+              >
+                <Box bgcolor="#333" px={1}>
+                  <Note />
+                </Box>
+                <Box bgcolor="#333">Favorites</Box>
+              </Box>
+              <Box
+                display="flex"
+                flexDirection="row"
+                bgcolor="#333"
+                marginX={3}
+                marginY={1}
+                className={classes.textColor}
+              >
+                <Box bgcolor="#333" px={1}>
+                  <Note />
+                </Box>
+                <Box bgcolor="#333">Deleted</Box>
               </Box>
             </Box>
           </Grid>
-          <Grid container spacing={6}></Grid>
         </Grid>
       </Grid>
     </div>
