@@ -11,6 +11,7 @@ const useStyles = makeStyles((theme) => ({
     color: "#fff",
     cursor: "pointer",
   },
+  icons: { color: "#9a4cba" },
 }));
 
 const SideNav = () => {
@@ -30,7 +31,7 @@ const SideNav = () => {
                 className={classes.textColor}
               >
                 <Box bgcolor="#333" px={1}>
-                  <Note />
+                  <Note className={classes.icons} />
                 </Box>
                 <Box bgcolor="#333">projects</Box>
               </Box>
@@ -43,7 +44,7 @@ const SideNav = () => {
                 className={classes.textColor}
               >
                 <Box bgcolor="#333" px={1}>
-                  <Note />
+                  <Note className={classes.icons} />
                 </Box>
                 <Box bgcolor="#333">Notebook</Box>
               </Box>
@@ -56,7 +57,7 @@ const SideNav = () => {
                 className={classes.textColor}
               >
                 <Box bgcolor="#333" px={1}>
-                  <Note />
+                  <Note className={classes.icons} />
                 </Box>
                 <Box bgcolor="#333">Favorites</Box>
               </Box>
@@ -69,7 +70,7 @@ const SideNav = () => {
                 className={classes.textColor}
               >
                 <Box bgcolor="#333" px={1}>
-                  <Note />
+                  <Note className={classes.icons} />
                 </Box>
                 <Box bgcolor="#333">Deleted</Box>
               </Box>

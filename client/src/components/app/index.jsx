@@ -24,6 +24,10 @@ const useStyles = makeStyles((theme) => ({
   },
   mainCont: {
     marginLeft: "auto",
+    height: "100vh",
+    width: "100%",
+    overflowY: "scroll",
+    backgroundColor: "#444",
   },
 }));
 
@@ -41,7 +45,7 @@ const NoteApp = () => {
           <SideNav />
         </Grid>
         <Grid item md={10} xs={12} className={classes.mainCont}>
-          <Box marginTop={8}>
+          <Box marginTop={7}>
             <DisplayNotes />
           </Box>
         </Grid>
