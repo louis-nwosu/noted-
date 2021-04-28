@@ -12,11 +12,11 @@ import NoteApp from "./components/app";
 
 const theme = createMuiTheme({
    palette: {
-    textColor: darkBlack,
-    primary1Color: white,
-    primary2Color: indigo700,
-    accent1Color: redA200,
-    pickerHeaderColor: darkBlack,
+    // textColor: darkBlack,
+    // primary1Color: white,
+    // primary2Color: indigo700,
+    // accent1Color: redA200,
+    // pickerHeaderColor: darkBlack,
   },
 });
 

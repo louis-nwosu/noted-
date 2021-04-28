@@ -1,6 +1,6 @@
 import React from "react";
 //import material Ui components
-import Container from "@material-ui/core/Container";
+import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core";
@@ -8,17 +8,22 @@ import { makeStyles } from "@material-ui/core";
 //import local components
 import PrimarySearchAppBar from "./appbar";
 import SideNav from "./sidenav";
+import DisplayNotes from "./displayNotes";
 
 //create the style hook
 const useStyles = makeStyles((theme) => ({
   sidenav: {
     height: "90vh",
     marginTop: 63,
+    width: "90%",
     backgroundColor: "#333",
     position: "fixed",
     [theme.breakpoints.down("sm")]: {
       display: "none",
     },
+  },
+  mainCont: {
+    marginLeft: "auto",
   },
 }));
 
@@ -32,40 +37,13 @@ const NoteApp = () => {
         </Grid>
       </Grid>
       <Grid container>
-        <Grid container md={2} xs={12} className={classes.sidenav}>
+        <Grid item md={2} xs={12} className={classes.sidenav}>
           <SideNav />
         </Grid>
-        <Grid
-          container
-          md={10}
-          xs={12}
-          style={{ backgroundColor: "red", marginLeft: "auto", marginTop: 100 }}
-        >
-          <h1>test</h1>
-        </Grid>
-        <Grid
-          container
-          md={10}
-          xs={12}
-          style={{ backgroundColor: "red", marginLeft: "auto", marginTop: 100 }}
-        >
-          <h1>test</h1>
-        </Grid>
-        <Grid
-          container
-          md={10}
-          xs={12}
-          style={{ backgroundColor: "red", marginLeft: "auto", marginTop: 100 }}
-        >
-          <h1>test</h1>
-        </Grid>
-        <Grid
-          container
-          md={10}
-          xs={12}
-          style={{ backgroundColor: "red", marginLeft: "auto", marginTop: 100 }}
-        >
-          <h1>test</h1>
+        <Grid item md={10} xs={12} className={classes.mainCont}>
+          <Box marginTop={8}>
+            <DisplayNotes />
+          </Box>
         </Grid>
       </Grid>
     </div>

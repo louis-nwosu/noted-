@@ -22,7 +22,7 @@ const BrandSection = () => {
   return (
     <>
       <Container fluid className={classes.container}>
-        <Grid container spacing={1}>
+        <Grid container spacing={1} justify="space-around">
           <Grid item xs={2}>
             <img
               src="https://evernote.com/c/assets/homepage/forbes-active.png?3bffacb93d68b1fe"
@@ -51,7 +51,7 @@ const BrandSection = () => {
               className={classes.image}
             />
           </Grid>
-          <Grid item xs={2}> 
+          <Grid item xs={2}>
             <img
               src="https://evernote.com/c/assets/homepage/business-active.png?8d71276da14c21a8"
               alt="forbes"

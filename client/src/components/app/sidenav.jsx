@@ -17,7 +17,7 @@ const SideNav = () => {
   const classes = useStyles();
   return (
     <div>
-      <Grid container position="fixed">
+      <Grid container>
         <Grid item md={12} xs={12}>
           <Grid container>
             <Box marginY={3}>
@@ -32,7 +32,7 @@ const SideNav = () => {
                 <Box bgcolor="#333" px={1}>
                   <Note />
                 </Box>
-                <Box bgcolor="#333">All notes</Box>
+                <Box bgcolor="#333">projects</Box>
               </Box>
               <Box
                 display="flex"
