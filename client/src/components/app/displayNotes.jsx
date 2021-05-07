@@ -6,14 +6,19 @@ import AddIcon from "@material-ui/icons/Add";
 //import dummy variable
 import { dummyNotes } from "../../dummyData";
 
-//utility variable
-const testish = true;
+//import custom components
+import NoteCard from "./noteCard";
+import SimpleModal from "./modal";
+
 
 const useStyle = makeStyles({
   FAB: {
     position: "fixed",
     bottom: 30,
     right: 30,
+  },
+  textLight: {
+    color: "#fff",
   },
 });
 
@@ -47,29 +52,23 @@ const DisplayNotes = ({ notes }) => {
   const classes = useStyle();
   return (
     <React.Fragment>
-      <Grid container style={{ padding: 10 }}>
+      <Grid container>
+        <Grid item md={12} xs={12}>
+          <Box paddingX={4} paddingY={2}>
+            <Typography variant="h5" className={classes.textLight}>
+              All notes.
+            </Typography>
+          </Box>
+        </Grid>
+      </Grid>
+      <Grid container style={{ paddingLeft: 20, paddingRight: 20 }}>
         {dummyNotes.map((note) => {
-          return (
-            <Grid item md={3} xs={6} style={{ marginTop: 5 }}>
-              <Box
-                marginY={5}
-                p={2}
-                style={{
-                  backgroundColor: "red",
-                  margin: 10,
-                  height: testish ? 130 : 180,
-                  borderRadius: 7,
-                }}
-              >
-                {note.body}
-              </Box>
-            </Grid>
-          );
+          return <NoteCard title={note.title} body={note.body} />;
         })}
       </Grid>
       <Grid container>
         <Grid item={1} xs={6} className={classes.FAB}>
-          <FABIcon />
+          <SimpleModal render={<FABIcon />} />
         </Grid>
       </Grid>
     </React.Fragment>

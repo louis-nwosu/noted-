@@ -80,7 +80,7 @@ const UserController = {
       const token = jwt.sign(
         { email: thisUser.email, id: thisUser._id },
         "puhw0fhw0uyg0W7547Q03YTQ0TQ73GQ7RQ0T3GWGDF0jsdfoh8",
-        { expiresIn: "1h" }
+        { expiresIn: "3h" }
       );
       //send back user if password is correct
       return res.status(200).json({ thisUser, token });

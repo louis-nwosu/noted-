@@ -1,6 +1,7 @@
 export const dummyNotes = [
   {
     title: "test 1",
+    id: "111",
     createdAt: Date.now().toString(),
     category: "wanking",
     body:
@@ -8,6 +9,7 @@ export const dummyNotes = [
   },
   {
     title: "test 2",
+    id: "222",
     createdAt: Date.now().toString(),
     category: "tesing",
     body:
@@ -15,6 +17,7 @@ export const dummyNotes = [
   },
   {
     title: "test 3",
+    id: "333",
     createdAt: Date.now().toString(),
     category: "Gaming",
     body:
@@ -22,6 +25,7 @@ export const dummyNotes = [
   },
   {
     title: "test 4",
+    id: "444",
     createdAt: Date.now().toString(),
     category: "tesing",
     body:
@@ -29,6 +33,7 @@ export const dummyNotes = [
   },
   {
     title: "test 5",
+    id: "555",
     createdAt: Date.now().toString(),
     category: "tesing",
     body:
@@ -36,6 +41,7 @@ export const dummyNotes = [
   },
   {
     title: "test 6",
+    id: "666",
     createdAt: Date.now().toString(),
     category: "tesing",
     body:
