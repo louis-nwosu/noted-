@@ -2,14 +2,15 @@ import React from "react";
 import { Grid, Box, Typography, makeStyles } from "@material-ui/core";
 import Fab from "@material-ui/core/Fab";
 import AddIcon from "@material-ui/icons/Add";
-
+import { connect } from "react-redux";
 //import dummy variable
 import { dummyNotes } from "../../dummyData";
+//import the actions
+import { FetchDocs } from "../../store/actions";
 
 //import custom components
 import NoteCard from "./noteCard";
 import SimpleModal from "./modal";
-
 
 const useStyle = makeStyles({
   FAB: {
@@ -48,8 +49,9 @@ const FABIcon = () => {
   );
 };
 
-const DisplayNotes = ({ notes }) => {
+const DisplayNotes = ({ state, dispatch }) => {
   const classes = useStyle();
+  console.log(state);
   return (
     <React.Fragment>
       <Grid container>
@@ -75,4 +77,10 @@ const DisplayNotes = ({ notes }) => {
   );
 };
 
-export default DisplayNotes;
+function mapStateToProps(state) {
+  return {
+    state,
+  };
+}
+
+export default connect(mapStateToProps)(DisplayNotes);

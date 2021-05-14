@@ -10,6 +10,11 @@ export const actions = {
     submitFormSuccess: "SUBMIT_FORM_SUCCES",
     submitFormFailure: "SUBMIT_FORM_FAILURE",
   },
+  actionsObj: {
+    action: "PLAIN_ACTION",
+    actionSuccess: "PLAIN_ACTION_SUCCESS",
+    actionFailure: "PLAIN_ACTION_FAILURE",
+  },
 };
 
 //-------------------ACTIONS TO CREATE ACCOUNT------------------------------
@@ -34,6 +39,7 @@ export function createAccount(userData, history) {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          //TODO----send along jwt as well!!
         },
         body: JSON.stringify(userData),
       });
@@ -77,16 +83,83 @@ export function logIn(userData, history) {
         },
         body: JSON.stringify(userData),
       });
-      console.log(user);
       //send the return user to the redux store
-      dispatch(submitLogInFormSucces(user));
+      const user_json = await user.json();
+      dispatch(submitLogInFormSucces(user_json.thisUser));
       //collect the token and save in localStorage
+      //TODO_------------
       // localStorage.setItem("token", user?.data?.token);
       //send the user to the notes app
       history.push("/noted");
     } catch (error) {
       console.log(error);
       dispatch(submitLogInFormfailure());
+    }
+  };
+}
+
+//--------POST NEW NOTE---------
+const postNewNote = () => ({
+  type: actions?.actionsObj.action,
+});
+
+const postNewNoteSuccess = (payload) => ({
+  type: actions?.actionsObj.actionSuccess,
+  payload,
+});
+
+const postNoteFailure = () => ({
+  type: actions?.actionsObj.actionFailure,
+});
+
+export function PostNote(document) {
+  return async (dispatch) => {
+    //change the state to display loading spinner
+    dispatch(postNewNote());
+    try {
+      //make a network request to post a new note
+      const docs = await fetch("", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(document),
+      });
+      dispatch(postNewNoteSuccess(docs));
+    } catch (error) {
+      console.log(error);
+      dispatch(postNoteFailure());
+    }
+  };
+}
+
+//GET ALL NOTES------------------------------------------
+const fetchDocs = () => ({
+  type: actions.actionsObj?.action,
+});
+
+const getDocsSuccess = (payload) => ({
+  type: actions?.actionsObj?.actionSuccess,
+  payload,
+});
+
+const getDocsFailure = () => ({
+  type: actions?.actionsObj?.actionFailure,
+});
+
+export function FetchDocs(id) {
+  return async (dispatch) => {
+    //change the state of the application to display the loading spinner
+    dispatch(fetchDocs());
+    try {
+      //fetch the documents with users ID
+      const data = await fetch(`http://localhost:8080/notes/get-notes/${id}`);
+      const docs = await data.json();
+      console.log(docs);
+    } catch (error) {
+      //display an error message if anything goes wrong
+      console.log(error);
+      dispatch(getDocsFailure());
     }
   };
 }

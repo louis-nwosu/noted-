@@ -1,5 +1,6 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
+//import material UI components
 import Modal from "@material-ui/core/Modal";
 //local components
 import TextEditor from "./editor";
@@ -50,7 +51,7 @@ export default function SimpleModal({ render }) {
     <div style={modalStyle} className={classes.paper}>
       <h2 id="simple-modal-title"></h2>
       <p id="simple-modal-description">
-        Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+        Text entered is fully editable and can be exported in any format.
       </p>
       <SimpleModal />
       <TextEditor />
@@ -75,3 +76,4 @@ export default function SimpleModal({ render }) {
     </div>
   );
 }
+

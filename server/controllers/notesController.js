@@ -16,7 +16,7 @@ const notesControllers = {
         category: req.body.category,
       });
       //save and send send the newly created note back to the user
-      await userNote.save().then((notes) => res.status(200).json({ userNote }));
+      await userNote.save().then((notes) => res.status(200).json({ notes }));
       return;
     } catch (error) {
       return res.status(400).json({ error: error.message });
