@@ -17,6 +17,6 @@ Notes.patch("/edit-note", editNote);
 //route to handle getting a single note
 Notes.get("/get-note", getNote);
 //route to handle getting all notes
-Notes.get("/get-notes", getNotes);
+Notes.get("/get-notes/:ID", getNotes);
 
 module.exports = Notes;

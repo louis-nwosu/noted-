@@ -58,6 +58,7 @@ const UserController = {
       });
     }
   },
+
   async signIn(req, res) {
     try {
       //validate the request body
@@ -71,6 +72,7 @@ const UserController = {
         req.body.password,
         thisUser.password
       );
+      //check the password;
       if (!correctPassword) {
         return res
           .status(400)
@@ -84,7 +86,7 @@ const UserController = {
       );
       //send back user if password is correct
       return res.status(200).json({ thisUser, token });
-      //if error, han dle and send back a response
+      //if error, handle and send back a response
     } catch (err) {
       return res.status(400).json({ err: err.message });
     }

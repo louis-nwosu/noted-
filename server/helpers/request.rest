@@ -8,18 +8,18 @@ Content-Type: application/json
 }
 
 ###
-
-POST  http://localhost:8080/signin     
+ 
+POST  http://localhost:8080/signin    
 Content-Type: application/json
 
 {
-    "email": "test@gmail.com",
-    "password": "mint4coding.com"
+    "email": "dummy332@gmail.com",
+    "password": "12366321"  
 }
 
 
 ####
-GET http://localhost:8080/notes/getNotes/606800351b2e7118925bcfc3
+GET http://localhost:8080/notes/get-notes/607b915e620b0a22805e2d4b
 
 ###
 

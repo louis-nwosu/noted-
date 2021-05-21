@@ -51,7 +51,20 @@ const FABIcon = () => {
 
 const DisplayNotes = ({ state, dispatch }) => {
   const classes = useStyle();
-  console.log(state);
+  //fetch the documents
+  React.useEffect(() => {
+    dispatch(FetchDocs(state.user._id));
+  }, [state.user.notes]);
+  //toggle what to displayt
+  const docDisplay = () =>
+    state.notes.notes !== null ? (
+      state.notes.notes.map((note) => {
+        return <NoteCard title={note.title} body={note.body} />;
+      })
+    ) : (
+      <p> no notes yet boss!</p>
+    );
+  console.log(state.notes);
   return (
     <React.Fragment>
       <Grid container>
@@ -64,9 +77,7 @@ const DisplayNotes = ({ state, dispatch }) => {
         </Grid>
       </Grid>
       <Grid container style={{ paddingLeft: 20, paddingRight: 20 }}>
-        {dummyNotes.map((note) => {
-          return <NoteCard title={note.title} body={note.body} />;
-        })}
+        {docDisplay()}
       </Grid>
       <Grid container>
         <Grid item={1} xs={6} className={classes.FAB}>

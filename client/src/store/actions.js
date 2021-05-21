@@ -15,6 +15,11 @@ export const actions = {
     actionSuccess: "PLAIN_ACTION_SUCCESS",
     actionFailure: "PLAIN_ACTION_FAILURE",
   },
+  fetchDoc: {
+    getDocs: "GET_DOCS",
+    getDocsSuccess: "GET_DOCS_SUCCESS",
+    getDocsFailure: "GET_DOCS_FAILURE",
+  },
 };
 
 //-------------------ACTIONS TO CREATE ACCOUNT------------------------------
@@ -63,7 +68,7 @@ const submitLogInForm = () => ({
   type: actions?.actionLoginActions?.submitForm,
 });
 const submitLogInFormSucces = (payload) => ({
-  type: actions?.actionLoginActions?.submitFormSuccess,
+  type: actions.actionLoginActions.submitFormSuccess,
   payload,
 });
 const submitLogInFormfailure = () => ({
@@ -72,7 +77,6 @@ const submitLogInFormfailure = () => ({
 export function logIn(userData, history) {
   return async (dispatch) => {
     //change the state of the applciation to notifybthe user about the delay
-    console.log(userData);
     dispatch(submitLogInForm());
     try {
       //make a post request to send the user entered data
@@ -87,10 +91,11 @@ export function logIn(userData, history) {
       const user_json = await user.json();
       dispatch(submitLogInFormSucces(user_json.thisUser));
       //collect the token and save in localStorage
-      //TODO_------------
-      // localStorage.setItem("token", user?.data?.token);
+      localStorage.setItem("token", user_json.token);
       //send the user to the notes app
-      history.push("/noted");
+      if (user_json.thisUser) {
+        history.push("/noted");
+      }
     } catch (error) {
       console.log(error);
       dispatch(submitLogInFormfailure());
@@ -135,16 +140,16 @@ export function PostNote(document) {
 
 //GET ALL NOTES------------------------------------------
 const fetchDocs = () => ({
-  type: actions.actionsObj?.action,
+  type: actions.fetchDoc?.getDocs,
 });
 
 const getDocsSuccess = (payload) => ({
-  type: actions?.actionsObj?.actionSuccess,
+  type: actions.fetchDoc?.getDocsSuccess,
   payload,
 });
 
 const getDocsFailure = () => ({
-  type: actions?.actionsObj?.actionFailure,
+  type: actions.fetchDoc?.getDocsFailure,
 });
 
 export function FetchDocs(id) {
@@ -155,7 +160,7 @@ export function FetchDocs(id) {
       //fetch the documents with users ID
       const data = await fetch(`http://localhost:8080/notes/get-notes/${id}`);
       const docs = await data.json();
-      console.log(docs);
+      dispatch(getDocsSuccess(docs.notes));
     } catch (error) {
       //display an error message if anything goes wrong
       console.log(error);
