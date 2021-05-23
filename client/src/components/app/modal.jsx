@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SimpleModal({ render }) {
+export default function SimpleModal({ render, getDoc }) {
   const classes = useStyles();
   // getModalStyle is not a pure function, we roll the style only on the first render
   const [modalStyle] = React.useState(getModalStyle);
@@ -54,7 +54,7 @@ export default function SimpleModal({ render }) {
         Text entered is fully editable and can be exported in any format.
       </p>
       <SimpleModal />
-      <TextEditor />
+      <TextEditor getDoc={getDoc} />
     </div>
   );
 
@@ -76,4 +76,3 @@ export default function SimpleModal({ render }) {
     </div>
   );
 }
-

@@ -1,5 +1,5 @@
 const Notes = require("../models/notesModels");
-const User = require("../models/userModel");
+// const User = require("../models/userModel");
 
 const notesControllers = {
   //controller to handle creating a note

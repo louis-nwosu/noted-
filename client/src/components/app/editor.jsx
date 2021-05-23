@@ -7,11 +7,12 @@ import "../../App.css";
 //import materialUI components
 import { Grid, Typography, Button } from "@material-ui/core";
 
-const TextEditor = () => {
+const TextEditor = ({ getDoc }) => {
   let _contentState = ContentState.createFromText("");
   const raw = convertToRaw(_contentState);
-  const [contentState, setContentState] = useState(raw); // ContentState JSON
-  const getNote = () => console.log(contentState);
+  const [contentState, setContentState] = useState(raw);
+  const [docContent, setDocContent] = React.useState("");
+  const getNote = () => setDocContent(contentState.blocks[0].text);
   return (
     <div className="App">
       <Grid container justify="space-between" align="center">
@@ -21,7 +22,17 @@ const TextEditor = () => {
           </Typography>
         </grid>
         <grid item xs={4} md={4}>
-          <Button variant="contained" color="primary" onClick={getNote}>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={() => {
+              getDoc({
+                title: "test",
+                description: docContent,
+                category: "mint",
+              });
+            }}
+          >
             save
           </Button>
         </grid>
@@ -32,6 +43,7 @@ const TextEditor = () => {
         wrapperClassName="wrapper-class"
         editorClassName="editor-class"
         toolbarClassName="toolbar-class"
+        onChange={getNote}
       />
     </div>
   );

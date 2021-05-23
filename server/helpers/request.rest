@@ -23,10 +23,11 @@ GET http://localhost:8080/notes/get-notes/607b915e620b0a22805e2d4b
 
 ###
 
-POST  http://localhost:8080/notes/new-note/607b8b021ad06e1bf0293269  
+POST  http://localhost:8080/notes/new-note/60a686d57b553d0fdd654139  
 Content-Type: application/json
 
 {
-    "title": "two more",
-    "description": "lets see!"
+    "title": "three more tests",
+    "description": "ka anyi fuu!",
+    "category": "testing, 2 4 "
 }

@@ -20,6 +20,11 @@ export const actions = {
     getDocsSuccess: "GET_DOCS_SUCCESS",
     getDocsFailure: "GET_DOCS_FAILURE",
   },
+  postDoc: {
+    postDocs: "POST_DOC",
+    postDocsSuccess: "POST_DOCS_SUCCESS",
+    postDocsFailure: "POST_DOCS_FAILURE",
+  },
 };
 
 //-------------------ACTIONS TO CREATE ACCOUNT------------------------------
@@ -105,33 +110,36 @@ export function logIn(userData, history) {
 
 //--------POST NEW NOTE---------
 const postNewNote = () => ({
-  type: actions?.actionsObj.action,
+  type: actions?.postDoc?.postDocs,
 });
 
 const postNewNoteSuccess = (payload) => ({
-  type: actions?.actionsObj.actionSuccess,
+  type: actions?.postDoc?.postDocsSuccess,
   payload,
 });
 
 const postNoteFailure = () => ({
-  type: actions?.actionsObj.actionFailure,
+  type: actions?.postDoc?.postDocsFailure,
 });
 
-export function PostNote(document) {
+export function PostNote(document, id) {
   return async (dispatch) => {
     //change the state to display loading spinner
     dispatch(postNewNote());
     try {
       //make a network request to post a new note
-      const docs = await fetch("", {
+      const docs = await fetch(`http://localhost:8080/notes/new-note/${id}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(document),
       });
-      dispatch(postNewNoteSuccess(docs));
+      const docs_json = await docs.json();
+      //update the store to reflect the new note!
+      dispatch(postNewNoteSuccess(docs_json));
     } catch (error) {
+      //handle error if any
       console.log(error);
       dispatch(postNoteFailure());
     }

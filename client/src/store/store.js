@@ -28,7 +28,7 @@ const Store = (state = defaultState, action) => {
         hasError: true,
       };
 
-    //handle docs cases
+    //handle fdetching all docs
     case actions.fetchDoc?.getDocs:
       return {
         ...state,
@@ -45,6 +45,26 @@ const Store = (state = defaultState, action) => {
         ...state,
         hasError: true,
         isLoading: false,
+      };
+
+    //handle posting and retrieving new documents
+    case actions.postDoc?.postDocs:
+      return {
+        ...state,
+        isLoading: true,
+      };
+    case actions.postDoc?.postDocsSuccess:
+      return {
+        ...state,
+        notes: action.payload,
+        isLoading: false,
+        hasError: false,
+      };
+    case actions.postDoc?.postDocsFailure:
+      return {
+        ...state,
+        isLoading: false,
+        hasError: false,
       };
 
     //case for default state

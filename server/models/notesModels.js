@@ -7,6 +7,10 @@ const noteschema = mongoose.Schema({
       title: String,
       description: String,
       category: String,
+      createAt: {
+        type: Date,
+        default: Date.now,
+      },
     },
   ],
   createAt: {

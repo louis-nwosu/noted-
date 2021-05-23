@@ -3,10 +3,8 @@ import { Grid, Box, Typography, makeStyles } from "@material-ui/core";
 import Fab from "@material-ui/core/Fab";
 import AddIcon from "@material-ui/icons/Add";
 import { connect } from "react-redux";
-//import dummy variable
-import { dummyNotes } from "../../dummyData";
 //import the actions
-import { FetchDocs } from "../../store/actions";
+import { FetchDocs, PostNote } from "../../store/actions";
 
 //import custom components
 import NoteCard from "./noteCard";
@@ -51,20 +49,23 @@ const FABIcon = () => {
 
 const DisplayNotes = ({ state, dispatch }) => {
   const classes = useStyle();
+  console.log(state);
   //fetch the documents
   React.useEffect(() => {
     dispatch(FetchDocs(state.user._id));
   }, [state.user.notes]);
-  //toggle what to displayt
+  //toggle what to display
   const docDisplay = () =>
-    state.notes.notes !== null ? (
+    state?.notes !== null ? (
       state.notes.notes.map((note) => {
         return <NoteCard title={note.title} body={note.body} />;
       })
     ) : (
       <p> no notes yet boss!</p>
     );
-  console.log(state.notes);
+  //dispatch function to send a document to the backend
+  const sendDocs = (doc) => dispatch(PostNote(doc, state.user._id));
+  //render function to display UI
   return (
     <React.Fragment>
       <Grid container>
@@ -81,7 +82,7 @@ const DisplayNotes = ({ state, dispatch }) => {
       </Grid>
       <Grid container>
         <Grid item={1} xs={6} className={classes.FAB}>
-          <SimpleModal render={<FABIcon />} />
+          <SimpleModal render={<FABIcon />} getDoc={sendDocs} />
         </Grid>
       </Grid>
     </React.Fragment>
