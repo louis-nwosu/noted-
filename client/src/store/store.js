@@ -1,4 +1,4 @@
-import { actions } from "./actions";
+import {actions} from './actions';
 
 const defaultState = {
   user: null,
@@ -64,7 +64,27 @@ const Store = (state = defaultState, action) => {
       return {
         ...state,
         isLoading: false,
+        hasError: true,
+      };
+
+    //handle actions for creating new account
+    case actions.createAccount?.submitForm:
+      return {
+        ...state,
+        isLoading: true,
+      };
+    case actions.createAccount?.submitFormSuccess:
+      return {
+        ...state,
+        user: action.payload,
+        isLaoding: false,
         hasError: false,
+      };
+    case actions.createAccount?.submitFormFailure:
+      return {
+        ...state,
+        isLAoding: false,
+        hasError: true,
       };
 
     //case for default state

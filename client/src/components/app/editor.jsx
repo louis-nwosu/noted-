@@ -27,7 +27,7 @@ const TextEditor = ({ getDoc }) => {
             color="primary"
             onClick={() => {
               getDoc({
-                title: "test",
+                title: "omooo",
                 description: docContent,
                 category: "mint",
               });

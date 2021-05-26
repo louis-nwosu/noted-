@@ -1,29 +1,29 @@
-import React from "react";
-import { Grid, Box, Typography, makeStyles } from "@material-ui/core";
-import Fab from "@material-ui/core/Fab";
-import AddIcon from "@material-ui/icons/Add";
-import { connect } from "react-redux";
+import React from 'react';
+import {Grid, Box, Typography, makeStyles} from '@material-ui/core';
+import Fab from '@material-ui/core/Fab';
+import AddIcon from '@material-ui/icons/Add';
+import {connect} from 'react-redux';
 //import the actions
-import { FetchDocs, PostNote } from "../../store/actions";
+import {FetchDocs, PostNote} from '../../store/actions';
 
 //import custom components
-import NoteCard from "./noteCard";
-import SimpleModal from "./modal";
+import NoteCard from './noteCard';
+import SimpleModal from './modal';
 
 const useStyle = makeStyles({
   FAB: {
-    position: "fixed",
+    position: 'fixed',
     bottom: 30,
     right: 30,
   },
   textLight: {
-    color: "#fff",
+    color: '#fff',
   },
 });
 
 const fabStyle = makeStyles((theme) => ({
   root: {
-    "& > *": {
+    '& > *': {
       margin: theme.spacing(1),
     },
   },
@@ -37,32 +37,30 @@ const FABIcon = () => {
 
   return (
     <div className={classes.root}>
-      <Fab
-        style={{ backgroundColor: "#9a4cba", color: "#fff" }}
-        aria-label="add"
-      >
+      <Fab style={{backgroundColor: '#9a4cba', color: '#fff'}} aria-label="add">
         <AddIcon />
       </Fab>
     </div>
   );
 };
 
-const DisplayNotes = ({ state, dispatch }) => {
+const DisplayNotes = ({state, dispatch}) => {
   const classes = useStyle();
-  console.log(state);
   //fetch the documents
   React.useEffect(() => {
     dispatch(FetchDocs(state.user._id));
-  }, [state.user.notes]);
+  }, []);
   //toggle what to display
-  const docDisplay = () =>
-    state?.notes !== null ? (
-      state.notes.notes.map((note) => {
-        return <NoteCard title={note.title} body={note.body} />;
-      })
+  const docDisplay = () => {
+    console.log(state.notes.notes);
+    return state.notes == null ? (
+      <p>you don't have any notes yet</p>
     ) : (
-      <p> no notes yet boss!</p>
+      state.notes.notes.map((note) => (
+        <NoteCard title={note.title} body={note.body} />
+      ))
     );
+  };
   //dispatch function to send a document to the backend
   const sendDocs = (doc) => dispatch(PostNote(doc, state.user._id));
   //render function to display UI
@@ -77,7 +75,7 @@ const DisplayNotes = ({ state, dispatch }) => {
           </Box>
         </Grid>
       </Grid>
-      <Grid container style={{ paddingLeft: 20, paddingRight: 20 }}>
+      <Grid container style={{paddingLeft: 20, paddingRight: 20}}>
         {docDisplay()}
       </Grid>
       <Grid container>

@@ -1,42 +1,42 @@
 //ACTIONS AVAILABLE
 export const actions = {
-  actionCreateActions: {
-    submitForm: "SUBMIT_FORM",
-    submitFormSuccess: "SUBMIT_FORM_SUCCESS",
-    submitFormFailure: "SUBMIT_FORM_FAILURE",
+  createAccount: {
+    submitForm: 'SUBMIT_FORM',
+    submitFormSuccess: 'SUBMIT_FORM_SUCCESS',
+    submitFormFailure: 'SUBMIT_FORM_FAILURE',
   },
   actionLoginActions: {
-    submitForm: "SUBMIT_FORM",
-    submitFormSuccess: "SUBMIT_FORM_SUCCES",
-    submitFormFailure: "SUBMIT_FORM_FAILURE",
+    submitForm: 'SUBMIT_FORM',
+    submitFormSuccess: 'SUBMIT_FORM_SUCCES',
+    submitFormFailure: 'SUBMIT_FORM_FAILURE',
   },
   actionsObj: {
-    action: "PLAIN_ACTION",
-    actionSuccess: "PLAIN_ACTION_SUCCESS",
-    actionFailure: "PLAIN_ACTION_FAILURE",
+    action: 'PLAIN_ACTION',
+    actionSuccess: 'PLAIN_ACTION_SUCCESS',
+    actionFailure: 'PLAIN_ACTION_FAILURE',
   },
   fetchDoc: {
-    getDocs: "GET_DOCS",
-    getDocsSuccess: "GET_DOCS_SUCCESS",
-    getDocsFailure: "GET_DOCS_FAILURE",
+    getDocs: 'GET_DOCS',
+    getDocsSuccess: 'GET_DOCS_SUCCESS',
+    getDocsFailure: 'GET_DOCS_FAILURE',
   },
   postDoc: {
-    postDocs: "POST_DOC",
-    postDocsSuccess: "POST_DOCS_SUCCESS",
-    postDocsFailure: "POST_DOCS_FAILURE",
+    postDocs: 'POST_DOC',
+    postDocsSuccess: 'POST_DOCS_SUCCESS',
+    postDocsFailure: 'POST_DOCS_FAILURE',
   },
 };
 
 //-------------------ACTIONS TO CREATE ACCOUNT------------------------------
 const submitForm = () => ({
-  type: actions?.actionCreateActions?.submitForm,
+  type: actions?.createAccount?.submitForm,
 });
 const submitFormSuccess = (payload) => ({
-  type: actions?.actionCreateActions?.submitFormSuccess,
+  type: actions?.createAccount?.submitFormSuccess,
   payload,
 });
 const submitFormFailure = () => ({
-  type: actions?.actionCreateActions?.submitFormFailure,
+  type: actions?.createAccount?.submitFormFailure,
 });
 //an async function to handle the submition of user details to the backend
 export function createAccount(userData, history) {
@@ -45,22 +45,22 @@ export function createAccount(userData, history) {
     dispatch(submitForm());
     try {
       //make a post request to send the user entered data
-      const data = await fetch("http://localhost:8080/signup", {
-        method: "POST",
+      const data = await fetch('http://localhost:8080/signup', {
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
-          //TODO----send along jwt as well!!
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify(userData),
       });
+      console.log(data);
       const user = await data.json();
-      console.log(user);
+      console.log(user.savedUser);
       //send the return user to the redux store
-      dispatch(submitFormSuccess(user));
+      dispatch(submitFormSuccess(user.savedUser));
       //collect the token and save in localStorage
       // localStorage.setItem("token", user?.data?.token);
       //send the user to the notes app
-      history.push("/noted");
+      history.push('/noted');
     } catch (error) {
       console.log(error);
       dispatch(submitFormFailure());
@@ -85,10 +85,10 @@ export function logIn(userData, history) {
     dispatch(submitLogInForm());
     try {
       //make a post request to send the user entered data
-      const user = await fetch("http://localhost:8080/signin", {
-        method: "POST",
+      const user = await fetch('http://localhost:8080/signin', {
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify(userData),
       });
@@ -96,10 +96,10 @@ export function logIn(userData, history) {
       const user_json = await user.json();
       dispatch(submitLogInFormSucces(user_json.thisUser));
       //collect the token and save in localStorage
-      localStorage.setItem("token", user_json.token);
+      localStorage.setItem('token', user_json.token);
       //send the user to the notes app
       if (user_json.thisUser) {
-        history.push("/noted");
+        history.push('/noted');
       }
     } catch (error) {
       console.log(error);
@@ -129,13 +129,14 @@ export function PostNote(document, id) {
     try {
       //make a network request to post a new note
       const docs = await fetch(`http://localhost:8080/notes/new-note/${id}`, {
-        method: "POST",
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify(document),
       });
       const docs_json = await docs.json();
+      console.log(docs_json);
       //update the store to reflect the new note!
       dispatch(postNewNoteSuccess(docs_json));
     } catch (error) {
