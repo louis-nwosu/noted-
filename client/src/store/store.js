@@ -28,7 +28,7 @@ const Store = (state = defaultState, action) => {
         hasError: true,
       };
 
-    //handle fdetching all docs
+    //handle fetching all docs
     case actions.fetchDoc?.getDocs:
       return {
         ...state,

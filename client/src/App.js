@@ -1,16 +1,22 @@
-import React from "react";
-import { Route, Switch, BrowserRouter } from "react-router-dom";
+import React from 'react';
+import {Route, Switch, BrowserRouter} from 'react-router-dom';
 
 //materialUI imports
-import { createMuiTheme, ThemeProvider } from "@material-ui/core";
+import {createMuiTheme, ThemeProvider} from '@material-ui/core';
+import CssBaseline from '@material-ui/core/CssBaseline';
 
 //import local components
-import LandingPage from "./components/landingPage";
-import Log from "./components/loginAndSignin";
-import NoteApp from "./components/app";
+import LandingPage from './components/landingPage';
+import Log from './components/loginAndSignin';
+import NoteApp from './components/app';
 
 const theme = createMuiTheme({
-  palette: {},
+  palette: {
+    type: 'light',
+    primary: {
+      main: '#6200EE',
+    },
+  },
 });
 
 const App = () => {
@@ -18,6 +24,7 @@ const App = () => {
     <>
       <ThemeProvider theme={theme}>
         <BrowserRouter>
+          <CssBaseline />
           <Switch>
             <Route exact path="/" component={LandingPage} />
             <Route exact path="/sign-up" component={Log} />
