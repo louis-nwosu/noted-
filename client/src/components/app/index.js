@@ -1,27 +1,22 @@
-import React from 'react';
+import React from "react";
 //import material UI components
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
-import {makeStyles} from '@material-ui/core';
+import Grid from "@material-ui/core/Grid";
+import Typography from "@material-ui/core/Typography";
+import { makeStyles } from "@material-ui/core";
 //import local components
-import {SideNav} from './sidenav';
-import NavBar from './navBar';
+import NavBar from "./navBar";
+import SideNav from "./drawer";
 
 const useStyles = makeStyles({
-  sideNavContainer: {
-    position: 'fixed',
-    height: '100vh',
-    background: '#e3ded1',
+  appbar: {
+    position: "fixed",
+    width: '100%'
+  },
+  sideNav: {
     width: '100%',
-    borderRight: '1px',
-    borderColor: '#555'
-  },
-  appSection: {
-    marginLeft: 'auto',
-  },
-  navBar: {
-    width: '100%',
-  },
+    height: '90vh',
+    marginTop: '10vh',
+  }
 });
 
 export default function NoteApp() {
@@ -29,15 +24,11 @@ export default function NoteApp() {
   return (
     <React.Fragment>
       <Grid container>
-        <Grid item md={2} className={classes.sideNavContainer}>
-          <SideNav />
+        <Grid item md={12} xs={12} className={classes.appbar} >
+          <NavBar />
         </Grid>
-        <Grid item md={10} className={classes.appSection}>
-          <Grid container>
-            <Grid item col={12} className={classes.navBar}>
-              <NavBar className={classes.navBar} />
-            </Grid>
-          </Grid>
+        <Grid item md={2} className={classes.sideNav} >
+          <SideNav />
         </Grid>
       </Grid>
     </React.Fragment>
