@@ -1,6 +1,7 @@
 import React from "react";
 import { fade, makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
+import Box from "@material-ui/core/Box";
 import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
@@ -42,6 +43,9 @@ const useStyles = makeStyles((theme) => ({
       marginLeft: theme.spacing(3),
       width: "auto",
     },
+    [theme.breakpoints.down("sm")]: {
+      display: "none",
+    },
   },
   searchIcon: {
     padding: theme.spacing(0, 2),
@@ -79,7 +83,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function NavBar() {
+export default function NavBar({ toggleDrawer, anchor }) {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -168,11 +172,18 @@ export default function NavBar() {
             aria-label="open drawer"
             className={classes.sectionMobile}
           >
-            <MenuIcon />
+            <MenuIcon onClick={toggleDrawer(anchor, true)} />
           </IconButton>
           <Typography className={classes.title} variant="h6" noWrap>
             not3d
           </Typography>
+          <div className={classes.sectionMobile}>
+            <Box marginX={1}>
+              <Typography variant="h6" noWrap>
+                not3d
+              </Typography>
+            </Box>
+          </div>
           <div className={classes.grow} />
           <div className={classes.search}>
             <div className={classes.searchIcon}>
@@ -187,7 +198,6 @@ export default function NavBar() {
               inputProps={{ "aria-label": "search" }}
             />
           </div>
-          <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
             <IconButton aria-label="show 4 new mails" color="inherit">
               <Badge badgeContent={4} color="secondary">

@@ -10,7 +10,7 @@ import LandingPage from './components/landingPage';
 import Log from './components/loginAndSignin';
 import NoteApp from './components/app';
 
-const theme = createMuiTheme({
+const themeLight = createMuiTheme({
   palette: {
     type: 'light',
     primary: {
@@ -26,16 +26,39 @@ const theme = createMuiTheme({
   },
 });
 
+
+const themeDark = createMuiTheme({
+  palette: {
+    type: 'dark',
+    primary: {
+      main: '#aa00ff',
+      light: '#e254ff',
+      dark: '#7200ca',
+    },
+    secondary: {
+      main: '#424242',
+      light: '#6d6d6d',
+      dark: '#1b1b1b',
+    }
+  },
+});
+
 const App = () => {
+  const [isDarkMode, setIsDarkMode] = React.useState('light')
+  const handleSetIsDarkMode = (mode) => setIsDarkMode(mode);
   return (
     <>
-      <ThemeProvider theme={theme}>
+      <ThemeProvider theme={isDarkMode == 'light' ? themeLight : themeDark }>
         <BrowserRouter>
           <CssBaseline />
           <Switch>
-            <Route exact path="/" component={LandingPage} />
+            <Route exact path="/">
+              <LandingPage />
+            </Route>
             <Route exact path="/sign-up" component={Log} />
-            <Route exact path="/noted" component={NoteApp} />
+            <Route exact path="/noted">
+              <NoteApp handleSetIsDarkMode={handleSetIsDarkMode} />
+            </Route>
           </Switch>
         </BrowserRouter>
       </ThemeProvider>
