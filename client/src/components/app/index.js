@@ -111,8 +111,23 @@ export default function NoteApp({ handleSetIsDarkMode }) {
           <TemporaryDrawer toggleDrawer={toggleDrawer} state={navState} />
         </Grid>
         <Grid item md={10} xs={12} className={classes.dispContainer}>
-          <Box marginY={10} marginX={1}>
-            <h1 style={{ padding: 20, background: "teal" }}>testing</h1>
+          <Box marginY={8} marginX={1}>
+            <Grid container spacing={2}>
+              <Grid item md={3} xs={12}>
+                <Box style={{ background: "#6d6d6d", borderRadius: 5 }} px={1}>
+                  <h1 style={{ paddingBottom: 3 }}>testing</h1>
+                  <p style={{ marginTop: 7 }}>
+                    lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem
+                    lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem
+                    lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem
+                    lorem lorem lorem lorem
+                  </p>
+                </Box>
+              </Grid>
+              <Grid item md={3} xs={12}>
+                <h1 style={{ padding: 10, background: "#6d6d6d" }}>testing</h1>
+              </Grid>
+            </Grid>
             <div className={classes.FABroot}>
               <Fab color="primary" aria-label="add" onClick={showHiddenIcons}>
                 <AddIcon />

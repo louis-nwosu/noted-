@@ -155,9 +155,9 @@ function SideNavBottom({ handleSetIsDarkMode }) {
                   value="start"
                   control={<Switch color="primary" />}
                   checked={isChecked}
-                  onClick={() => {
-                    setIsChecked(!isChecked);
-                  }}
+                  // onClick={() => {
+                  //   setIsChecked(!isChecked);
+                  // }}
                 />
               </FormGroup>
             </FormControl>

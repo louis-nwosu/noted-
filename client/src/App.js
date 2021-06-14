@@ -26,7 +26,6 @@ const themeLight = createMuiTheme({
   },
 });
 
-
 const themeDark = createMuiTheme({
   palette: {
     type: 'dark',
@@ -65,7 +64,5 @@ const App = () => {
     </>
   );
 };
-
-App.propTypes = {};
 
 export default App;
