@@ -1,7 +1,7 @@
 import React from "react";
 //import material UI components
 import Grid from "@material-ui/core/Grid";
-import { makeStyles } from "@material-ui/core";
+import { makeStyles, Typography, fade } from "@material-ui/core";
 import Box from "@material-ui/core/Box";
 import Fab from "@material-ui/core/Fab";
 import AddIcon from "@material-ui/icons/Add";
@@ -11,11 +11,19 @@ import Zoom from "@material-ui/core/Zoom";
 //import local components
 import NavBar from "./navBar";
 import { SideNav, TemporaryDrawer } from "./drawer";
+//import Link component from react-router-dom
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   appbar: {
     position: "fixed",
     width: "100%",
+  },
+  docPad: {
+    background: "#aa00ff",
+    "&:hover": {
+      backgroundColor: "#7200ca",
+    },
   },
   sideNav: {
     width: "100%",
@@ -31,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
       margin: theme.spacing(1),
       position: "fixed",
       bottom: 30,
-      right: 25,
+      right: 20,
     },
   },
   FAB1: {
@@ -39,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
       margin: theme.spacing(1),
       position: "fixed",
       bottom: 110,
-      right: 25,
+      right: 20,
       display: "none",
     },
   },
@@ -48,7 +56,7 @@ const useStyles = makeStyles((theme) => ({
       margin: theme.spacing(1),
       position: "fixed",
       bottom: 110,
-      right: 25,
+      right: 20,
     },
   },
   FAB2: {
@@ -59,6 +67,9 @@ const useStyles = makeStyles((theme) => ({
       right: 110,
       display: "none",
     },
+  },
+  DocDisps: {
+    marginTop: theme.spacing(2),
   },
   FAB2Show: {
     "& > *": {
@@ -112,20 +123,120 @@ export default function NoteApp({ handleSetIsDarkMode }) {
         </Grid>
         <Grid item md={10} xs={12} className={classes.dispContainer}>
           <Box marginY={8} marginX={1}>
-            <Grid container spacing={2}>
+            <Grid container>
+              <Grid item md={12} xs={12}>
+                <Box px={1}>
+                  <Typography variant="h4" color="#fff" align="right">
+                    All not3s.
+                  </Typography>
+                </Box>
+              </Grid>
+            </Grid>
+            <Grid container className={classes.DocDisps}>
               <Grid item md={3} xs={12}>
-                <Box style={{ background: "#6d6d6d", borderRadius: 5 }} px={1}>
-                  <h1 style={{ paddingBottom: 3 }}>testing</h1>
-                  <p style={{ marginTop: 7 }}>
-                    lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem
-                    lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem
-                    lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem
-                    lorem lorem lorem lorem
-                  </p>
+                <Box px={1} marginY={1}>
+                  <div className={classes.docPad}>
+                    <Box boxShadow={3} px={2} py={1}>
+                      <h1 style={{ color: "#fff" }}>testing</h1>
+                      <p style={{ marginTop: 7, color: "#fff" }}>
+                        lorem lorem lorem lorem lorem lorem lorem lorem lorem
+                        lorem lorem lorem lorem lorem lorem lorem lorem lorem
+                        lorem ...
+                      </p>
+                      <Typography
+                        variant="body1"
+                        color="textSecondary"
+                        align="right"
+                      >
+                        Last modified: 21-03-21
+                      </Typography>
+                    </Box>
+                  </div>
                 </Box>
               </Grid>
               <Grid item md={3} xs={12}>
-                <h1 style={{ padding: 10, background: "#6d6d6d" }}>testing</h1>
+                <Box px={1} marginY={1}>
+                  <div className={classes.docPad}>
+                    <Box boxShadow={3} px={2} py={1}>
+                      <h1 style={{ color: "#fff" }}>testing</h1>
+                      <p style={{ marginTop: 7, color: "#fff" }}>
+                        lorem lorem lorem lorem lorem lorem lorem lorem lorem
+                        lorem lorem lorem lorem lorem lorem lorem lorem lorem
+                        lorem ...
+                      </p>
+                      <Typography
+                        variant="body1"
+                        color="textSecondary"
+                        align="right"
+                      >
+                        Last modified: 21-03-21
+                      </Typography>
+                    </Box>
+                  </div>
+                </Box>
+              </Grid>
+              <Grid item md={3} xs={12}>
+                <Box px={1} marginY={1}>
+                  <div className={classes.docPad}>
+                    <Box boxShadow={3} px={2} py={1}>
+                      <h1 style={{ color: "#fff" }}>testing</h1>
+                      <p style={{ marginTop: 7, color: "#fff" }}>
+                        lorem lorem lorem lorem lorem lorem lorem lorem lorem
+                        lorem lorem lorem lorem lorem lorem lorem lorem lorem
+                        lorem ...
+                      </p>
+                      <Typography
+                        variant="body1"
+                        color="textSecondary"
+                        align="right"
+                      >
+                        Last modified: 21-03-21
+                      </Typography>
+                    </Box>
+                  </div>
+                </Box>
+              </Grid>
+              <Grid item md={3} xs={12}>
+                <Box px={1} marginY={1}>
+                  <div className={classes.docPad}>
+                    <Box boxShadow={3} px={2} py={1}>
+                      <h1 style={{ color: "#fff" }}>testing</h1>
+                      <p style={{ marginTop: 7, color: "#fff" }}>
+                        lorem lorem lorem lorem lorem lorem lorem lorem lorem
+                        lorem lorem lorem lorem lorem lorem lorem lorem lorem
+                        lorem ...
+                      </p>
+                      <Typography
+                        variant="body1"
+                        color="textSecondary"
+                        align="right"
+                      >
+                        Last modified: 21-03-21
+                      </Typography>
+                    </Box>
+                  </div>
+                </Box>
+              </Grid>
+              <Grid item md={3} xs={12}>
+                <Box px={1} marginY={1}>
+                  <div className={classes.docPad}>
+                    <Box boxShadow={3} px={2} py={1}>
+                      <h1 style={{ color: "#fff" }}>testing</h1>
+                      <p style={{ marginTop: 7, color: "#fff" }}>
+                        lorem lorem lorem lorem lorem lorem lorem lorem lorem
+                        lorem lorem lorem lorem lorem lorem lorem lorem lorem
+                        lorem ...
+                      </p>
+                      <Typography
+                        variant="body1"
+                        color="textSecondary"
+                        align="right"
+                      >
+                        Last modified: 21-03-21
+                      </Typography>
+                    </Box>
+                  </div>
+                </Box>
               </Grid>
             </Grid>
             <div className={classes.FABroot}>
@@ -135,9 +246,11 @@ export default function NoteApp({ handleSetIsDarkMode }) {
             </div>
             <div className={isIconHidden ? classes.FAB1 : classes.FAB1Show}>
               <Zoom in={!isIconHidden}>
-                <Fab color="secondary" aria-label="edit">
-                  <EditIcon />
-                </Fab>
+                <Link to="/noted/new-note">
+                  <Fab color="secondary" aria-label="edit">
+                    <EditIcon />
+                  </Fab>
+                </Link>
               </Zoom>
             </div>
             <div className={isIconHidden ? classes.FAB2 : classes.FAB2Show}>

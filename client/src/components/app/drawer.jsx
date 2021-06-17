@@ -129,21 +129,21 @@ function SideNavTop() {
 }
 
 function SideNavBottom({ handleSetIsDarkMode }) {
-  const [isChecked, setIsChecked] = React.useState(false);
-  const setMode = () => {
-    if (isChecked) {
-      console.log(isChecked);
-      handleSetIsDarkMode("dark");
-      console.log('got here 1')
-      return;
-    } else {
-      console.log(isChecked);
-      console.log('not got 2')
-      handleSetIsDarkMode("light");
-      return
-    }
-  };
-  setMode();
+  // const [isChecked, setIsChecked] = React.useState(false);
+  // const setMode = () => {
+  //   if (isChecked) {
+  //     console.log(isChecked);
+  //     handleSetIsDarkMode("dark");
+  //     console.log('got here 1')
+  //     return;
+  //   } else {
+  //     console.log(isChecked);
+  //     console.log('not got 2')
+  //     handleSetIsDarkMode("light");
+  //     return
+  //   }
+  // };
+  // setMode();
   return (
     <React.Fragment>
       <Box marginX={2}>
@@ -154,7 +154,7 @@ function SideNavBottom({ handleSetIsDarkMode }) {
                 <FormControlLabel
                   value="start"
                   control={<Switch color="primary" />}
-                  checked={isChecked}
+                  // checked={isChecked}
                   // onClick={() => {
                   //   setIsChecked(!isChecked);
                   // }}
