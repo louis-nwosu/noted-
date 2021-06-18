@@ -1,7 +1,7 @@
 import React from "react";
 //import material UI components
 import Grid from "@material-ui/core/Grid";
-import { makeStyles, Typography, fade } from "@material-ui/core";
+import { makeStyles, Typography } from "@material-ui/core";
 import Box from "@material-ui/core/Box";
 import Fab from "@material-ui/core/Fab";
 import AddIcon from "@material-ui/icons/Add";
@@ -110,7 +110,7 @@ export default function NoteApp({ handleSetIsDarkMode }) {
       <Grid
         container
         onClick={() => {
-          if (isIconHidden == true) return;
+          if (isIconHidden === true) return;
           setIsIconHidden(true);
         }}
       >

@@ -43,6 +43,7 @@ const Features = () => {
             <img
               src="https://evernote.com/c/assets/homepage/integrations.svg?32b746ff5f7b7812"
               className={classes.secImg}
+              alt='fuck off'
             />
             <Typography
               variant="h5"
@@ -63,8 +64,8 @@ const Features = () => {
           <Grid item xs={12} md={6}>
             <img
               src="https://evernote.com/c/assets/homepage/feature_integration@2x.png?be711b55a9463ad8"
-              alt=""
               className={classes.image}
+              alt='fuck off'
             />
           </Grid>
         </Grid>
@@ -72,14 +73,16 @@ const Features = () => {
           <Grid item xs={12} md={6}>
             <img
               src="https://evernote.com/c/assets/homepage/feature_document_scanning__en.png?e93c63b224363f0d"
-              alt=""
+              
               className={classes.image}
+              alt='fuck off'
             />
           </Grid>
           <Grid item xs={12} md={6}>
             <img
               src="https://evernote.com/c/assets/homepage/doc-scanning.svg?54e07b63a6988c1e"
               className={classes.secImg}
+              alt='fuck off'
             />
             <Typography
               variant="h5"
@@ -103,6 +106,7 @@ const Features = () => {
             <img
               src="https://evernote.com/c/assets/homepage/web-clipping.svg?7b31cc4e08aca215"
               className={classes.secImg}
+              alt='fuck off'
             />
             <Typography
               variant="h5"
@@ -123,8 +127,9 @@ const Features = () => {
           <Grid item xs={12} md={6}>
             <img
               src="https://evernote.com/c/assets/homepage/feature_web_clipper__en.png?219c0e34cc6c10ff"
-              alt=""
+            
               className={classes.image}
+              alt='fuck off'
             />
           </Grid>
         </Grid>
@@ -132,14 +137,15 @@ const Features = () => {
           <Grid item xs={12} md={6}>
             <img
               src="https://evernote.com/c/assets/homepage/feature_mobile__en.png?4ff8b1eb42e9761e"
-              alt=""
               className={classes.image}
+              alt='fuck off'
             />
           </Grid>
           <Grid item xs={12} md={6}>
             <img
               src="https://evernote.com/c/assets/homepage/rich_notes.svg?4be8ba71638c18bb"
               className={classes.secImg}
+              alt='fuck off'
             />
             <Typography
               variant="h5"

@@ -59,6 +59,7 @@ export default function HeroSection() {
           <img
             src="https://evernote.com/c/assets/homepage/hp_hero_note@2x__en.png?398ba029650c0e06"
             className={classes.image}
+            alt='fuck off'
           />
         </Grid>
       </Grid>

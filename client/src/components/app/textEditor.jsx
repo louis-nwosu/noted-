@@ -1,16 +1,16 @@
 import React, { Component } from "react";
 import { convertFromRaw } from "draft-js";
 import { Editor } from "react-draft-wysiwyg";
-import "../../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+import "../../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css";  //here
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 
 const content = {
   entityMap: {},
   blocks: [
-    {
+    {  //here
       key: "637gr",
-      text: "",
+      text: "",  
       type: "unstyled",
       depth: 0,
       inlineStyleRanges: [],

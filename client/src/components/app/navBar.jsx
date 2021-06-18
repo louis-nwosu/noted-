@@ -10,12 +10,11 @@ import Badge from "@material-ui/core/Badge";
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 import MenuIcon from "@material-ui/icons/Menu";
-import SearchIcon from "@material-ui/icons/Search";
+import SearchIcon from "@material-ui/icons/Search"
 import MailIcon from "@material-ui/icons/Mail";
 import NotificationsIcon from "@material-ui/icons/Notifications";
 import MoreIcon from "@material-ui/icons/MoreVert";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
-
 const useStyles = makeStyles((theme) => ({
   grow: {
     flexGrow: 1,
@@ -77,6 +76,7 @@ const useStyles = makeStyles((theme) => ({
   },
   sectionMobile: {
     display: "flex",
+    marginRight: theme.spacing(2),
     [theme.breakpoints.up("md")]: {
       display: "none",
     },
@@ -167,10 +167,9 @@ export default function NavBar({ toggleDrawer, anchor }) {
         <Toolbar>
           <IconButton
             edge="start"
-            className={classes.menuButton}
             color="inherit"
             aria-label="open drawer"
-            className={classes.sectionMobile}
+          className={classes.sectionMobile}
           >
             <MenuIcon onClick={toggleDrawer(anchor, true)} />
           </IconButton>

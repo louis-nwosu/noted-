@@ -48,7 +48,7 @@ const App = () => {
   const handleSetIsDarkMode = (mode) => setIsDarkMode(mode);
   return (
     <>
-      <ThemeProvider theme={isDarkMode == "light" ? themeLight : themeDark}>
+      <ThemeProvider theme={isDarkMode === "light" ? themeLight : themeDark}>
         <BrowserRouter>
           <CssBaseline />
           <Switch>
