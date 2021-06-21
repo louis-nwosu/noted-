@@ -1,4 +1,6 @@
 import React from "react";
+
+//import the router 
 import { Route, Switch, BrowserRouter } from "react-router-dom";
 
 //materialUI imports

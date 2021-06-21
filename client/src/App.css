@@ -1,0 +1,17 @@
+.toolbarClassName {
+    background-color: purple !important;
+    padding: 100px;
+}
+.editorClassName {
+    width: 100%;
+    height: 75vh;
+    background-color: '';
+    overflow-y: hidden;
+}
+.toolbarClassName {
+    padding: 0;
+    background-color: transparent !important;
+    border: transparent;
+    color: #aa00ff;
+    margin-bottom: 30px;
+}

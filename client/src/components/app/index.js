@@ -40,6 +40,7 @@ const useStyles = makeStyles((theme) => ({
       position: "fixed",
       bottom: 30,
       right: 20,
+      backgroundColor: '#444',
     },
   },
   FAB1: {
@@ -125,9 +126,9 @@ export default function NoteApp({ handleSetIsDarkMode }) {
           <Box marginY={8} marginX={1}>
             <Grid container>
               <Grid item md={12} xs={12}>
-                <Box px={1}>
+                <Box px={1} py={1} pb={2}>
                   <Typography variant="h4" color="#fff" align="right">
-                    All not3s.
+                    all docs
                   </Typography>
                 </Box>
               </Grid>
@@ -256,7 +257,7 @@ export default function NoteApp({ handleSetIsDarkMode }) {
             <div className={isIconHidden ? classes.FAB2 : classes.FAB2Show}>
               <Zoom
                 in={!isIconHidden}
-                style={{ transitionDelay: !isIconHidden ? "500ms" : "0ms" }}
+                style={{ transitionDelay: !isIconHidden ? "100ms" : "0ms" }}
               >
                 <Fab color="secondary" aria-label="edit">
                   <CollectionsBookmarkIcon />
