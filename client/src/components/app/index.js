@@ -11,6 +11,7 @@ import Zoom from "@material-ui/core/Zoom";
 //import local components
 import NavBar from "./navBar";
 import { SideNav, TemporaryDrawer } from "./drawer";
+import DocPad from "./docPad";
 //import Link component from react-router-dom
 import { Link } from "react-router-dom";
 
@@ -18,12 +19,6 @@ const useStyles = makeStyles((theme) => ({
   appbar: {
     position: "fixed",
     width: "100%",
-  },
-  docPad: {
-    background: "#aa00ff",
-    "&:hover": {
-      backgroundColor: "#7200ca",
-    },
   },
   sideNav: {
     width: "100%",
@@ -40,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
       position: "fixed",
       bottom: 30,
       right: 20,
-      backgroundColor: '#444',
+      backgroundColor: "#aa00ff",
     },
   },
   FAB1: {
@@ -79,6 +74,9 @@ const useStyles = makeStyles((theme) => ({
       bottom: 30,
       right: 110,
     },
+  },
+  GridSec: {
+    marginBottom: 25
   },
   extendedIcon: {
     marginRight: theme.spacing(1),
@@ -123,7 +121,7 @@ export default function NoteApp({ handleSetIsDarkMode }) {
           <TemporaryDrawer toggleDrawer={toggleDrawer} state={navState} />
         </Grid>
         <Grid item md={10} xs={12} className={classes.dispContainer}>
-          <Box marginY={8} marginX={1}>
+          <Box mt={8} mb={3} marginX={1}>
             <Grid container>
               <Grid item md={12} xs={12}>
                 <Box px={1} py={1} pb={2}>
@@ -134,110 +132,45 @@ export default function NoteApp({ handleSetIsDarkMode }) {
               </Grid>
             </Grid>
             <Grid container className={classes.DocDisps}>
-              <Grid item md={3} xs={12}>
-                <Box px={1} marginY={1}>
-                  <div className={classes.docPad}>
-                    <Box boxShadow={3} px={2} py={1}>
-                      <h1 style={{ color: "#fff" }}>testing</h1>
-                      <p style={{ marginTop: 7, color: "#fff" }}>
-                        lorem lorem lorem lorem lorem lorem lorem lorem lorem
-                        lorem lorem lorem lorem lorem lorem lorem lorem lorem
-                        lorem ...
-                      </p>
-                      <Typography
-                        variant="body1"
-                        color="textSecondary"
-                        align="right"
-                      >
-                        Last modified: 21-03-21
+              <Grid item md={12} xs={12} className={classes.GridSec}>
+                <Grid container>
+                  <Grid item>
+                    <Box mx={1}>
+                      <Typography variant="body1" color="TextSecondary">
+                        Today
                       </Typography>
                     </Box>
-                  </div>
-                </Box>
+                  </Grid>
+                </Grid>
+                <Grid container>
+                  {[2, 2, 2, 2, 2, 2].map((item) => {
+                    return (
+                      <Grid item md={3} xs={12}>
+                        <DocPad />
+                      </Grid>
+                    );
+                  })}
+                </Grid>
               </Grid>
-              <Grid item md={3} xs={12}>
-                <Box px={1} marginY={1}>
-                  <div className={classes.docPad}>
-                    <Box boxShadow={3} px={2} py={1}>
-                      <h1 style={{ color: "#fff" }}>testing</h1>
-                      <p style={{ marginTop: 7, color: "#fff" }}>
-                        lorem lorem lorem lorem lorem lorem lorem lorem lorem
-                        lorem lorem lorem lorem lorem lorem lorem lorem lorem
-                        lorem ...
-                      </p>
-                      <Typography
-                        variant="body1"
-                        color="textSecondary"
-                        align="right"
-                      >
-                        Last modified: 21-03-21
+              <Grid item md={12} xs={12} className={classes.GridSec}>
+                <Grid container>
+                  <Grid item>
+                    <Box mx={1}>
+                      <Typography variant="body1" color="TextSecondary">
+                        11-06-2021
                       </Typography>
                     </Box>
-                  </div>
-                </Box>
-              </Grid>
-              <Grid item md={3} xs={12}>
-                <Box px={1} marginY={1}>
-                  <div className={classes.docPad}>
-                    <Box boxShadow={3} px={2} py={1}>
-                      <h1 style={{ color: "#fff" }}>testing</h1>
-                      <p style={{ marginTop: 7, color: "#fff" }}>
-                        lorem lorem lorem lorem lorem lorem lorem lorem lorem
-                        lorem lorem lorem lorem lorem lorem lorem lorem lorem
-                        lorem ...
-                      </p>
-                      <Typography
-                        variant="body1"
-                        color="textSecondary"
-                        align="right"
-                      >
-                        Last modified: 21-03-21
-                      </Typography>
-                    </Box>
-                  </div>
-                </Box>
-              </Grid>
-              <Grid item md={3} xs={12}>
-                <Box px={1} marginY={1}>
-                  <div className={classes.docPad}>
-                    <Box boxShadow={3} px={2} py={1}>
-                      <h1 style={{ color: "#fff" }}>testing</h1>
-                      <p style={{ marginTop: 7, color: "#fff" }}>
-                        lorem lorem lorem lorem lorem lorem lorem lorem lorem
-                        lorem lorem lorem lorem lorem lorem lorem lorem lorem
-                        lorem ...
-                      </p>
-                      <Typography
-                        variant="body1"
-                        color="textSecondary"
-                        align="right"
-                      >
-                        Last modified: 21-03-21
-                      </Typography>
-                    </Box>
-                  </div>
-                </Box>
-              </Grid>
-              <Grid item md={3} xs={12}>
-                <Box px={1} marginY={1}>
-                  <div className={classes.docPad}>
-                    <Box boxShadow={3} px={2} py={1}>
-                      <h1 style={{ color: "#fff" }}>testing</h1>
-                      <p style={{ marginTop: 7, color: "#fff" }}>
-                        lorem lorem lorem lorem lorem lorem lorem lorem lorem
-                        lorem lorem lorem lorem lorem lorem lorem lorem lorem
-                        lorem ...
-                      </p>
-                      <Typography
-                        variant="body1"
-                        color="textSecondary"
-                        align="right"
-                      >
-                        Last modified: 21-03-21
-                      </Typography>
-                    </Box>
-                  </div>
-                </Box>
+                  </Grid>
+                </Grid>
+                <Grid container>
+                  {[2, 2, 2, 2, 2, 2,2,3,4].map((item) => {
+                    return (
+                      <Grid item md={3} xs={12}>
+                        <DocPad />
+                      </Grid>
+                    );
+                  })}
+                </Grid>
               </Grid>
             </Grid>
             <div className={classes.FABroot}>
@@ -248,7 +181,7 @@ export default function NoteApp({ handleSetIsDarkMode }) {
             <div className={isIconHidden ? classes.FAB1 : classes.FAB1Show}>
               <Zoom in={!isIconHidden}>
                 <Link to="/noted/new-note">
-                  <Fab color="secondary" aria-label="edit">
+                  <Fab color="primary" aria-label="edit">
                     <EditIcon />
                   </Fab>
                 </Link>
@@ -259,7 +192,7 @@ export default function NoteApp({ handleSetIsDarkMode }) {
                 in={!isIconHidden}
                 style={{ transitionDelay: !isIconHidden ? "100ms" : "0ms" }}
               >
-                <Fab color="secondary" aria-label="edit">
+                <Fab color="primary" aria-label="edit">
                   <CollectionsBookmarkIcon />
                 </Fab>
               </Zoom>

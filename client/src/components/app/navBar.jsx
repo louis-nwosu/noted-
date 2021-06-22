@@ -10,7 +10,7 @@ import Badge from "@material-ui/core/Badge";
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 import MenuIcon from "@material-ui/icons/Menu";
-import SearchIcon from "@material-ui/icons/Search"
+import SearchIcon from "@material-ui/icons/Search";
 import MailIcon from "@material-ui/icons/Mail";
 import NotificationsIcon from "@material-ui/icons/Notifications";
 import MoreIcon from "@material-ui/icons/MoreVert";
@@ -76,7 +76,7 @@ const useStyles = makeStyles((theme) => ({
   },
   sectionMobile: {
     display: "flex",
-    marginRight: theme.spacing(2),
+    marginRight: theme.spacing(-1.5),
     [theme.breakpoints.up("md")]: {
       display: "none",
     },
@@ -169,7 +169,7 @@ export default function NavBar({ toggleDrawer, anchor }) {
             edge="start"
             color="inherit"
             aria-label="open drawer"
-          className={classes.sectionMobile}
+            className={classes.sectionMobile}
           >
             <MenuIcon onClick={toggleDrawer(anchor, true)} />
           </IconButton>
@@ -197,6 +197,7 @@ export default function NavBar({ toggleDrawer, anchor }) {
               inputProps={{ "aria-label": "search" }}
             />
           </div>
+          <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
             <IconButton aria-label="show 4 new mails" color="inherit">
               <Badge badgeContent={1} color="secondary">
@@ -224,6 +225,12 @@ export default function NavBar({ toggleDrawer, anchor }) {
             </Menu>
           </div>
           <div className={classes.sectionMobile}>
+            <IconButton aria-label="show 17 new notifications" color="inherit">
+              <SearchIcon  />
+            </IconButton>
+            <IconButton aria-label="show 17 new notifications" color="inherit">
+              <AccountCircleIcon onClick={handleMenuClick} />
+            </IconButton>
             <IconButton
               aria-label="show more"
               aria-controls={mobileMenuId}

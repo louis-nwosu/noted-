@@ -180,7 +180,7 @@ export function SideNav({ handleSetIsDarkMode }) {
 
 const TBuseStyles = makeStyles({
   list: {
-    width: 250,
+    width: 270,
   },
   fullList: {
     width: "auto",
@@ -200,18 +200,26 @@ export function TemporaryDrawer({ toggleDrawer, state }) {
       onKeyDown={toggleDrawer(anchor, false)}
     >
       <List>
-        {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>
-              {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-            </ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
+        <Box mt={3} mb={1}>
+          {[
+            "all docs",
+            "single docs",
+            "Collection",
+            "Drafts",
+            "recycle bin",
+          ].map((text, index) => (
+            <ListItem button key={text}>
+              <ListItemIcon>
+                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+              </ListItemIcon>
+              <ListItemText primary={text} />
+            </ListItem>
+          ))}
+        </Box>
       </List>
       <Divider />
       <List>
-        {["All mail", "Trash", "Spam"].map((text, index) => (
+        {["Log out", "setting"].map((text, index) => (
           <ListItem button key={text}>
             <ListItemIcon>
               {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
