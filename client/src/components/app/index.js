@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
       margin: theme.spacing(1),
       position: "fixed",
       bottom: 30,
-      right: 20,
+      right: 10,
       backgroundColor: "#aa00ff",
     },
   },
@@ -73,7 +73,7 @@ const useStyles = makeStyles((theme) => ({
       margin: theme.spacing(1),
       position: "fixed",
       bottom: 30,
-      right: 110,
+      right: 100,
     },
   },
   GridSec: {
