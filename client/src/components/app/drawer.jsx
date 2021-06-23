@@ -27,6 +27,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     "& > *": {
       margin: theme.spacing(1),
+      marginTop: theme.spacing(4)
     },
   },
   color: {
@@ -36,6 +37,9 @@ const useStyles = makeStyles((theme) => ({
   iconFolderBg: {
     backgroundColor: "",
   },
+  point: {
+    cursor: 'pointer',
+  }
 }));
 
 const snUseStyles = makeStyles((theme) => ({
@@ -58,23 +62,23 @@ function SideNavTop() {
         <Grid item md={12} xs={12}>
           <Box marginY={2} marginX={2}>
             <Box marginY={1}>
-              <Grid container>
+              <Grid container className={classes.point}>
                 <Grid item md={2}>
                   <Box marginY={1}>
                     <FolderIcon color="primary" fontSize="small" />
                   </Box>
                 </Grid>
-                <Grid item md={8}>
+                <Grid item md={8} className={classes.point}>
                   <Box marginY={0.7}>
                     <Typography variant="body1" color="initial">
-                      Collection
+                      collection
                     </Typography>
                   </Box>
                 </Grid>
               </Grid>
             </Box>
             <Box marginY={1}>
-              <Grid container>
+              <Grid container className={classes.point}>
                 <Grid item md={2}>
                   <Box marginY={1}>
                     <AssignmentIcon color="primary" fontSize="small" />
@@ -83,14 +87,14 @@ function SideNavTop() {
                 <Grid item md={8}>
                   <Box marginY={0.7}>
                     <Typography variant="body1" color="initial">
-                      Current
+                      current
                     </Typography>
                   </Box>
                 </Grid>
               </Grid>
             </Box>
             <Box marginY={1}>
-              <Grid container>
+              <Grid container className={classes.point}>
                 <Grid item md={2}>
                   <Box marginY={1}>
                     <NotesRoundedIcon color="primary" fontSize="small" />
@@ -99,14 +103,14 @@ function SideNavTop() {
                 <Grid item md={8}>
                   <Box marginY={0.7}>
                     <Typography variant="body1" color="initial">
-                      All notes
+                      all docs
                     </Typography>
                   </Box>
                 </Grid>
               </Grid>
             </Box>
             <Box marginY={1}>
-              <Grid container>
+              <Grid container className={classes.point}>
                 <Grid item md={2}>
                   <Box marginY={1}>
                     <DeleteRoundedIcon color="primary" fontSize="small" />
@@ -115,7 +119,7 @@ function SideNavTop() {
                 <Grid item md={8}>
                   <Box marginY={0.7}>
                     <Typography variant="body1" color="initial">
-                      Recycle bin
+                      recycle bin
                     </Typography>
                   </Box>
                 </Grid>

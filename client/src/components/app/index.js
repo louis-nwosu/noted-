@@ -7,6 +7,7 @@ import Fab from "@material-ui/core/Fab";
 import AddIcon from "@material-ui/icons/Add";
 import EditIcon from "@material-ui/icons/Edit";
 import CollectionsBookmarkIcon from "@material-ui/icons/CollectionsBookmark";
+import CalenderTodayOutlinedIcon from "@material-ui/icons/CalendarTodayOutlined";
 import Zoom from "@material-ui/core/Zoom";
 //import local components
 import NavBar from "./navBar";
@@ -76,7 +77,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   GridSec: {
-    marginBottom: 25
+    marginBottom: 25,
   },
   extendedIcon: {
     marginRight: theme.spacing(1),
@@ -121,7 +122,7 @@ export default function NoteApp({ handleSetIsDarkMode }) {
           <TemporaryDrawer toggleDrawer={toggleDrawer} state={navState} />
         </Grid>
         <Grid item md={10} xs={12} className={classes.dispContainer}>
-          <Box mt={8} mb={3} marginX={1}>
+          <Box mt={8} mb={3} marginX={1} zIndex={-1000}>
             <Grid container>
               <Grid item md={12} xs={12}>
                 <Box px={1} py={1} pb={2}>
@@ -135,10 +136,13 @@ export default function NoteApp({ handleSetIsDarkMode }) {
               <Grid item md={12} xs={12} className={classes.GridSec}>
                 <Grid container>
                   <Grid item>
-                    <Box mx={1}>
-                      <Typography variant="body1" color="TextSecondary">
-                        Today
-                      </Typography>
+                    <Box mx={1} display="flex">
+                      <CalenderTodayOutlinedIcon color="primary" />
+                      <Box mx={1}>
+                        <Typography variant="subtitle2" color="TextSecondary">
+                          Today
+                        </Typography>
+                      </Box>
                     </Box>
                   </Grid>
                 </Grid>
@@ -155,15 +159,18 @@ export default function NoteApp({ handleSetIsDarkMode }) {
               <Grid item md={12} xs={12} className={classes.GridSec}>
                 <Grid container>
                   <Grid item>
-                    <Box mx={1}>
-                      <Typography variant="body1" color="TextSecondary">
-                        11-06-2021
-                      </Typography>
+                    <Box mx={1} display="flex">
+                      <CalenderTodayOutlinedIcon color="primary" />
+                      <Box mx={1}>
+                        <Typography variant="subtitle2" color="TextSecondary">
+                          11-07-21
+                        </Typography>
+                      </Box>
                     </Box>
                   </Grid>
                 </Grid>
                 <Grid container>
-                  {[2, 2, 2, 2, 2, 2,2,3,4].map((item) => {
+                  {[2, 2, 2, 2, 2, 2, 2, 3, 4].map((item) => {
                     return (
                       <Grid item md={3} xs={12}>
                         <DocPad />

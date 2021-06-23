@@ -189,7 +189,7 @@ export default function NavBar({ toggleDrawer, anchor }) {
               <SearchIcon />
             </div>
             <InputBase
-              placeholder="Search…"
+              placeholder="Search docs…"
               classes={{
                 root: classes.inputRoot,
                 input: classes.inputInput,
