@@ -147,7 +147,30 @@ export default function NoteApp({ handleSetIsDarkMode }) {
                   </Grid>
                 </Grid>
                 <Grid container>
-                  {[2, 2, 2, 2, 2, 2].map((item) => {
+                  {[2,2].map((item) => {
+                    return (
+                      <Grid item md={3} xs={12}>
+                        <DocPad />
+                      </Grid>
+                    );
+                  })}
+                </Grid>
+              </Grid>
+              <Grid item md={12} xs={12} className={classes.GridSec}>
+                <Grid container>
+                  <Grid item>
+                    <Box mx={1} display="flex">
+                      <CalenderTodayOutlinedIcon color="primary" />
+                      <Box mx={1}>
+                        <Typography variant="subtitle2" color="TextSecondary">
+                          10-10-21
+                        </Typography>
+                      </Box>
+                    </Box>
+                  </Grid>
+                </Grid>
+                <Grid container>
+                  {[2,2,3].map((item) => {
                     return (
                       <Grid item md={3} xs={12}>
                         <DocPad />
@@ -170,7 +193,7 @@ export default function NoteApp({ handleSetIsDarkMode }) {
                   </Grid>
                 </Grid>
                 <Grid container>
-                  {[2, 2, 2, 2, 2, 2, 2, 3, 4].map((item) => {
+                  {[2, 2, 2].map((item) => {
                     return (
                       <Grid item md={3} xs={12}>
                         <DocPad />
