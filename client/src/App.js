@@ -1,6 +1,6 @@
 import React from "react";
 
-//import the router 
+//import the router
 import { Route, Switch, BrowserRouter } from "react-router-dom";
 
 //materialUI imports
@@ -12,6 +12,9 @@ import LandingPage from "./components/landingPage";
 import Log from "./components/loginAndSignin";
 import NoteApp from "./components/app";
 import TextEditor from "./components/app/textEditor";
+
+//import snackbar provider
+import { SnackbarProvider } from "notistack";
 
 const themeLight = createMuiTheme({
   palette: {
@@ -26,6 +29,9 @@ const themeLight = createMuiTheme({
       light: "#6d6d6d",
       dark: "#1b1b1b",
     },
+  },
+  typography: {
+    fontFamily: ["'Cabin'", "sans-serif", "Open Sans"].join(","),
   },
 });
 
@@ -51,21 +57,23 @@ const App = () => {
   return (
     <>
       <ThemeProvider theme={isDarkMode === "light" ? themeLight : themeDark}>
-        <BrowserRouter>
-          <CssBaseline />
-          <Switch>
-            <Route exact path="/">
-              <LandingPage />
-            </Route>
-            <Route exact path="/sign-up" component={Log} />
-            <Route exact path="/noted">
-              <NoteApp handleSetIsDarkMode={handleSetIsDarkMode} />
-            </Route>
-            <Route exact path="/noted/new-note">
-              <TextEditor />
-            </Route>
-          </Switch>
-        </BrowserRouter>
+        <SnackbarProvider maxSnack={3}>
+          <BrowserRouter>
+            <CssBaseline />
+            <Switch>
+              <Route exact path="/">
+                <LandingPage />
+              </Route>
+              <Route exact path="/sign-up" component={Log} />
+              <Route exact path="/noted">
+                <NoteApp handleSetIsDarkMode={handleSetIsDarkMode} />
+              </Route>
+              <Route exact path="/noted/new-note">
+                <TextEditor />
+              </Route>
+            </Switch>
+          </BrowserRouter>
+        </SnackbarProvider>
       </ThemeProvider>
     </>
   );

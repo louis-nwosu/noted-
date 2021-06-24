@@ -7,13 +7,17 @@ import RemoveRedEyeOutlinedIcon from "@material-ui/icons/RemoveRedEyeOutlined";
 // import IconButton from "@material-ui/core/IconButton";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
-import DeleteOutlineOutlinedIcon from '@material-ui/icons/DeleteOutlineOutlined'
+import DeleteOutlineOutlinedIcon from "@material-ui/icons/DeleteOutlineOutlined";
+import VisibilityOffIcon from "@material-ui/icons/VisibilityOff";
 import { Link } from "react-router-dom";
+//import snackbar component
+import { useSnackbar } from "notistack";
 
 const useStyles = makeStyles((theme) => ({
   docPad: {
     backgroundColor: "#444",
     cursor: "pointer",
+    boxShadow: `5px 5px 0px 0px #e254ff, 10px 10px 0px 0px #aa00ff`,
     // "&:hover": {
     //   backgroundColor: "#aa00ff",
     // },
@@ -41,7 +45,7 @@ const useStyles = makeStyles((theme) => ({
   },
   hidePreviewHeader: {
     transition: "transform .2s ease-in-out",
-    transform: `translateX(30px)`,
+    transform: `translate(30px, 30px)`,
     color: "#fff",
   },
 }));
@@ -74,6 +78,15 @@ const DocPad = () => {
       </MenuItem>
     </Menu>
   );
+
+  //set up snackbar
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+  const handleClick = () => {
+    enqueueSnackbar("doc has been moved to recycle bin!", {
+      variant: "success",
+    });
+  };
+
   return (
     <React.Fragment>
       <Box px={1} marginY={1} position="relative">
@@ -119,8 +132,8 @@ const DocPad = () => {
           </Link>
         </div>
         <div className={classes.docPadHoverSec}>
-          <Box p={1}>
-              <DeleteOutlineOutlinedIcon />
+          <Box p={1} onClick={handleClick}>
+            <DeleteOutlineOutlinedIcon />
           </Box>
         </div>
         {renderMobileMenu}
@@ -136,7 +149,23 @@ const DocPad = () => {
           }}
         >
           <Box pt={1}>
-            <RemoveRedEyeOutlinedIcon />
+            {isPreviewHidden ? (
+              <RemoveRedEyeOutlinedIcon
+                onClick={() =>
+                  enqueueSnackbar("preview has been turned on", {
+                    variant: "info",
+                  })
+                }
+              />
+            ) : (
+              <VisibilityOffIcon
+                onClick={() =>
+                  enqueueSnackbar("preview has been turned off", {
+                    variant: "info",
+                  })
+                }
+              />
+            )}
           </Box>
         </div>
       </Box>
