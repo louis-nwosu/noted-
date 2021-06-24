@@ -59,9 +59,9 @@ const DocPad = () => {
   const handleMobileMenuClose = () => {
     setMobileMoreAnchorEl(null);
   };
-  const handleMobileMenuOpen = (event) => {
-    setMobileMoreAnchorEl(event.currentTarget);
-  };
+  // const handleMobileMenuOpen = (event) => {
+  //   setMobileMoreAnchorEl(event.currentTarget);
+  // };
   const mobileMenuId = "primary-search-account-menu-mobile";
   const renderMobileMenu = (
     <Menu
@@ -81,7 +81,7 @@ const DocPad = () => {
 
   //set up snackbar
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
-  const handleClick = () => {
+  const handleDeleteClick = () => {
     enqueueSnackbar("doc has been moved to recycle bin!", {
       variant: "success",
     });
@@ -113,6 +113,7 @@ const DocPad = () => {
                 on...
               </p>
               <div
+              onClick={() => closeSnackbar()}
                 style={{
                   width: "100%",
                   display: "flex",
@@ -132,7 +133,7 @@ const DocPad = () => {
           </Link>
         </div>
         <div className={classes.docPadHoverSec}>
-          <Box p={1} onClick={handleClick}>
+          <Box p={1} onClick={handleDeleteClick}>
             <DeleteOutlineOutlinedIcon />
           </Box>
         </div>

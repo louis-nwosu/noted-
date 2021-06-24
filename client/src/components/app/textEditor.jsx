@@ -62,7 +62,7 @@ class TextEditor extends Component {
   };
 
   render() {
-    const { contentState } = this.state;
+    // const { contentState } = this.state;
     return (
       <div>
         <div style={{ position: "fixed", top: 0, width: '100%' }}>
