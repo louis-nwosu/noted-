@@ -1,5 +1,5 @@
-###
-POST http://localhost:8080/register
+### request to create a new user
+POST http://localhost:8080/noted
 Content-Type: application/json
 
 {
@@ -9,3 +9,9 @@ Content-Type: application/json
     "password": "mint4coding.com",
     "username": "ghost_righter"
 }
+
+### request to get all docs of a user
+Get http://localhost:8080/noted/60d5c67f2e868615ecbba84a
+
+### request to post docs of a user
+Post http://localhost:8080/noted/postdoc/60d5c67f2e868615ecbba84a

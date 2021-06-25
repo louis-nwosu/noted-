@@ -2,14 +2,14 @@ const mongoose = require("mongoose");
 
 const Documents = mongoose.Schema({
   type: String,
-  require: true,
-  created_at: Date.now,
+  created_at: {
+    type: Date,
+    default: Date,
+  },
   singleDoc: {
     title: String,
     body: String,
-    isFavourite: Boolean,
-    require: false,
-    default: null,
+    isFavorite: Boolean,
   },
   collectionNote: {
     collectionTitle: String,
@@ -21,26 +21,18 @@ const Documents = mongoose.Schema({
         created_at: String,
       },
     ],
-    default: null,
-    required: false,
   },
 });
 
 const DocSchema = mongoose.Schema(
   {
-    ID: {
-      type: String,
-      required: true,
-    },
-    created_at: Date.now,
     stamp: {
       type: [
         {
-          date: String,
+          date: Date,
           docs: [Documents],
         },
       ],
-      default: null,
     },
   },
   { timestamp: true }

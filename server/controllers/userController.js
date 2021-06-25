@@ -1,7 +1,7 @@
 const { User, Document } = require("../models/index");
 const jwt = require("jsonwebtoken");
 
-export default userController = {
+module.exports  = {
   //sign-in controller
   sign_in: async (req, res) => {
     //TODO: validate the request body
@@ -30,6 +30,8 @@ export default userController = {
       const newDocument = new Document({
         ID: savedUser._id,
       });
+
+      const savedDoc = await newDocument.save();
 
       //assign a token to the user
       const token = jwt.sign(
