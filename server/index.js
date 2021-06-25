@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
+const Log = require('./routes');
 
 const app = express();
 app.use(cors());
@@ -20,6 +21,8 @@ mongoose.connect(
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error: "));
 db.once("open", () => console.log("connection to database initialzed"));
+
+app.use('/register', Log);
 
 app.listen(app.get("PORT"), () =>
   console.log("app is listening on port " + app.get("PORT"))

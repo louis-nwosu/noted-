@@ -2,6 +2,6 @@ const User = require("./users");
 const Document = require('./docs');
 
 module.exports = {
-  user,
+  User,
   Document
 };

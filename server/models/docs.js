@@ -9,6 +9,7 @@ const Documents = mongoose.Schema({
     body: String,
     isFavourite: Boolean,
     require: false,
+    default: null,
   },
   collectionNote: {
     collectionTitle: String,
@@ -20,6 +21,7 @@ const Documents = mongoose.Schema({
         created_at: String,
       },
     ],
+    default: null,
     required: false,
   },
 });
@@ -31,12 +33,15 @@ const DocSchema = mongoose.Schema(
       required: true,
     },
     created_at: Date.now,
-    stamp: [
-      {
-        date: String,
-        docs: [Documents],
-      },
-    ],
+    stamp: {
+      type: [
+        {
+          date: String,
+          docs: [Documents],
+        },
+      ],
+      default: null,
+    },
   },
   { timestamp: true }
 );

@@ -1,0 +1,11 @@
+###
+POST http://localhost:8080/register
+Content-Type: application/json
+
+{
+    "first_name": "chukwunonso",
+    "last_name": "nwosu",
+    "email": "louisnwosu94@gmail.com",
+    "password": "mint4coding.com",
+    "username": "ghost_righter"
+}
