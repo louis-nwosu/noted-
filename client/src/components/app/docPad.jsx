@@ -13,8 +13,29 @@ import { Link } from "react-router-dom";
 //import snackbar component
 import { useSnackbar } from "notistack";
 
+function addPaddingToDesc(body) {
+  if(body.length < 100) {
+    const newBody = body + '...';
+    let bodyArr = newBody.split('');
+    const padCount = 100 - bodyArr.length;
+    for(let i = 0; i < padCount; i++) {
+      bodyArr.push(' ');
+    }
+    return bodyArr.join('');
+  }
+}
+// TODO: redesign this card
+
 const useStyles = makeStyles((theme) => ({
-  docPad: {
+  DocPadSIngle: {
+    backgroundColor: "#444",
+    cursor: "pointer",
+    boxShadow: `3px 3px 0px 0px #555`,
+    // "&:hover": {
+    //   backgroundColor: "#aa00ff",
+    // },
+  },
+  DocPadCollection: {
     backgroundColor: "#444",
     cursor: "pointer",
     boxShadow: `5px 5px 0px 0px #e254ff, 10px 10px 0px 0px #aa00ff`,
@@ -45,12 +66,12 @@ const useStyles = makeStyles((theme) => ({
   },
   hidePreviewHeader: {
     transition: "transform .2s ease-in-out",
-    transform: `translate(30px, 30px)`,
+    transform: `translate(20px, 30px)`,
     color: "#fff",
   },
 }));
 
-const DocPad = () => {
+export const DocPadSIngle = ({ title, body }) => {
   const classes = useStyles();
   const [isPreviewHidden, setIsPreviewHidden] = React.useState(false);
   const handleSetPreview = () => setIsPreviewHidden(!isPreviewHidden);
@@ -90,7 +111,7 @@ const DocPad = () => {
   return (
     <React.Fragment>
       <Box px={1} marginY={1} position="relative">
-        <div className={classes.docPad}>
+        <div className={classes.DocPadSIngle}>
           <Link to="/test" style={{ textDecoration: "none", color: "#999" }}>
             <Box boxShadow={3} px={2} py={1}>
               <h1
@@ -100,7 +121,7 @@ const DocPad = () => {
                     : classes.previewHeader
                 }
               >
-                Think, louis
+                {title}
               </h1>
               <p
                 style={
@@ -109,11 +130,10 @@ const DocPad = () => {
                     : { marginTop: 7, color: "#fff" }
                 }
               >
-                The mind is a dangerous place, thats why i think with a vest
-                on...
+                {addPaddingToDesc(body)}
               </p>
               <div
-              onClick={() => closeSnackbar()}
+                onClick={() => closeSnackbar()}
                 style={{
                   width: "100%",
                   display: "flex",
@@ -174,4 +194,125 @@ const DocPad = () => {
   );
 };
 
-export default DocPad;
+export const DocPadCollection = ({ title, description }) => {
+  const classes = useStyles();
+  const [isPreviewHidden, setIsPreviewHidden] = React.useState(false);
+  const handleSetPreview = () => setIsPreviewHidden(!isPreviewHidden);
+  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
+  const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+  const handleMobileMenuClose = () => {
+    setMobileMoreAnchorEl(null);
+  };
+  // const handleMobileMenuOpen = (event) => {
+  //   setMobileMoreAnchorEl(event.currentTarget);
+  // };
+  const mobileMenuId = "primary-search-account-menu-mobile";
+  const renderMobileMenu = (
+    <Menu
+      anchorEl={mobileMoreAnchorEl}
+      anchorOrigin={{ vertical: "top", horizontal: "right" }}
+      id={mobileMenuId}
+      keepMounted
+      transformOrigin={{ vertical: "top", horizontal: "right" }}
+      open={isMobileMenuOpen}
+      onClose={handleMobileMenuClose}
+    >
+      <MenuItem>
+        <p>delete</p>
+      </MenuItem>
+    </Menu>
+  );
+
+  //set up snackbar
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+  const handleDeleteClick = () => {
+    enqueueSnackbar("doc has been moved to recycle bin!", {
+      variant: "success",
+    });
+  };
+
+  return (
+    <React.Fragment>
+      <Box px={1} marginY={1} position="relative">
+        <div className={classes.DocPadCollection}>
+          <Link to="/test" style={{ textDecoration: "none", color: "#999" }}>
+            <Box boxShadow={3} px={2} py={1}>
+              <h1
+                className={
+                  isPreviewHidden
+                    ? classes.hidePreviewHeader
+                    : classes.previewHeader
+                }
+              >
+                {title}
+              </h1>
+              <p
+                style={
+                  isPreviewHidden
+                    ? { opacity: 0 }
+                    : { marginTop: 7, color: "#fff" }
+                }
+              >
+                {addPaddingToDesc(description)}
+              </p>
+              <div
+                onClick={() => closeSnackbar()}
+                style={{
+                  width: "100%",
+                  display: "flex",
+                  alignItems: "flex-end",
+                  justifyContent: "flex-end",
+                }}
+              >
+                <Typography
+                  variant="caption"
+                  color="textSecondary"
+                  align="right"
+                >
+                  Last modified: 21-03-21
+                </Typography>
+              </div>
+            </Box>
+          </Link>
+        </div>
+        <div className={classes.docPadHoverSec}>
+          <Box p={1} onClick={handleDeleteClick}>
+            <DeleteOutlineOutlinedIcon />
+          </Box>
+        </div>
+        {renderMobileMenu}
+        <div
+          onClick={handleSetPreview}
+          style={{
+            display: "inline-block",
+            width: "10%",
+            textAlign: "center",
+            position: "absolute",
+            bottom: 5,
+            left: 15,
+          }}
+        >
+          <Box pt={1}>
+            {isPreviewHidden ? (
+              <RemoveRedEyeOutlinedIcon
+                onClick={() =>
+                  enqueueSnackbar("preview has been turned on", {
+                    variant: "info",
+                  })
+                }
+              />
+            ) : (
+              <VisibilityOffIcon
+                onClick={() =>
+                  enqueueSnackbar("preview has been turned off", {
+                    variant: "info",
+                  })
+                }
+              />
+            )}
+          </Box>
+        </div>
+      </Box>
+    </React.Fragment>
+  );
+};

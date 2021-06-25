@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 import { convertFromRaw } from "draft-js";
 import { Editor } from "react-draft-wysiwyg";
-import "../../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import Hidden from "@material-ui/core/Hidden";
+import "../../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import "../../App.css";
 import NavBar from "./navBar";
 

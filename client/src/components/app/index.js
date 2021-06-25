@@ -12,9 +12,12 @@ import Zoom from "@material-ui/core/Zoom";
 //import local components
 import NavBar from "./navBar";
 import { SideNav, TemporaryDrawer } from "./drawer";
-import DocPad from "./docPad";
+import { DocPadSIngle, DocPadCollection } from "./docPad";
 //import Link component from react-router-dom
 import { Link } from "react-router-dom";
+
+//import temp dummy data
+import dummyData from "./dummyData";
 
 const useStyles = makeStyles((theme) => ({
   appbar: {
@@ -77,7 +80,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   GridSec: {
-    marginBottom: 25,
+    marginBottom: theme.spacing(5),
   },
   extendedIcon: {
     marginRight: theme.spacing(1),
@@ -133,75 +136,82 @@ export default function NoteApp({ handleSetIsDarkMode }) {
               </Grid>
             </Grid>
             <Grid container className={classes.DocDisps}>
-              <Grid item md={12} xs={12} className={classes.GridSec}>
-                <Grid container>
-                  <Grid item>
-                    <Box mx={1} display="flex">
-                      <CalenderTodayOutlinedIcon color="primary" />
-                      <Box mx={1}>
-                        <Typography variant="subtitle2" color="TextSecondary">
-                          Today
-                        </Typography>
-                      </Box>
-                    </Box>
-                  </Grid>
-                </Grid>
-                <Grid container>
-                  {[2,2].map((item) => {
-                    return (
-                      <Grid item md={3} xs={12}>
-                        <DocPad />
+              {dummyData.map((data) => {
+                return (
+                  <Grid item md={12} xs={12} className={classes.GridSec}>
+                    <Grid container>
+                      <Grid item>
+                        <Box mx={1} display="flex">
+                          <CalenderTodayOutlinedIcon color="primary" />
+                          <Box mx={1}>
+                            <Typography
+                              variant="subtitle2"
+                              color="TextSecondary"
+                            >
+                              {data.when}
+                            </Typography>
+                          </Box>
+                        </Box>
                       </Grid>
-                    );
-                  })}
-                </Grid>
-              </Grid>
-              <Grid item md={12} xs={12} className={classes.GridSec}>
-                <Grid container>
-                  <Grid item>
-                    <Box mx={1} display="flex">
-                      <CalenderTodayOutlinedIcon color="primary" />
-                      <Box mx={1}>
-                        <Typography variant="subtitle2" color="TextSecondary">
-                          10-10-21
-                        </Typography>
-                      </Box>
-                    </Box>
+                    </Grid>
+                    <Grid container>
+                      {data.todaysDocs.map((doc) => {
+                        return (
+                          <Grid item md={3} xs={12}>
+                            {doc.type === "single" ? (
+                              <DocPadSIngle title={doc.title} body={doc.body} />
+                            ) : (
+                              <DocPadCollection
+                                title={doc.collectionTitle}
+                                description={doc.collectionDescription}
+                              />
+                            )}
+                          </Grid>
+                        );
+                      })}
+                    </Grid>
                   </Grid>
-                </Grid>
-                <Grid container>
-                  {[2,2,3].map((item) => {
-                    return (
-                      <Grid item md={3} xs={12}>
-                        <DocPad />
+                );
+              })}
+            </Grid>
+            <Grid container className={classes.DocDisps}>
+              {dummyData.map((data) => {
+                return (
+                  <Grid item md={12} xs={12} className={classes.GridSec}>
+                    <Grid container>
+                      <Grid item>
+                        <Box mx={1} display="flex">
+                          <CalenderTodayOutlinedIcon color="primary" />
+                          <Box mx={1}>
+                            <Typography
+                              variant="subtitle2"
+                              color="TextSecondary"
+                            >
+                              {data.when}
+                            </Typography>
+                          </Box>
+                        </Box>
                       </Grid>
-                    );
-                  })}
-                </Grid>
-              </Grid>
-              <Grid item md={12} xs={12} className={classes.GridSec}>
-                <Grid container>
-                  <Grid item>
-                    <Box mx={1} display="flex">
-                      <CalenderTodayOutlinedIcon color="primary" />
-                      <Box mx={1}>
-                        <Typography variant="subtitle2" color="TextSecondary">
-                          11-07-21
-                        </Typography>
-                      </Box>
-                    </Box>
+                    </Grid>
+                    <Grid container>
+                      {data.todaysDocs.map((doc) => {
+                        return (
+                          <Grid item md={3} xs={12}>
+                            {doc.type === "single" ? (
+                              <DocPadSIngle title={doc.title} body={doc.body} />
+                            ) : (
+                              <DocPadCollection
+                                title={doc.collectionTitle}
+                                description={doc.collectionDescription}
+                              />
+                            )}
+                          </Grid>
+                        );
+                      })}
+                    </Grid>
                   </Grid>
-                </Grid>
-                <Grid container>
-                  {[2, 2, 2].map((item) => {
-                    return (
-                      <Grid item md={3} xs={12}>
-                        <DocPad />
-                      </Grid>
-                    );
-                  })}
-                </Grid>
-              </Grid>
+                );
+              })}
             </Grid>
             <div className={classes.FABroot}>
               <Fab color="primary" aria-label="add" onClick={showHiddenIcons}>
