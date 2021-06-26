@@ -2,7 +2,8 @@ const route = require("express").Router();
 const { userController, docsController } = require("../controllers");
 
 //user routes
-route.post('/', userController.sign_in);
+route.post('/sign-up', userController.sign_up);
+route.post('/login-in', userController.sign_in);
 
 
 //docs routes
