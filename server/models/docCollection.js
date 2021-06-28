@@ -7,7 +7,6 @@ const DOCBODY = mongoose.Schema(
 
 const DocumentCollection = mongoose.Schema(
   {
-    createdAt: Date.now,
     docTitle: String,
     docBody: {
       type: DOCBODY,
@@ -18,9 +17,9 @@ const DocumentCollection = mongoose.Schema(
 
 const docCollection = mongoose.Schema(
   {
-    ID: String,
-    createdAt: Date.now,
+    createdAt: Date,
     doc_type: String,
+    doc_collection_name: String,
     docColl: [DocumentCollection],
   },
   { timestamps: true }

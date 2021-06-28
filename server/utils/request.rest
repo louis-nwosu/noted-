@@ -1,17 +1,23 @@
 ### request to create a new user
-POST http://localhost:8080/noted
+POST http://localhost:8080/noted/sign-up
 Content-Type: application/json
 
 {
     "first_name": "chukwunonso",
     "last_name": "nwosu",
-    "email": "louisnwosu94@gmail.com",
+    "email": "louisnwosu923@gmail.com",
     "password": "mint4coding.com",
     "username": "ghost_righter"
 }
 
 ### request to get all docs of a user
-Get http://localhost:8080/noted/60d5c67f2e868615ecbba84a
+Get http://localhost:8080/noted/60d99fe2892f6315847861dc
 
 ### request to post docs of a user
-Post http://localhost:8080/noted/postdoc/60d5c67f2e868615ecbba84a
+Post http://localhost:8080/noted/postdoc/60d99fe2892f6315847861dc
+Content-Type: application/json
+
+{
+    "doc_type": "single",
+    "date": "1 oct 2021"
+}

@@ -7,11 +7,10 @@ const DOCBODY = mongoose.Schema(
 
 const singleNotesSchema = mongoose.Schema(
   {
-    ID: String,
     doc_type: String,
     doc_title: String,
     doc_body: DOCBODY,
-    createdAt: Date.now,
+    createdAt: Date,
   },
   { timestamps: true }
 );
