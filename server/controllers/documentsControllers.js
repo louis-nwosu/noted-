@@ -29,7 +29,7 @@ module.exports = {
           doc_title: "testing 1 2",
           doc_body: {
             config: "omoo",
-            moreConfig: "omoo indddeeed",
+            moreConfig: "okay make we see",
           },
         });
       } else if (req.body.doc_type == "collection") {
@@ -60,6 +60,37 @@ module.exports = {
       return res.status(200).json(userDoc);
     } catch (error) {
       return res.status(200).json({ message: error.message });
+    }
+  },
+  //controller to all docs from a single day
+  getAllDocsInDay: async (req, res) => {
+    try {
+      //get the document collection
+      const document = await Document.findById(req.params.id);
+      if (!document)
+        return res.status(400).json({ message: "hmm, something went wrong" });
+      const doc = document.user_Docs.filter(
+        (docs) => docs.date == req.body.date
+      );
+      return res.status(200).json(doc);
+    } catch (error) {
+      res.status(400).json({ message: error.message });
+    }
+  },
+  //controller to get a particular doc from a particular day
+  getSingleDoc: async (req, res) => {
+    try {
+      //get the document collection
+      const document = await Document.findById(req.params.id);
+      if (!document)
+        return res.status(400).json({ message: "hmm, something went wrong" });
+      const doc = document.user_Docs.filter(
+        (docs) => docs.date == req.body.date
+      );
+      const docFile = doc[0].docs.filter(doc => doc._id == req.body.ID)
+      return res.status(200).json(docFile);
+    } catch (error) {
+      res.status(400).json({ message: error.message });
     }
   },
 };

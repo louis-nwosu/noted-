@@ -52,11 +52,11 @@ const themeDark = createMuiTheme({
 });
 
 const App = () => {
-  const [isDarkMode, setIsDarkMode] = React.useState("dark");
+  const [isDarkMode, setIsDarkMode] = React.useState(false);
   const handleSetIsDarkMode = (mode) => setIsDarkMode(mode);
   return (
     <>
-      <ThemeProvider theme={isDarkMode === "light" ? themeLight : themeDark}>
+      <ThemeProvider theme={isDarkMode ? themeLight : themeDark}>
         <SnackbarProvider maxSnack={3}>
           <BrowserRouter>
             <CssBaseline />

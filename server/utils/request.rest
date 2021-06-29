@@ -3,21 +3,38 @@ POST http://localhost:8080/noted/sign-up
 Content-Type: application/json
 
 {
-    "first_name": "chukwunonso",
-    "last_name": "nwosu",
-    "email": "louisnwosu923@gmail.com",
+    "first_name": "emex",
+    "last_name": "okeke",
+    "email": "ronaldthedaddy@gmail.com",
     "password": "mint4coding.com",
     "username": "ghost_righter"
 }
 
 ### request to get all docs of a user
-Get http://localhost:8080/noted/60d99fe2892f6315847861dc
+Get http://localhost:8080/noted/60d9e606c01ca00a7c357b60
 
 ### request to post docs of a user
-Post http://localhost:8080/noted/postdoc/60d99fe2892f6315847861dc
+Post http://localhost:8080/noted/postdoc/60d9e606c01ca00a7c357b60
 Content-Type: application/json
 
 {
     "doc_type": "single",
-    "date": "1 oct 2021"
+    "date": "5 oct 2021"
+}
+
+### get documents from a single day
+GET  http://localhost:8080/noted/get-doc/60d9e606c01ca00a7c357b62
+Content-Type: application/json
+
+{
+    "date": "5 oct 2021"
+}
+
+### get single doc
+GET  http://localhost:8080/noted/get-single-doc/60d9e606c01ca00a7c357b62
+Content-Type: application/json
+
+{
+    "ID": "60dac1c22ac3c131dc5270fd",
+    "date": "5 oct 2021"
 }
