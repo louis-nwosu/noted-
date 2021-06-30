@@ -13,17 +13,6 @@ import { Link } from "react-router-dom";
 //import snackbar component
 import { useSnackbar } from "notistack";
 
-function addPaddingToDesc(body) {
-  if(body.length < 100) {
-    const newBody = body + '...';
-    let bodyArr = newBody.split('');
-    const padCount = 100 - bodyArr.length;
-    for(let i = 0; i < padCount; i++) {
-      bodyArr.push(' ');
-    }
-    return bodyArr.join('');
-  }
-}
 // TODO: redesign this card
 
 const useStyles = makeStyles((theme) => ({
@@ -130,7 +119,7 @@ export const DocPadSIngle = ({ title, body }) => {
                     : { marginTop: 7, color: "#fff" }
                 }
               >
-                {addPaddingToDesc(body)}
+                {body}
               </p>
               <div
                 onClick={() => closeSnackbar()}
@@ -253,7 +242,7 @@ export const DocPadCollection = ({ title, description }) => {
                     : { marginTop: 7, color: "#fff" }
                 }
               >
-                {addPaddingToDesc(description)}
+                {description}
               </p>
               <div
                 onClick={() => closeSnackbar()}

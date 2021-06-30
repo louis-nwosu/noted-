@@ -170,14 +170,14 @@ function Signup({ toggle, dispatchHandler }) {
   //initialize state to hold form state
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
-  const [userName, setUserName] = React.useState("");
+  const [username, setUserName] = React.useState("");
   //set the form fields according to the form data entered
   const handleEmail = (e) => setEmail(e.target.value);
   const handlePassword = (e) => setPassword(e.target.value);
   const handleUsername = (e) => setUserName(e.target.value);
   //dispatch the sign up event
   const handleSignup = () =>
-    dispatchHandler({ userName, email, password }, createAccount);
+    dispatchHandler({ username, email, password }, createAccount);
   //clear form
   const clearForm = () => {
     setUserName("");
@@ -208,7 +208,7 @@ function Signup({ toggle, dispatchHandler }) {
               name="email"
               autoComplete="username"
               autoFocus
-              value={userName}
+              value={username}
               onChange={handleUsername}
             />
             <TextField
@@ -248,7 +248,7 @@ function Signup({ toggle, dispatchHandler }) {
                 clearForm();
               }}
             >
-              Sign In
+              Sign up
             </Button>
             <Grid container>
               <Grid item xs>

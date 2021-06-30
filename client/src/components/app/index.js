@@ -15,6 +15,10 @@ import { SideNav, TemporaryDrawer } from "./drawer";
 import { DocPadSIngle, DocPadCollection } from "./docPad";
 //import Link component from react-router-dom
 import { Link } from "react-router-dom";
+//import the fetchDoc action
+import { FetchDocs } from "../../store/actions";
+//import the useSelector hook
+import { useSelector, useDispatch } from "react-redux";
 
 //import temp dummy data
 import dummyData from "./dummyData";
@@ -94,6 +98,18 @@ const useStyles = makeStyles((theme) => ({
 export default function NoteApp({ handleSetIsDarkMode }) {
   const classes = useStyles();
 
+  const user = useSelector((state) => state.user);
+  const documents = useSelector((state) => state.notes);
+  const dispatch = useDispatch();
+
+  React.useEffect(() => {
+    //fetch all user docs!
+    setTimeout(() => {
+      dispatch(FetchDocs(user._id)); 
+      console.log(documents)
+    }, 500);
+  }, [dispatch, user._id]);
+
   const [navState, setState] = React.useState({
     left: false,
   });
@@ -136,7 +152,7 @@ export default function NoteApp({ handleSetIsDarkMode }) {
               </Grid>
             </Grid>
             <Grid container className={classes.DocDisps}>
-              {dummyData.map((data) => {
+              {documents.map((doc) => {
                 return (
                   <Grid item md={12} xs={12} className={classes.GridSec}>
                     <Grid container>
@@ -148,22 +164,22 @@ export default function NoteApp({ handleSetIsDarkMode }) {
                               variant="subtitle2"
                               color="TextSecondary"
                             >
-                              {data.when}
+                              {doc.date}
                             </Typography>
                           </Box>
                         </Box>
                       </Grid>
                     </Grid>
                     <Grid container>
-                      {data.todaysDocs.map((doc) => {
+                      {doc.docs.map((doc) => {
                         return (
                           <Grid item md={3} xs={12}>
-                            {doc.type === "single" ? (
-                              <DocPadSIngle title={doc.title} body={doc.body} />
+                            {doc.doc_type === "single" ? (
+                              <DocPadSIngle title={doc?.doc_title} body={doc?.doc_body?.moreConfig} />
                             ) : (
                               <DocPadCollection
-                                title={doc.collectionTitle}
-                                description={doc.collectionDescription}
+                                title={doc?.doc_collection_name}
+                                description={doc?.doc_body?.moreConfig}
                               />
                             )}
                           </Grid>

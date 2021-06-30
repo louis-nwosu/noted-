@@ -45,20 +45,19 @@ export function createAccount(userData, history) {
     dispatch(submitForm());
     try {
       //make a post request to send the user entered data
-      const data = await fetch('http://localhost:8080/signup', {
+      const data = await fetch('http://localhost:8080/noted/sign-up', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(userData),
       });
-      console.log(data);
       const user = await data.json();
-      console.log(user.savedUser);
+      console.log(user);
       //send the return user to the redux store
-      dispatch(submitFormSuccess(user.savedUser));
+      dispatch(submitFormSuccess(user.user));
       //collect the token and save in localStorage
-      // localStorage.setItem("token", user?.data?.token);
+      localStorage.setItem("token", user?.token);
       //send the user to the notes app
       history.push('/noted');
     } catch (error) {
@@ -85,7 +84,7 @@ export function logIn(userData, history) {
     dispatch(submitLogInForm());
     try {
       //make a post request to send the user entered data
-      const user = await fetch('http://localhost:8080/signin', {
+      const user = await fetch('http://localhost:8080/noted/login-in', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -94,11 +93,11 @@ export function logIn(userData, history) {
       });
       //send the return user to the redux store
       const user_json = await user.json();
-      dispatch(submitLogInFormSucces(user_json.thisUser));
+      dispatch(submitLogInFormSucces(user_json.user));
       //collect the token and save in localStorage
       localStorage.setItem('token', user_json.token);
       //send the user to the notes app
-      if (user_json.thisUser) {
+      if (user_json.user) {
         history.push('/noted');
       }
     } catch (error) {
@@ -167,9 +166,9 @@ export function FetchDocs(id) {
     dispatch(fetchDocs());
     try {
       //fetch the documents with users ID
-      const data = await fetch(`http://localhost:8080/notes/get-notes/${id}`);
+      const data = await fetch(`http://localhost:8080/noted/${id}`);
       const docs = await data.json();
-      dispatch(getDocsSuccess(docs.notes));
+      dispatch(getDocsSuccess(docs.user_Docs));  
     } catch (error) {
       //display an error message if anything goes wrong
       console.log(error);
