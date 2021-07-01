@@ -58,6 +58,7 @@ export function createAccount(userData, history) {
       dispatch(submitFormSuccess(user.user));
       //collect the token and save in localStorage
       localStorage.setItem("token", user?.token);
+      localStorage.setItem('user_id', user.use._id)
       //send the user to the notes app
       history.push('/noted');
     } catch (error) {
@@ -96,6 +97,7 @@ export function logIn(userData, history) {
       dispatch(submitLogInFormSucces(user_json.user));
       //collect the token and save in localStorage
       localStorage.setItem('token', user_json.token);
+      localStorage.setItem('user_id', user_json.user._id)
       //send the user to the notes app
       if (user_json.user) {
         history.push('/noted');

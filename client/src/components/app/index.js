@@ -12,16 +12,13 @@ import Zoom from "@material-ui/core/Zoom";
 //import local components
 import NavBar from "./navBar";
 import { SideNav, TemporaryDrawer } from "./drawer";
-import { DocPadSIngle, DocPadCollection } from "./docPad";
+import { DocPadCollection, ExpSingleDocCard, ExpCollectionDocCard } from "./docPad";
 //import Link component from react-router-dom
 import { Link } from "react-router-dom";
 //import the fetchDoc action
 import { FetchDocs } from "../../store/actions";
 //import the useSelector hook
 import { useSelector, useDispatch } from "react-redux";
-
-//import temp dummy data
-import dummyData from "./dummyData";
 
 const useStyles = makeStyles((theme) => ({
   appbar: {
@@ -98,17 +95,16 @@ const useStyles = makeStyles((theme) => ({
 export default function NoteApp({ handleSetIsDarkMode }) {
   const classes = useStyles();
 
-  const user = useSelector((state) => state.user);
+  const userId = localStorage.getItem('user_id')
   const documents = useSelector((state) => state.notes);
   const dispatch = useDispatch();
 
   React.useEffect(() => {
     //fetch all user docs!
     setTimeout(() => {
-      dispatch(FetchDocs(user._id)); 
-      console.log(documents)
+      dispatch(FetchDocs(userId));
     }, 500);
-  }, [dispatch, user._id]);
+  }, [dispatch, userId]);
 
   const [navState, setState] = React.useState({
     left: false,
@@ -152,7 +148,20 @@ export default function NoteApp({ handleSetIsDarkMode }) {
               </Grid>
             </Grid>
             <Grid container className={classes.DocDisps}>
-              {documents.map((doc) => {
+              {
+                documents == null | documents.length == 0 && (
+                  <div style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    width: '100%',
+                    height: '50vh'
+                  }}>
+                    <h5>you do not have any docs. hit the + icon to create new docs</h5>
+                  </div>
+                )
+              }
+              {documents !== null && documents.map((doc) => {
                 return (
                   <Grid item md={12} xs={12} className={classes.GridSec}>
                     <Grid container>
@@ -175,9 +184,12 @@ export default function NoteApp({ handleSetIsDarkMode }) {
                         return (
                           <Grid item md={3} xs={12}>
                             {doc.doc_type === "single" ? (
-                              <DocPadSIngle title={doc?.doc_title} body={doc?.doc_body?.moreConfig} />
+                              <ExpSingleDocCard
+                                title={doc?.doc_title}
+                                body={doc?.doc_body?.moreConfig}
+                              />
                             ) : (
-                              <DocPadCollection
+                              <ExpCollectionDocCard
                                 title={doc?.doc_collection_name}
                                 description={doc?.doc_body?.moreConfig}
                               />

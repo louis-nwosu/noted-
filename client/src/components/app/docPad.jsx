@@ -305,3 +305,143 @@ export const DocPadCollection = ({ title, description }) => {
     </React.Fragment>
   );
 };
+
+const useSingleDocStyle = makeStyles((theme) => ({
+  container: {
+    backgroundColor: "#424242",
+    width: "100%",
+    height: "140px",
+    position: "relative",
+  },
+  colContainer: {
+    backgroundColor: "#424242",
+    width: "100%",
+    height: "140px",
+    position: "relative",
+    boxShadow: `5px 5px 0px 0px #aa00ff`,
+  },
+  preview: {
+    width: "100%",
+    paddingRight: "2%",
+    height: "50%",
+    paddingTop: theme.spacing(1),
+  },
+  hidePreview: {
+    display: "none",
+  },
+  cardTop: {
+    display: "flex",
+    justifyContent: "space-between",
+  },
+  bottom: {
+    marginTop: theme.spacing(2),
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    position: "absolute",
+    bottom: 5,
+    width: "90%",
+  },
+}));
+
+export const ExpSingleDocCard = ({ title, body }) => {
+  const [isPreviewHidden, setIsPreviewHidden] = React.useState(false);
+  const handleIsPreviewHidden = () => setIsPreviewHidden(!isPreviewHidden);
+  const classes = useSingleDocStyle();
+  return (
+    <Box marginX={1} marginTop={1.5}>
+      <div className={classes.container}>
+        <Box
+          display="flex"
+          flexDirection="column"
+          paddingX={2}
+          paddingY={3}
+          mt={1}
+        >
+          <div>
+            <div className={classes.cardTop}>
+              <Typography variant="h5" gutterBottom={3}>
+                {title}
+              </Typography>
+              <DeleteOutlineOutlinedIcon />
+            </div>
+            <div className={classes.preview}>
+              <Typography variant="body1" noWrap display="block">
+                {body} Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                Sed ipsa, recusandae vitae minima perspiciatis debitis maxime
+                saepe, odit perferendis a culpa. Fugit, temporibus sed?
+                Molestiae pariatur impedit non aliquam possimus!
+              </Typography>
+            </div>
+            <div className={classes.bottom}>
+              {isPreviewHidden ? (
+                <VisibilityOffIcon onClick={handleIsPreviewHidden} />
+              ) : (
+                <RemoveRedEyeOutlinedIcon onClick={handleIsPreviewHidden} />
+              )}
+              <Box bgcolor="#410f61" p={0.3} borderRadius={2}>
+                <Typography variant="caption" color="textSecondary">
+                  single
+                </Typography>
+              </Box>
+              <Typography variant="caption" color="textSecondary">
+                last modified: 12-6-21
+              </Typography>
+            </div>
+          </div>
+        </Box>
+      </div>
+    </Box>
+  );
+};
+
+export const ExpCollectionDocCard = ({ title, description }) => {
+  const [isPreviewHidden, setIsPreviewHidden] = React.useState(false);
+  const handleIsPreviewHidden = () => setIsPreviewHidden(!isPreviewHidden);
+  const classes = useSingleDocStyle();
+  return (
+    <Box marginX={1} marginTop={1.5}>
+      <div className={classes.colContainer}>
+        <Box
+          display="flex"
+          flexDirection="column"
+          paddingX={2}
+          paddingY={3}
+          mt={1}
+        >
+          <div>
+            <div className={classes.cardTop}>
+              <Typography variant="h5" gutterBottom={3}>
+                {title}
+              </Typography>
+              <DeleteOutlineOutlinedIcon />
+            </div>
+            <div className={classes.preview}>
+              <Typography variant="body1" noWrap display="block">
+                {description} Lorem ipsum dolor sit amet consectetur
+              </Typography>
+            </div>
+            <div className={classes.bottom}>
+              {isPreviewHidden ? (
+                <VisibilityOffIcon
+                  onClick={handleIsPreviewHidden}
+                  color="textSecondary"
+                />
+              ) : (
+                <RemoveRedEyeOutlinedIcon onClick={handleIsPreviewHidden} />
+              )}{" "}
+              <Box bgcolor="#410f61" p={0.3} borderRadius={2}>
+                <Typography variant="caption" color="textSecondary">
+                  collection
+                </Typography>
+              </Box>
+              <Typography variant="caption" color="textSecondary">
+                last modified: 12-6-21
+              </Typography>
+            </div>
+          </div>
+        </Box>
+      </div>
+    </Box>
+  );
+};
