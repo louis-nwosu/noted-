@@ -126,27 +126,28 @@ const postNoteFailure = () => ({
   type: actions?.postDoc?.postDocsFailure,
 });
 
-export function PostNote(document, id) {
+export function PostNoteSingle(document, id) {
   return async (dispatch) => {
     //change the state to display loading spinner
-    dispatch(postNewNote());
+    console.log(document)
+    // dispatch(postNewNote());
     try {
       //make a network request to post a new note
-      const docs = await fetch(`http://localhost:8080/notes/new-note/${id}`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(document),
-      });
-      const docs_json = await docs.json();
-      console.log(docs_json);
+      // const docs = await fetch(`http://localhost:8080/notes/new-note/${id}`, {
+      //   method: 'POST',
+      //   headers: {
+      //     'Content-Type': 'application/json',
+      //   },
+      //   body: JSON.stringify(document),
+      // });
+      // const docs_json = await docs.json();
+      // console.log(docs_json);
       //update the store to reflect the new note!
-      dispatch(postNewNoteSuccess(docs_json));
+      // dispatch(postNewNoteSuccess(docs_json));
     } catch (error) {
       //handle error if any
-      console.log(error);
-      dispatch(postNoteFailure());
+      // console.log(error);
+      // dispatch(postNoteFailure());
     }
   };
 }

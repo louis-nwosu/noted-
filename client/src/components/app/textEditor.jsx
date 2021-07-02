@@ -1,17 +1,24 @@
 import React, { Component } from "react";
-import { convertFromRaw } from "draft-js";
+import { convertFromRaw, EditorState, convertToRaw } from "draft-js";
 import { Editor } from "react-draft-wysiwyg";
-import { EditorState } from 'draft-js';
+import "../../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import Hidden from "@material-ui/core/Hidden";
-import "../../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import "../../App.css";
 import NavBar from "./navBar";
+import { PostNoteSingle } from "../../store/actions";
+import { useDispatch } from "react-redux";
 
-const EditorTop = () => {
+const EditorTop = ({ cs }) => {
+  const dispatch = useDispatch();
+  const onSubmit = () => {
+    const doc = JSON.stringify({date: Date.now(),doc_type: 'single',title: "ahhh", body: cs }, null, 4);
+    const userID = localStorage.getItem('user_id');
+    dispatch(PostNoteSingle(doc, userID));
+  };
   return (
     <div>
       <Container fluid>
@@ -22,9 +29,11 @@ const EditorTop = () => {
             </Typography>
           </Grid>
           <Grid item md={2} xs={2}>
-            <Typography variant="body2" color="inherit" align="right">
-              done
-            </Typography>
+            <div onClick={onSubmit}>
+              <Typography variant="body2" color="inherit" align="right">
+                done
+              </Typography>
+            </div>
           </Grid>
         </Grid>
       </Container>
@@ -37,8 +46,8 @@ const content = {
   blocks: [
     {
       key: "637gr",
-      text: "",
-      type: "",
+      text: "Initialized from content state.",
+      type: "unstyled",
       depth: 0,
       inlineStyleRanges: [],
       entityRanges: [],
@@ -52,8 +61,7 @@ class TextEditor extends Component {
     super(props);
     const contentState = convertFromRaw(content);
     this.state = {
-      contentState: EditorState.createEmpty(),
-      text: ''
+      contentState,
     };
   }
 
@@ -63,18 +71,21 @@ class TextEditor extends Component {
     });
   };
 
+  handleSubmit = () => {
+    console.log(JSON.stringify(this.state.contentState, null, 4));
+  };
+
   render() {
-    // const { contentState } = this.state;
     return (
       <div>
-        <div style={{ position: "fixed", top: 0, width: '100%' }}>
+        <div style={{ position: "fixed", top: 0, width: "100%" }}>
           <NavBar toggleDrawer={() => {}} />
         </div>
         <Box mt={9} mb={1}>
           <Grid container justify="center">
             <Grid item md={10} xs={12}>
               <Box marginBottom={2}>
-                <EditorTop />
+                <EditorTop cs={this.state.contentState} />
               </Box>
             </Grid>
             <Hidden xsDown>
@@ -88,16 +99,17 @@ class TextEditor extends Component {
                   readOnly={false}
                   placeholder="enter you document content here.."
                   toolbar
-                  // editorState={contentState}
-                  onContentStateChange={() => console.log(this.state.contentState)}
+                  // editorState={this.state.contentState}
+                  onEditorStateChange={this.onContentStateChange}
+                  onContentStateChange={this.onContentStateChange}
                 />
               </Grid>
             </Hidden>
             <Hidden smUp>
               <Container fluid>
                 <Editor
-                  editorState={this.state.contentState}
                   onEditorStateChange={this.onContentStateChange}
+                  onContentStateChange={this.onContentStateChange}
                   wrapperClassName=""
                   editorClassName="editorClassName"
                   toolbarClassName="toolbarClassName"
@@ -116,13 +128,7 @@ class TextEditor extends Component {
                       underline: { className: undefined },
                     },
                   }}
-                  onContentStateChange={() => {
-                    const savable = JSON.stringify(this.state.contentState)
-                    console.log(savable)
-                    console.log(JSON.parse(savable), 'here')
-                  }}
                 />
-                {/* <p>{this.state.contentState}..i am here!</p> */}
               </Container>
             </Hidden>
           </Grid>

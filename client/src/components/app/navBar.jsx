@@ -15,6 +15,7 @@ import MailIcon from "@material-ui/icons/Mail";
 import NotificationsIcon from "@material-ui/icons/Notifications";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import SettingsIcon from "@material-ui/icons/Settings";
+import { motion } from 'framer-motion'
 const useStyles = makeStyles((theme) => ({
   grow: {
     flexGrow: 1,

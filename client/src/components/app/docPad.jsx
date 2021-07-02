@@ -349,7 +349,7 @@ export const ExpSingleDocCard = ({ title, body }) => {
   const handleIsPreviewHidden = () => setIsPreviewHidden(!isPreviewHidden);
   const classes = useSingleDocStyle();
   return (
-    <Box marginX={1} marginTop={1.5}>
+    <Box marginX={1} marginTop={1.5} >
       <div className={classes.container}>
         <Box
           display="flex"
@@ -359,13 +359,16 @@ export const ExpSingleDocCard = ({ title, body }) => {
           mt={1}
         >
           <div>
-            <Link to="/noted/note" style={{color: '#fff', textDecoration: 'none'}}>
-              <div className={classes.cardTop}>
-                <Typography variant="h5" gutterBottom={3}>
-                  {title}
-                </Typography>
-                <DeleteOutlineOutlinedIcon />
-              </div>
+            <div className={classes.cardTop}>
+              <Typography variant="h5" gutterBottom={3}>
+                {title}
+              </Typography>
+              <DeleteOutlineOutlinedIcon />
+            </div>
+            <Link
+              to="/noted/note"
+              style={{ color: "#fff", textDecoration: "none" }}
+            >
               <div className={classes.preview}>
                 <Typography variant="body1" noWrap display="block">
                   {body} Lorem ipsum dolor sit amet consectetur adipisicing

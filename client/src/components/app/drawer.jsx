@@ -25,6 +25,7 @@ import MailIcon from "@material-ui/icons/Mail";
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
+    backgroundColor: '#3c353d',
     "& > *": {
       margin: theme.spacing(1),
       marginTop: theme.spacing(4)
@@ -65,7 +66,7 @@ function SideNavTop() {
               <Grid container className={classes.point}>
                 <Grid item md={2}>
                   <Box marginY={1}>
-                    <FolderIcon color="primary" fontSize="small" />
+                    <FolderIcon color="" fontSize="small" />
                   </Box>
                 </Grid>
                 <Grid item md={8} className={classes.point}>
@@ -81,7 +82,7 @@ function SideNavTop() {
               <Grid container className={classes.point}>
                 <Grid item md={2}>
                   <Box marginY={1}>
-                    <AssignmentIcon color="primary" fontSize="small" />
+                    <AssignmentIcon color="" fontSize="small" />
                   </Box>
                 </Grid>
                 <Grid item md={8}>
@@ -97,7 +98,7 @@ function SideNavTop() {
               <Grid container className={classes.point}>
                 <Grid item md={2}>
                   <Box marginY={1}>
-                    <NotesRoundedIcon color="primary" fontSize="small" />
+                    <NotesRoundedIcon color="" fontSize="small" />
                   </Box>
                 </Grid>
                 <Grid item md={8}>
@@ -113,7 +114,7 @@ function SideNavTop() {
               <Grid container className={classes.point}>
                 <Grid item md={2}>
                   <Box marginY={1}>
-                    <DeleteRoundedIcon color="primary" fontSize="small" />
+                    <DeleteRoundedIcon color="" fontSize="small" />
                   </Box>
                 </Grid>
                 <Grid item md={8}>

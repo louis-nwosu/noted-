@@ -33,7 +33,8 @@ const useStyles = makeStyles((theme) => ({
   sideNav: {
     width: "100%",
     height: "90vh",
-    marginTop: "10vh",
+    backgroundColor: '#3c353d',
+    marginTop: theme.spacing(8),
     position: "fixed",
     [theme.breakpoints.down("sm")]: {
       display: "none",
@@ -62,7 +63,7 @@ const useStyles = makeStyles((theme) => ({
       margin: theme.spacing(1),
       position: "fixed",
       bottom: 110,
-      right: 20,
+      right: 10,
     },
   },
   FAB2: {
@@ -82,7 +83,7 @@ const useStyles = makeStyles((theme) => ({
       margin: theme.spacing(1),
       position: "fixed",
       bottom: 30,
-      right: 100,
+      right: 90,
     },
   },
   GridSec: {
