@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { convertFromRaw } from "draft-js";
 import { Editor } from "react-draft-wysiwyg";
+import { EditorState } from 'draft-js';
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
@@ -51,7 +52,8 @@ class TextEditor extends Component {
     super(props);
     const contentState = convertFromRaw(content);
     this.state = {
-      contentState,
+      contentState: EditorState.createEmpty(),
+      text: ''
     };
   }
 
@@ -87,13 +89,14 @@ class TextEditor extends Component {
                   placeholder="enter you document content here.."
                   toolbar
                   // editorState={contentState}
+                  onContentStateChange={() => console.log(this.state.contentState)}
                 />
               </Grid>
             </Hidden>
             <Hidden smUp>
               <Container fluid>
                 <Editor
-                  // editorState={contentState}
+                  editorState={this.state.contentState}
                   onEditorStateChange={this.onContentStateChange}
                   wrapperClassName=""
                   editorClassName="editorClassName"
@@ -113,7 +116,13 @@ class TextEditor extends Component {
                       underline: { className: undefined },
                     },
                   }}
+                  onContentStateChange={() => {
+                    const savable = JSON.stringify(this.state.contentState)
+                    console.log(savable)
+                    console.log(JSON.parse(savable), 'here')
+                  }}
                 />
+                {/* <p>{this.state.contentState}..i am here!</p> */}
               </Container>
             </Hidden>
           </Grid>

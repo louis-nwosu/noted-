@@ -9,10 +9,15 @@ import EditIcon from "@material-ui/icons/Edit";
 import CollectionsBookmarkIcon from "@material-ui/icons/CollectionsBookmark";
 import CalenderTodayOutlinedIcon from "@material-ui/icons/CalendarTodayOutlined";
 import Zoom from "@material-ui/core/Zoom";
+import CircularProgress from '@material-ui/core/CircularProgress';
 //import local components
 import NavBar from "./navBar";
 import { SideNav, TemporaryDrawer } from "./drawer";
-import { DocPadCollection, ExpSingleDocCard, ExpCollectionDocCard } from "./docPad";
+import {
+  DocPadCollection,
+  ExpSingleDocCard,
+  ExpCollectionDocCard,
+} from "./docPad";
 //import Link component from react-router-dom
 import { Link } from "react-router-dom";
 //import the fetchDoc action
@@ -90,20 +95,31 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: "auto",
     marginTop: 10,
   },
+  spinnerContainer: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    width: "100%",
+    height: "50vh",
+  },
+  spinnerContainerHide: {
+    display: 'none'
+  }
 }));
 
 export default function NoteApp({ handleSetIsDarkMode }) {
   const classes = useStyles();
 
-  const userId = localStorage.getItem('user_id')
+  const userId = localStorage.getItem("user_id");
   const documents = useSelector((state) => state.notes);
+  const isLoading = useSelector((state) => state.isLoading);
   const dispatch = useDispatch();
 
   React.useEffect(() => {
     //fetch all user docs!
     setTimeout(() => {
       dispatch(FetchDocs(userId));
-    }, 500);
+    }, 0);
   }, [dispatch, userId]);
 
   const [navState, setState] = React.useState({
@@ -120,6 +136,16 @@ export default function NoteApp({ handleSetIsDarkMode }) {
   };
   const [isIconHidden, setIsIconHidden] = React.useState(true);
   const showHiddenIcons = () => setIsIconHidden(!isIconHidden);
+
+  const showCont = () => {
+    if (isLoading) {
+      return <CircularProgress disableShrink color='#fff' />;
+    } else if (documents.length === 0 || isLoading) {
+      return (
+        <h5>you do not have any docs. hit the + icon to create new docs</h5>
+      );
+    }
+  };
   return (
     <React.Fragment>
       <Grid
@@ -141,66 +167,63 @@ export default function NoteApp({ handleSetIsDarkMode }) {
             <Grid container>
               <Grid item md={12} xs={12}>
                 <Box px={1} py={1} pb={2}>
-                  <Typography variant="h4" color="#fff" align="right">
-                    all docs
-                  </Typography>
+                  {documents.length === 0 ? (
+                    ""
+                  ) : (
+                    <Typography variant="h4" color="#fff" align="right">
+                      all docs
+                    </Typography>
+                  )}
                 </Box>
               </Grid>
             </Grid>
             <Grid container className={classes.DocDisps}>
-              {
-                documents == null | documents.length == 0 && (
-                  <div style={{
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    width: '100%',
-                    height: '50vh'
-                  }}>
-                    <h5>you do not have any docs. hit the + icon to create new docs</h5>
-                  </div>
-                )
-              }
-              {documents !== null && documents.map((doc) => {
-                return (
-                  <Grid item md={12} xs={12} className={classes.GridSec}>
-                    <Grid container>
-                      <Grid item>
-                        <Box mx={1} display="flex">
-                          <CalenderTodayOutlinedIcon color="primary" />
-                          <Box mx={1}>
-                            <Typography
-                              variant="subtitle2"
-                              color="TextSecondary"
-                            >
-                              {doc.date}
-                            </Typography>
+              <div
+               className={documents.length === 0 ? classes.spinnerContainer : classes.spinnerContainerHide}
+              >
+                {showCont()}
+              </div>
+              {documents !== 0 &&
+                documents.map((doc) => {
+                  return (
+                    <Grid item md={12} xs={12} className={classes.GridSec}>
+                      <Grid container>
+                        <Grid item>
+                          <Box mx={1} display="flex">
+                            <CalenderTodayOutlinedIcon color="primary" />
+                            <Box mx={1}>
+                              <Typography
+                                variant="subtitle2"
+                                color="TextSecondary"
+                              >
+                                {doc.date}
+                              </Typography>
+                            </Box>
                           </Box>
-                        </Box>
+                        </Grid>
+                      </Grid>
+                      <Grid container>
+                        {doc.docs.map((doc) => {
+                          return (
+                            <Grid item md={3} xs={12}>
+                              {doc.doc_type === "single" ? (
+                                <ExpSingleDocCard
+                                  title={doc?.doc_title}
+                                  body={doc?.doc_body?.moreConfig}
+                                />
+                              ) : (
+                                <ExpCollectionDocCard
+                                  title={doc?.doc_collection_name}
+                                  description={doc?.doc_body?.moreConfig}
+                                />
+                              )}
+                            </Grid>
+                          );
+                        })}
                       </Grid>
                     </Grid>
-                    <Grid container>
-                      {doc.docs.map((doc) => {
-                        return (
-                          <Grid item md={3} xs={12}>
-                            {doc.doc_type === "single" ? (
-                              <ExpSingleDocCard
-                                title={doc?.doc_title}
-                                body={doc?.doc_body?.moreConfig}
-                              />
-                            ) : (
-                              <ExpCollectionDocCard
-                                title={doc?.doc_collection_name}
-                                description={doc?.doc_body?.moreConfig}
-                              />
-                            )}
-                          </Grid>
-                        );
-                      })}
-                    </Grid>
-                  </Grid>
-                );
-              })}
+                  );
+                })}
             </Grid>
             <div className={classes.FABroot}>
               <Fab color="primary" aria-label="add" onClick={showHiddenIcons}>

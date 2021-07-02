@@ -318,7 +318,7 @@ const useSingleDocStyle = makeStyles((theme) => ({
     width: "100%",
     height: "140px",
     position: "relative",
-    boxShadow: `5px 5px 0px 0px #aa00ff`,
+    boxShadow: ` 2px 2px 0px 0px #410f61, 5px 5px 0px 0px #320b3d`,
   },
   preview: {
     width: "100%",
@@ -359,20 +359,22 @@ export const ExpSingleDocCard = ({ title, body }) => {
           mt={1}
         >
           <div>
-            <div className={classes.cardTop}>
-              <Typography variant="h5" gutterBottom={3}>
-                {title}
-              </Typography>
-              <DeleteOutlineOutlinedIcon />
-            </div>
-            <div className={classes.preview}>
-              <Typography variant="body1" noWrap display="block">
-                {body} Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Sed ipsa, recusandae vitae minima perspiciatis debitis maxime
-                saepe, odit perferendis a culpa. Fugit, temporibus sed?
-                Molestiae pariatur impedit non aliquam possimus!
-              </Typography>
-            </div>
+            <Link to="/noted/note" style={{color: '#fff', textDecoration: 'none'}}>
+              <div className={classes.cardTop}>
+                <Typography variant="h5" gutterBottom={3}>
+                  {title}
+                </Typography>
+                <DeleteOutlineOutlinedIcon />
+              </div>
+              <div className={classes.preview}>
+                <Typography variant="body1" noWrap display="block">
+                  {body} Lorem ipsum dolor sit amet consectetur adipisicing
+                  elit. Sed ipsa, recusandae vitae minima perspiciatis debitis
+                  maxime saepe, odit perferendis a culpa. Fugit, temporibus sed?
+                  Molestiae pariatur impedit non aliquam possimus!
+                </Typography>
+              </div>
+            </Link>
             <div className={classes.bottom}>
               {isPreviewHidden ? (
                 <VisibilityOffIcon onClick={handleIsPreviewHidden} />

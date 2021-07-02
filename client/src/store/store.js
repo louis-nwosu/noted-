@@ -2,7 +2,7 @@ import {actions} from './actions';
 
 const defaultState = {
   user: null,
-  notes: null,
+  notes: [],
   isLoading: false,
   hasError: false,
 };

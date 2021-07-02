@@ -9,19 +9,19 @@ Content-Type: application/json
 }
 
 ### request to get all docs of a user
-Get http://localhost:8080/noted/60db6d8c60b71f13d82e7742
+Get http://localhost:8080/noted/60de0e2e61710a0be8778280
 
 ### request to post docs of a user
-Post http://localhost:8080/noted/postdoc/60db6d8c60b71f13d82e7742
+Post http://localhost:8080/noted/postdoc/60de0e2e61710a0be8778280
 Content-Type: application/json
 
 {
-    "doc_type": "single",
+    "doc_type": "collection",
     "date": "10 oct 2021"
 }
 
 ### get documents from a single day
-GET  http://localhost:8080/noted/get-doc/60db6d8c60b71f13d82e7742
+GET  http://localhost:8080/noted/get-doc/60de0e2e61710a0be8778280
 Content-Type: application/json
 
 {
@@ -29,7 +29,7 @@ Content-Type: application/json
 }
 
 ### get single doc
-GET  http://localhost:8080/noted/get-single-doc/60db6d8c60b71f13d82e7742
+GET  http://localhost:8080/noted/get-single-doc/60de0e2e61710a0be8778280
 Content-Type: application/json
 
 {

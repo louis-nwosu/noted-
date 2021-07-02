@@ -79,6 +79,7 @@ const submitLogInFormSucces = (payload) => ({
 const submitLogInFormfailure = () => ({
   type: actions?.actionLoginActions?.submitFormFailure,
 });
+
 export function logIn(userData, history) {
   return async (dispatch) => {
     //change the state of the applciation to notifybthe user about the delay
@@ -94,12 +95,14 @@ export function logIn(userData, history) {
       });
       //send the return user to the redux store
       const user_json = await user.json();
+      console.log(user_json)
       dispatch(submitLogInFormSucces(user_json.user));
       //collect the token and save in localStorage
+      localStorage.clear()
       localStorage.setItem('token', user_json.token);
       localStorage.setItem('user_id', user_json.user._id)
       //send the user to the notes app
-      if (user_json.user) {
+      if (user_json.token) {
         history.push('/noted');
       }
     } catch (error) {
@@ -170,10 +173,10 @@ export function FetchDocs(id) {
       //fetch the documents with users ID
       const data = await fetch(`http://localhost:8080/noted/${id}`);
       const docs = await data.json();
+      console.log(docs)
       dispatch(getDocsSuccess(docs.user_Docs));  
     } catch (error) {
       //display an error message if anything goes wrong
-      console.log(error);
       dispatch(getDocsFailure());
     }
   };
