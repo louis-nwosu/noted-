@@ -14,7 +14,6 @@ import { Link } from "react-router-dom";
 import { useSnackbar } from "notistack";
 
 // TODO: redesign this card
-
 const useStyles = makeStyles((theme) => ({
   DocPadSIngle: {
     backgroundColor: "#444",
@@ -360,13 +359,13 @@ export const ExpSingleDocCard = ({ title, body }) => {
         >
           <div>
             <div className={classes.cardTop}>
-              <Typography variant="h5" gutterBottom={3}>
+              <Typography variant="h5" gutterBottom={true}>
                 {title}
               </Typography>
               <DeleteOutlineOutlinedIcon />
             </div>
             <Link
-              to="/noted/note"
+              to={`/noted/note/${localStorage.getItem('docs_collection_id')}`}
               style={{ color: "#fff", textDecoration: "none" }}
             >
               <div className={classes.preview}>

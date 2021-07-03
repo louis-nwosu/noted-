@@ -12,6 +12,7 @@ import LandingPage from "./components/landingPage";
 import Log from "./components/loginAndSignin";
 import NoteApp from "./components/app";
 import TextEditor from "./components/app/textEditor";
+import ViewEditComp from "./components/app/view_edit_doc";
 
 //import snackbar provider
 import { SnackbarProvider } from "notistack";
@@ -70,6 +71,9 @@ const App = () => {
               </Route>
               <Route exact path="/noted/new-note">
                 <TextEditor />
+              </Route>
+              <Route exact path='/noted/note/:id'>
+                <ViewEditComp />
               </Route>
             </Switch>
           </BrowserRouter>

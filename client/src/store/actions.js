@@ -53,7 +53,6 @@ export function createAccount(userData, history) {
         body: JSON.stringify(userData),
       });
       const user = await data.json();
-      console.log(user);
       //send the return user to the redux store
       dispatch(submitFormSuccess(user.user));
       //collect the token and save in localStorage
@@ -95,7 +94,6 @@ export function logIn(userData, history) {
       });
       //send the return user to the redux store
       const user_json = await user.json();
-      console.log(user_json)
       dispatch(submitLogInFormSucces(user_json.user));
       //collect the token and save in localStorage
       localStorage.clear()
@@ -129,25 +127,22 @@ const postNoteFailure = () => ({
 export function PostNoteSingle(document, id) {
   return async (dispatch) => {
     //change the state to display loading spinner
-    console.log(document)
-    // dispatch(postNewNote());
+    dispatch(postNewNote());
     try {
-      //make a network request to post a new note
-      // const docs = await fetch(`http://localhost:8080/notes/new-note/${id}`, {
-      //   method: 'POST',
-      //   headers: {
-      //     'Content-Type': 'application/json',
-      //   },
-      //   body: JSON.stringify(document),
-      // });
+     // make a network request to post a new note
+      const docs = await fetch(`http://localhost:8080/noted/postdoc/${id}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: document,
+      });
       // const docs_json = await docs.json();
-      // console.log(docs_json);
-      //update the store to reflect the new note!
+     // update the store to reflect the new note!
       // dispatch(postNewNoteSuccess(docs_json));
     } catch (error) {
       //handle error if any
-      // console.log(error);
-      // dispatch(postNoteFailure());
+      dispatch(postNoteFailure());
     }
   };
 }
@@ -174,8 +169,8 @@ export function FetchDocs(id) {
       //fetch the documents with users ID
       const data = await fetch(`http://localhost:8080/noted/${id}`);
       const docs = await data.json();
-      console.log(docs)
       dispatch(getDocsSuccess(docs.user_Docs));  
+      localStorage.setItem('docs_collection_id', docs._id)
     } catch (error) {
       //display an error message if anything goes wrong
       dispatch(getDocsFailure());

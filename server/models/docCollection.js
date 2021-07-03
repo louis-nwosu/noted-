@@ -1,9 +1,6 @@
 const mongoose = require("mongoose");
 
-const DOCBODY = mongoose.Schema(
-  { config: String, moreConfig: String },
-  { timestamps: true }
-);
+const DOCBODY = mongoose.Schema({ body: String }, { timestamps: true });
 
 const DocumentCollection = mongoose.Schema(
   {

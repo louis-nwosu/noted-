@@ -9,7 +9,7 @@ Content-Type: application/json
 }
 
 ### request to get all docs of a user
-Get http://localhost:8080/noted/60def28682a97631887946c8
+Get http://localhost:8080/noted/60e0b3c5309e501ce03fa2dc
 
 ### request to post docs of a user
 Post http://localhost:8080/noted/postdoc/60def28682a97631887946c8
@@ -28,11 +28,11 @@ Content-Type: application/json
     "date": "5 oct 2021"
 }
 
-### get single doc
-GET  http://localhost:8080/noted/get-single-doc/60de0e2e61710a0be8778280
+### get single doc @param-.. :id=docCol id, ID=doc id, date=date of doc col
+GET  http://localhost:8080/noted/get-single-doc/60e0b3c5309e501ce03fa2de
 Content-Type: application/json
 
 {
-    "ID": "60dac1c22ac3c131dc5270fd",
-    "date": "5 oct 2021"
+    "ID": "60e0bf1d309e501ce03fa2e7",
+    "date": "03-07-2021"
 }

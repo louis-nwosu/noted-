@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { convertFromRaw, EditorState, convertToRaw } from "draft-js";
+import { convertFromRaw, converToRaw } from "draft-js";
 import { Editor } from "react-draft-wysiwyg";
 import "../../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import Container from "@material-ui/core/Container";
@@ -11,12 +11,17 @@ import "../../App.css";
 import NavBar from "./navBar";
 import { PostNoteSingle } from "../../store/actions";
 import { useDispatch } from "react-redux";
+import { format } from 'date-fns';
 
 const EditorTop = ({ cs }) => {
   const dispatch = useDispatch();
   const onSubmit = () => {
-    const doc = JSON.stringify({date: Date.now(),doc_type: 'single',title: "ahhh", body: cs }, null, 4);
-    const userID = localStorage.getItem('user_id');
+    const doc = JSON.stringify(
+      { date: format(Date.now(), 'dd-MM-yyyy'), doc_type: "single", title: "okay", body: cs },
+      null,
+      4
+    );
+    const userID = localStorage.getItem("user_id");
     dispatch(PostNoteSingle(doc, userID));
   };
   return (

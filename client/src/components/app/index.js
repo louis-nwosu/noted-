@@ -19,7 +19,7 @@ import {
   ExpCollectionDocCard,
 } from "./docPad";
 //import Link component from react-router-dom
-import { Link } from "react-router-dom";
+import { Link, useRouteMatch } from "react-router-dom";
 //import the fetchDoc action
 import { FetchDocs } from "../../store/actions";
 //import the useSelector hook
@@ -171,7 +171,7 @@ export default function NoteApp({ handleSetIsDarkMode }) {
                   {documents.length === 0 ? (
                     ""
                   ) : (
-                    <Typography variant="h4" color="#fff" align="right">
+                    <Typography variant="h4" color="initial" align="right">
                       all docs
                     </Typography>
                   )}

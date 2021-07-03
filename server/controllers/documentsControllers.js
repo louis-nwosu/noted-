@@ -17,6 +17,7 @@ module.exports = {
   },
   //controller to handle adding a doc to a user docs array
   addDoc: async (req, res) => {
+    console.log(req.body.body);
     try {
       const userDoc = await Document.findOne({ ID: req.params.ID });
       if (!userDoc) {
@@ -26,10 +27,9 @@ module.exports = {
       if (req.body.doc_type == "single") {
         newDoc = new singleDocs({
           doc_type: "single",
-          doc_title: "testing 1 2",
+          doc_title: req.body.title,
           doc_body: {
-            config: "omoo",
-            moreConfig: "okay make we see",
+            body: req.body.body,
           },
         });
       } else if (req.body.doc_type == "collection") {
@@ -57,7 +57,7 @@ module.exports = {
         }
       }
       await userDoc.save();
-      return res.status(200).json(userDoc);
+      return res.status(200).json({ userDoc });
     } catch (error) {
       return res.status(200).json({ message: error.message });
     }
@@ -87,8 +87,8 @@ module.exports = {
       const doc = document.user_Docs.filter(
         (docs) => docs.date == req.body.date
       );
-      const docFile = doc[0].docs.filter(doc => doc._id == req.body.ID)
-      return res.status(200).json(docFile);
+      const docFile = doc[0].docs.filter((doc) => doc._id == req.body.ID);
+      return res.status(200).json({ docFile });
     } catch (error) {
       res.status(400).json({ message: error.message });
     }

@@ -66,7 +66,7 @@ function SideNavTop() {
               <Grid container className={classes.point}>
                 <Grid item md={2}>
                   <Box marginY={1}>
-                    <FolderIcon color="" fontSize="small" />
+                    <FolderIcon fontSize="small" />
                   </Box>
                 </Grid>
                 <Grid item md={8} className={classes.point}>
@@ -82,7 +82,7 @@ function SideNavTop() {
               <Grid container className={classes.point}>
                 <Grid item md={2}>
                   <Box marginY={1}>
-                    <AssignmentIcon color="" fontSize="small" />
+                    <AssignmentIcon fontSize="small" />
                   </Box>
                 </Grid>
                 <Grid item md={8}>
@@ -98,7 +98,7 @@ function SideNavTop() {
               <Grid container className={classes.point}>
                 <Grid item md={2}>
                   <Box marginY={1}>
-                    <NotesRoundedIcon color="" fontSize="small" />
+                    <NotesRoundedIcon fontSize="small" />
                   </Box>
                 </Grid>
                 <Grid item md={8}>
@@ -114,7 +114,7 @@ function SideNavTop() {
               <Grid container className={classes.point}>
                 <Grid item md={2}>
                   <Box marginY={1}>
-                    <DeleteRoundedIcon color="" fontSize="small" />
+                    <DeleteRoundedIcon fontSize="small" />
                   </Box>
                 </Grid>
                 <Grid item md={8}>
