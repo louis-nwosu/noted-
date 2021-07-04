@@ -72,9 +72,7 @@ const App = () => {
               <Route exact path="/noted/new-note">
                 <TextEditor />
               </Route>
-              <Route exact path='/noted/note/:id'>
-                <ViewEditComp />
-              </Route>
+              <Route exact path="/noted/note/:id" component={ViewEditComp} />
             </Switch>
           </BrowserRouter>
         </SnackbarProvider>

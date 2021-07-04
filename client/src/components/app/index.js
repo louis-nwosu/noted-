@@ -211,6 +211,7 @@ export default function NoteApp({ handleSetIsDarkMode }) {
                                 <ExpSingleDocCard
                                   title={doc?.doc_title}
                                   body={doc?.doc_body?.moreConfig}
+                                  id={doc?._id}
                                 />
                               ) : (
                                 <ExpCollectionDocCard
