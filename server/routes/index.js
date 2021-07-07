@@ -10,6 +10,6 @@ route.post('/login-in', userController.sign_in);
 route.get('/:ID', docsController.getAllDocs);
 route.post('/postdoc/:ID', docsController.addDoc);
 route.get('/get-doc/:id', docsController.getAllDocsInDay);
-route.get('/get-single-doc/:id', docsController.getSingleDoc);
+route.post('/get-single-doc/:date/:id', docsController.getSingleDoc);
 
 module.exports = route;

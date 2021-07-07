@@ -17,7 +17,6 @@ module.exports = {
   },
   //controller to handle adding a doc to a user docs array
   addDoc: async (req, res) => {
-    console.log(req.body.body);
     try {
       const userDoc = await Document.findOne({ ID: req.params.ID });
       if (!userDoc) {
@@ -85,7 +84,7 @@ module.exports = {
       if (!document)
         return res.status(400).json({ message: "hmm, something went wrong" });
       const doc = document.user_Docs.filter(
-        (docs) => docs.date == req.body.date
+        (docs) => docs.date == req.params.date
       );
       const docFile = doc[0].docs.filter((doc) => doc._id == req.body.ID);
       return res.status(200).json({ docFile });

@@ -29,11 +29,10 @@ Content-Type: application/json
 }
 
 ### get single doc @param-.. :id=docCol id, ID=doc id, date=date of doc col
-GET  http://localhost:8080/noted/get-single-doc/60e0b3c5309e501ce03fa2de
+POST  http://localhost:8080/noted/get-single-doc/03-07-2021/60e0b3c5309e501ce03fa2de
 Content-Type: application/json
 
 {
-    "ID": "60e0bf1d309e501ce03fa2e7",
-    "date": "03-07-2021"
+    "ID": "60e0bf1d309e501ce03fa2e7"
 }
     

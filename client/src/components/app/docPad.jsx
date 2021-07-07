@@ -343,7 +343,7 @@ const useSingleDocStyle = makeStyles((theme) => ({
   },
 }));
 
-export const ExpSingleDocCard = ({ title, body, id }) => {
+export const ExpSingleDocCard = ({ title, body, id , date}) => {
   const [isPreviewHidden, setIsPreviewHidden] = React.useState(false);
   const handleIsPreviewHidden = () => setIsPreviewHidden(!isPreviewHidden);
   const classes = useSingleDocStyle();
@@ -365,7 +365,7 @@ export const ExpSingleDocCard = ({ title, body, id }) => {
               <DeleteOutlineOutlinedIcon />
             </div>
             <Link
-              to={`/noted/note/${id}`}
+              to={`/noted/note/${date}/${id}`}
               style={{ color: "#fff", textDecoration: "none" }}
             >
               <div className={classes.preview}>

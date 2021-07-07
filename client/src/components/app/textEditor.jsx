@@ -76,10 +76,6 @@ class TextEditor extends Component {
     });
   };
 
-  handleSubmit = () => {
-    console.log(JSON.stringify(this.state.contentState, null, 4));
-  };
-
   render() {
     return (
       <div>

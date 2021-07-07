@@ -24,6 +24,8 @@ import { Link, useRouteMatch } from "react-router-dom";
 import { FetchDocs } from "../../store/actions";
 //import the useSelector hook
 import { useSelector, useDispatch } from "react-redux";
+//import format() from date-fns
+import { format } from 'date-fns';
 
 const useStyles = makeStyles((theme) => ({
   appbar: {
@@ -186,6 +188,7 @@ export default function NoteApp({ handleSetIsDarkMode }) {
               </div>
               {documents !== 0 &&
                 documents.map((doc) => {
+                  const { date } = doc;
                   return (
                     <Grid item md={12} xs={12} className={classes.GridSec}>
                       <Grid container>
@@ -197,7 +200,7 @@ export default function NoteApp({ handleSetIsDarkMode }) {
                                 variant="subtitle2"
                                 color="TextSecondary"
                               >
-                                {doc.date}
+                                {doc.date === format(Date.now(), 'dd-MM-yyyy') ? 'today' : doc.date}
                               </Typography>
                             </Box>
                           </Box>
@@ -212,6 +215,7 @@ export default function NoteApp({ handleSetIsDarkMode }) {
                                   title={doc?.doc_title}
                                   body={doc?.doc_body?.moreConfig}
                                   id={doc?._id}
+                                  date={date}
                                 />
                               ) : (
                                 <ExpCollectionDocCard

@@ -180,7 +180,6 @@ export function FetchDocs(id) {
       const data = await fetch(`http://localhost:8080/noted/${id}`);
       const docs = await data.json();
       dispatch(getDocsSuccess(docs.user_Docs));
-      console.log(docs)
       localStorage.setItem("docs_collection_id", docs._id);
     } catch (error) {
       //display an error message if anything goes wrong
@@ -189,38 +188,3 @@ export function FetchDocs(id) {
   };
 }
 
-//action to get single note--------------------------------
-const getSingleDoc = () => ({
-  type: actions.fetchSingleDoc.getSingleDoc,
-});
-
-const getSingleDocSuccess = (payload) => ({
-  type: actions.fetchSingleDoc.getSingleDocSuccess,
-  payload,
-});
-
-const getSingleDocFailure = () => ({
-  type: actions.fetchSingleDoc.getSingleDocFailure,
-});
-
-export function asyncGetSingleDoc(payload, id) {
-  return async (dispatch) => {
-    dispatch(getSingleDoc());
-    try {
-      const data = await fetch(
-        `http://localhost:8080/noted/get-single-doc/${id}`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(payload),
-        }
-      );
-      const singleDoc = await data.json();
-      console.log(singleDoc);
-    } catch (error) {
-      dispatch(getSingleDocFailure());
-    }
-  };
-}
