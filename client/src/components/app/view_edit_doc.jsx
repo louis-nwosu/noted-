@@ -1,9 +1,9 @@
 import React from "react";
 import Grid from "@material-ui/core/Grid";
-import Box from "@material-ui/core/Box";
+// import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core";
-import { convertFromRaw, converToRaw, convertToRaw } from "draft-js";
+// import { convertFromRaw } from "draft-js";
 import { Editor } from "react-draft-wysiwyg";
 import "../../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
@@ -29,23 +29,25 @@ const ViewEditComp = ({ match }) => {
 
   const handleReadOnly = () => setReadOnly(!readOnly);
 
-  React.useEffect(async () => {
-    //async function to fetch all the docs!
-    const data = await fetch(
-      `http://localhost:8080/noted/get-single-doc/${
-        match.params.date
-      }/${localStorage.getItem("docs_collection_id")}`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ ID: match.params.id }),
-      }
-    );
-    const singleDoc = await data.json();
-    setDocument(singleDoc);
-  }, []);
+  React.useEffect(() => {
+    const getDoc = async () => {
+      const data = await fetch(
+        `http://localhost:8080/noted/get-single-doc/${
+          match.params.date
+        }/${localStorage.getItem("docs_collection_id")}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ ID: match.params.id }),
+        }
+      );
+      const singleDoc = await data.json();
+      setDocument(singleDoc);
+    };
+    getDoc()
+  }, [match.params.id, match.params.date, setDocument]);
 
   console.log(document);
 
@@ -77,9 +79,9 @@ const ViewEditComp = ({ match }) => {
               </Typography>
             </Grid>
             <Grid item xs={2} md={2} className={classes.editIconSec}>
-             <div onClick={handleReadOnly}>
-             <EditIcon/>
-             </div>
+              <div onClick={handleReadOnly}>
+                <EditIcon />
+              </div>
             </Grid>
           </Grid>
         </div>
@@ -92,7 +94,7 @@ const ViewEditComp = ({ match }) => {
       <div>
         {document !== null && (
           <Editor
-          //  editorState={document.docFile[0].doc_body.body}
+            //  editorState={document.docFile[0].doc_body.body}
             onContentStateChange={document.docFile[0].doc_body.body}
             wrapperClassName=""
             editorClassName="editorClassName"

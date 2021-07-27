@@ -125,10 +125,10 @@ const postNewNote = () => ({
   type: actions?.postDoc?.postDocs,
 });
 
-const postNewNoteSuccess = (payload) => ({
-  type: actions?.postDoc?.postDocsSuccess,
-  payload,
-});
+// const postNewNoteSuccess = (payload) => ({
+//   type: actions?.postDoc?.postDocsSuccess,
+//   payload,
+// });
 
 const postNoteFailure = () => ({
   type: actions?.postDoc?.postDocsFailure,
@@ -147,6 +147,7 @@ export function PostNoteSingle(document, id) {
         },
         body: document,
       });
+      console.log(docs)
       // const docs_json = await docs.json();
       // update the store to reflect the new note!
       // dispatch(postNewNoteSuccess(docs_json));

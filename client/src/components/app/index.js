@@ -9,23 +9,22 @@ import EditIcon from "@material-ui/icons/Edit";
 import CollectionsBookmarkIcon from "@material-ui/icons/CollectionsBookmark";
 import CalenderTodayOutlinedIcon from "@material-ui/icons/CalendarTodayOutlined";
 import Zoom from "@material-ui/core/Zoom";
-import CircularProgress from '@material-ui/core/CircularProgress';
+import CircularProgress from "@material-ui/core/CircularProgress";
 //import local components
 import NavBar from "./navBar";
 import { SideNav, TemporaryDrawer } from "./drawer";
 import {
-  DocPadCollection,
   ExpSingleDocCard,
   ExpCollectionDocCard,
 } from "./docPad";
 //import Link component from react-router-dom
-import { Link, useRouteMatch } from "react-router-dom";
+import { Link } from "react-router-dom";
 //import the fetchDoc action
 import { FetchDocs } from "../../store/actions";
 //import the useSelector hook
 import { useSelector, useDispatch } from "react-redux";
 //import format() from date-fns
-import { format } from 'date-fns';
+import { format } from "date-fns";
 
 const useStyles = makeStyles((theme) => ({
   appbar: {
@@ -35,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
   sideNav: {
     width: "100%",
     height: "90vh",
-    backgroundColor: '#3c353d',
+    backgroundColor: "#3c353d",
     marginTop: theme.spacing(8),
     position: "fixed",
     [theme.breakpoints.down("sm")]: {
@@ -106,8 +105,8 @@ const useStyles = makeStyles((theme) => ({
     height: "50vh",
   },
   spinnerContainerHide: {
-    display: 'none'
-  }
+    display: "none",
+  },
 }));
 
 export default function NoteApp({ handleSetIsDarkMode }) {
@@ -142,7 +141,7 @@ export default function NoteApp({ handleSetIsDarkMode }) {
 
   const showCont = () => {
     if (isLoading) {
-      return <CircularProgress disableShrink color='#fff' />;
+      return <CircularProgress disableShrink color="#fff" />;
     } else if (documents.length === 0 || isLoading) {
       return (
         <h5>you do not have any docs. hit the + icon to create new docs</h5>
@@ -182,7 +181,11 @@ export default function NoteApp({ handleSetIsDarkMode }) {
             </Grid>
             <Grid container className={classes.DocDisps}>
               <div
-               className={documents.length === 0 ? classes.spinnerContainer : classes.spinnerContainerHide}
+                className={
+                  documents.length === 0
+                    ? classes.spinnerContainer
+                    : classes.spinnerContainerHide
+                }
               >
                 {showCont()}
               </div>
@@ -200,7 +203,9 @@ export default function NoteApp({ handleSetIsDarkMode }) {
                                 variant="subtitle2"
                                 color="TextSecondary"
                               >
-                                {doc.date === format(Date.now(), 'dd-MM-yyyy') ? 'today' : doc.date}
+                                {doc.date === format(Date.now(), "dd-MM-yyyy")
+                                  ? "today"
+                                  : doc.date}
                               </Typography>
                             </Box>
                           </Box>

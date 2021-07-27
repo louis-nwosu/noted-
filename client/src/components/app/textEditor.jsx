@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { convertFromRaw, converToRaw } from "draft-js";
+import { convertFromRaw } from "draft-js";
 import { Editor } from "react-draft-wysiwyg";
 import "../../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import Container from "@material-ui/core/Container";
@@ -101,8 +101,8 @@ class TextEditor extends Component {
                   placeholder="enter you document content here.."
                   toolbar
                   // editorState={this.state.contentState}
-                  onEditorStateChange={this.onContentStateChange}
-                  onContentStateChange={this.onContentStateChange}
+                  // onEditorStateChange={this.onContentStateChange}
+                  // onContentStateChange={this.onContentStateChange}
                 />
               </Grid>
             </Hidden>
