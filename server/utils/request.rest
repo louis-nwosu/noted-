@@ -3,7 +3,7 @@ POST http://localhost:8080/noted/sign-up
 Content-Type: application/json
 
 {
-    "email": "ronaldthedaddy@gmail.com",
+    "email": "louisnwosu94@gmail.com",
     "password": "mint4coding.com",
     "username": "ghost_righter" 
 }
