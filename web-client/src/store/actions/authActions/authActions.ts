@@ -2,58 +2,66 @@ import { Dispatch } from "redux";
 
 import { authActions } from "./authActionTypes";
 import { AuthAction } from "./types";
+import { unauthenticatedApi } from "../../../api";
+import { Payload } from "./types";
 
-const loginInit = (): AuthAction => ({
-  type: authActions.loginIn.signInInit,
+const authInit = (): AuthAction => ({
+  type: authActions.authInit,
 });
 
-const loginFailure = (): AuthAction => ({
-  type: authActions.loginIn.signInFailure,
+const authFailure = (): AuthAction => ({
+  type: authActions.authfailure,
 });
 
 // TODO: define a type for the data payload
-const loginSuccess = (data: any): AuthAction => ({
-  type: authActions.loginIn.signInSuccess,
+const authSuccess = (data: any): AuthAction => ({
+  type: authActions.authSuccess,
   payload: {
     data,
   },
 });
 
-export const signIn = (payload: any) => {
+// TODO: define a type for the data payload
+export const AuthActionCreator = (
+  payload: Payload,
+  authType: string,
+  nav: any,
+  notification?: (msg: string) => void
+) => {
   return async (dispatch: Dispatch) => {
-    dispatch(loginInit());
+    let data: any;
+    dispatch(authInit());
     try {
-      //TODO: axios client to make the API call
+      switch (authType) {
+        case "sign-in": {
+          //TODO: change 'fetch' to axios package
+          data = await unauthenticatedApi.post("/log-in", payload);
+          if (!data.error) {
+            dispatch(authSuccess(data));
+            nav.push("/dashboard");
+            console.log(data);
+          }
+          // notification(data.error);
+          break;
+        }
+        case "sign-up": {
+          //TODO: change 'fetch' to axios package
+          data = await unauthenticatedApi.post("/sign-up", payload);
+          if (!data.error) {
+            dispatch(authSuccess(data));
+            nav.push("/dashboard");
+            console.log(data);
+          }
+          // notification(data.error);
+          break;
+        }
+        default: {
+          return;
+        }
+      }
     } catch (err) {
-      console.log(err);
-      dispatch(loginFailure());
-    }
-  };
-};
-
-const signUpInit = (): AuthAction => ({
-  type: authActions.signUp.signUpInit,
-});
-
-const signUpSuccess = (data: any): AuthAction => ({
-  type: authActions.signUp.signUpSuccess,
-  payload: {
-    data,
-  },
-});
-
-const signUpFailure = (): AuthAction => ({
-  type: authActions.signUp.signUpFailure,
-});
-
-export const signUp = (payload: any) => {
-  return async (dispatch: Dispatch) => {
-    dispatch(signUpInit());
-    try {
-      // TODO: async call to server
-    } catch (error) {
-      console.log(error);
-      dispatch(signUpFailure());
+      dispatch(authFailure());
+      // notification("oops, something wen't wrong!");
     }
   };
 };

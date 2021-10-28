@@ -1,14 +1,7 @@
 export interface Auth {
-  loginIn: {
-    signInInit: string;
-    signInSuccess: string;
-    signInFailure: string;
-  };
-  signUp: {
-    signUpInit: string;
-    signUpSuccess: string;
-    signUpFailure: string;
-  };
+  authInit: string;
+  authSuccess: string;
+  authfailure: string;
 }
 
 export interface AuthAction {
@@ -25,4 +18,10 @@ export interface User {
   id: string;
   isLaoding: boolean;
   hasError: boolean;
+}
+
+export interface Payload {
+  fullName?: string;
+  eMail: string;
+  password: string;
 }

@@ -7,7 +7,6 @@ import { ThemeProvider } from "@mui/system";
 import Marquee from "react-fast-marquee";
 
 import { regularTheme } from "../../../../themes/regular";
-// import google from "../../../../assets/google.png";
 import { useStyles } from "./styles";
 
 export const Userbase: FC = () => {
@@ -22,9 +21,25 @@ export const Userbase: FC = () => {
             </Typography>
             <section>
               <Marquee>
-                {/* <img src={google} alt="google" className={classes.images} /> */}
-                <h1>hello</h1>
-                <h1>there</h1>
+                <div className={classes.marqueeSection}>
+                  <div className={classes.marqItem}>
+                    <p>
+                      <span style={{ color: "red" }}>G</span>OOGLE
+                    </p>
+                  </div>
+                  <div className={classes.marqItem}>
+                    <p>FACEBOOK</p>
+                  </div>
+                  <div className={classes.marqItem}>
+                    <p>FUTO</p>
+                  </div>
+                  <div className={classes.marqItem}>
+                    <p>TWITTER</p>
+                  </div>{" "}
+                  <div className={classes.marqItem}>
+                    <p>INSTAGRAM</p>
+                  </div>
+                </div>
               </Marquee>
             </section>
           </Box>

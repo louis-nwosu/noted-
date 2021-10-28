@@ -3,9 +3,18 @@ POST http://localhost:8080/noted/sign-up
 Content-Type: application/json
 
 {
-    "email": "louisnwosu94@gmail.com",
+    "eMail": "louisnw@gmail.com",
     "password": "mint4coding.com",
-    "username": "ghost_righter" 
+    "fullName": "ghost_righter" 
+}
+
+### request to sign in
+POST http://localhost:8080/noted/log-in
+Content-Type: application/json
+
+{
+    "email": "louisnwosu94@gmail.com",
+    "password": "mint4coding.com"
 }
 
 ### request to get all docs of a user

@@ -7,7 +7,7 @@ module.exports = {
     //TODO: validate the request body
     try {
       //check if user already exists
-      const userExists = await User.findOne({ email: req.body.email });
+      const userExists = await User.findOne({ eMail: req.body.eMail });
       if (userExists)
         return res.status(400).json({ message: "email is already in use" });
 
@@ -16,9 +16,9 @@ module.exports = {
 
       //create a new user
       const newUser = new User({
-        email: req.body.email,
+        eMail: req.body.eMail,
         password: req.body.password,
-        username: req.body.username,
+        fullName: req.body.fullName,
       });
 
       //save the user

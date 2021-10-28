@@ -1,6 +1,7 @@
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 
 import { HomePage } from "./pages/homePage";
+import { AuthPage } from "./pages/authPages";
 import "./App.css";
 
 function App() {
@@ -9,6 +10,9 @@ function App() {
       <Switch>
         <Route exact path="/">
           <HomePage />
+        </Route>
+        <Route exact path="/sign-in">
+          <AuthPage />
         </Route>
       </Switch>
     </BrowserRouter>
