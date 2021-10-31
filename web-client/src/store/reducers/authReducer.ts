@@ -3,9 +3,8 @@ import { authActions } from "../actions/authActions/authActionTypes";
 
 const initUserState: User = {
   createdAt: "",
-  firstname: "",
+  fullName: "",
   id: "",
-  lastname: "",
   isLaoding: false,
   hasError: false,
 };
@@ -21,14 +20,13 @@ export const authReducer = (state = initUserState, action: any): User => {
     }
 
     case authActions.authSuccess: {
-      const { createdAt, firstname, id, lastname } = action.payload;
+      const { createdAt, fullName, id } = action.payload;
       return {
         ...state,
         isLaoding: false,
         hasError: false,
         createdAt,
-        firstname,
-        lastname,
+        fullName,
         id,
       };
     }

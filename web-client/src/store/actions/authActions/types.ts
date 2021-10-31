@@ -12,8 +12,7 @@ export interface AuthAction {
 }
 
 export interface User {
-  firstname: string;
-  lastname: string;
+  fullName: string;
   createdAt: string;
   id: string;
   isLaoding: boolean;

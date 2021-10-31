@@ -2,6 +2,7 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 
 import { HomePage } from "./pages/homePage";
 import { AuthPage } from "./pages/authPages";
+import { ProtectedRoute } from "./reusable";
 import "./App.css";
 
 function App() {
@@ -14,6 +15,7 @@ function App() {
         <Route exact path="/sign-in">
           <AuthPage />
         </Route>
+        
       </Switch>
     </BrowserRouter>
   );

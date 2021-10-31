@@ -4,6 +4,7 @@ import { authActions } from "./authActionTypes";
 import { AuthAction } from "./types";
 import { unauthenticatedApi } from "../../../api";
 import { Payload } from "./types";
+import { VariantType } from "notistack";
 
 const authInit = (): AuthAction => ({
   type: authActions.authInit,
@@ -26,7 +27,7 @@ export const AuthActionCreator = (
   payload: Payload,
   authType: string,
   nav: any,
-  notification?: (msg: string) => void
+  notification?: (msg: string, variant: VariantType) => void
 ) => {
   return async (dispatch: Dispatch) => {
     let data: any;
@@ -34,34 +35,35 @@ export const AuthActionCreator = (
     try {
       switch (authType) {
         case "sign-in": {
-          //TODO: change 'fetch' to axios package
           data = await unauthenticatedApi.post("/log-in", payload);
-          if (!data.error) {
+          if (!data.data.error) {
             dispatch(authSuccess(data));
+            localStorage.setItem("noted-l300-key", data.data.token);
             nav.push("/dashboard");
             console.log(data);
+            return;
           }
-          // notification(data.error);
+          if (notification) notification(data.data.error, "error");
           break;
         }
         case "sign-up": {
-          //TODO: change 'fetch' to axios package
           data = await unauthenticatedApi.post("/sign-up", payload);
-          if (!data.error) {
+          if (!data.data.error) {
             dispatch(authSuccess(data));
             nav.push("/dashboard");
-            console.log(data);
+            return;
           }
-          // notification(data.error);
+          if (notification) notification(data.data.error, "error");
           break;
         }
         default: {
           return;
         }
       }
-    } catch (err) {
+    } catch (err: unknown) {
       dispatch(authFailure());
-      // notification("oops, something wen't wrong!");
+      if (notification) notification("oops, something went wrong", "error");
+      console.log(err, data);
     }
   };
 };

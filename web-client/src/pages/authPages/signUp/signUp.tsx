@@ -9,6 +9,8 @@ import Typography from "@mui/material/Typography";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router";
 
+import { useSnackbar, VariantType } from "notistack";
+
 import { LandingPageLayout } from "../../../layout/landingPageLayout";
 import { AuthActionCreator } from "../../../store/actions/authActions/authActions";
 import { useStyles } from "./styles";
@@ -22,6 +24,11 @@ export const SignUpPage: FC<AuthProps> = ({ changeView }) => {
 
   const dispatch = useDispatch();
   const history = useHistory();
+
+  const { enqueueSnackbar } = useSnackbar();
+  const handleSnackAction = (text: string, variant: VariantType) => {
+    enqueueSnackbar(text, { variant });
+  };
 
   const [formFields, setFormFields] = useState({
     eMail: "",
@@ -63,6 +70,7 @@ export const SignUpPage: FC<AuthProps> = ({ changeView }) => {
               <TextField
                 label="password"
                 color="secondary"
+                type="password"
                 fullWidth
                 name="password"
                 onChange={handleFormFields}
@@ -75,7 +83,21 @@ export const SignUpPage: FC<AuthProps> = ({ changeView }) => {
                 color="secondary"
                 fullWidth
                 onClick={() => {
-                  dispatch(AuthActionCreator(formFields, "sign-up", history));
+                  formFields.eMail !== "" &&
+                  formFields.password !== "" &&
+                  formFields.fullName !== ""
+                    ? dispatch(
+                        AuthActionCreator(
+                          formFields,
+                          "sign-up",
+                          history,
+                          handleSnackAction
+                        )
+                      )
+                    : handleSnackAction(
+                        "e-mail, fullname and password cannot be empty",
+                        "error"
+                      );
                   setFormFields({ fullName: "", eMail: "", password: "" });
                 }}
               >

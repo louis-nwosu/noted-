@@ -9,6 +9,8 @@ import Typography from "@mui/material/Typography";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router";
 
+import { useSnackbar, VariantType } from "notistack";
+
 import { LandingPageLayout } from "../../../layout/landingPageLayout";
 import { AuthActionCreator } from "../../../store/actions/authActions/authActions";
 import { useStyles } from "./styles";
@@ -23,12 +25,22 @@ export const SignInPage: FC<AuthProps> = ({ changeView }) => {
   const history = useHistory();
   const dispatch = useDispatch();
 
+  const { enqueueSnackbar } = useSnackbar();
+  const handleSnackAction = (text: string, variant: VariantType) => {
+    enqueueSnackbar(text, { variant });
+  };
+
   const [formFields, setFormFields] = useState({
     eMail: "",
     password: "",
   });
   const handleFormFields = (e: any) =>
     setFormFields({ ...formFields, [e.target.name]: e.target.value });
+  const clearFormFields = () =>
+    setFormFields({
+      eMail: "",
+      password: "",
+    });
 
   return (
     <LandingPageLayout>
@@ -52,6 +64,7 @@ export const SignInPage: FC<AuthProps> = ({ changeView }) => {
               <TextField
                 label="password"
                 color="secondary"
+                type="password"
                 fullWidth
                 name="password"
                 onChange={handleFormFields}
@@ -64,7 +77,20 @@ export const SignInPage: FC<AuthProps> = ({ changeView }) => {
                 color="secondary"
                 fullWidth
                 onClick={() => {
-                  dispatch(AuthActionCreator(formFields, "sign-in", history));
+                  formFields.eMail !== "" && formFields.password !== ""
+                    ? dispatch(
+                        AuthActionCreator(
+                          formFields,
+                          "sign-in",
+                          history,
+                          handleSnackAction
+                        )
+                      )
+                    : handleSnackAction(
+                        "e-mail and password cannot be empty",
+                        "error"
+                      );
+                  clearFormFields();
                 }}
               >
                 sign in
