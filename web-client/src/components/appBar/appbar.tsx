@@ -1,32 +1,48 @@
 import React, { FC } from "react";
 
 import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
-import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
-import InputBase from "@mui/material/InputBase";
-import Badge from "@mui/material/Badge";
-import MenuItem from "@mui/material/MenuItem";
-import Menu from "@mui/material/Menu";
-import MenuIcon from "@mui/icons-material/Menu";
-import SearchIcon from "@mui/icons-material/Search";
-import AccountCircle from "@mui/icons-material/AccountCircle";
-import MailIcon from "@mui/icons-material/Mail";
-import NotificationsIcon from "@mui/icons-material/Notifications";
-import MoreIcon from "@mui/icons-material/MoreVert";
 import Grid from "@mui/material/Grid";
+import Badge from "@mui/material/Badge";
+import PersonIcon from "@mui/icons-material/Person";
+import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
 
 import { regularTheme } from "../../themes/regular";
 import { ThemeProvider } from "@mui/material/styles";
+import { useStyles } from "./style";
 
 export const Appbar: FC = () => {
+  const classes = useStyles();
   return (
     <ThemeProvider theme={regularTheme}>
-      <Grid container>
+      <Grid container justifyContent="space-between" alignItems="center" py={2}>
         <Grid item md={2} xs={2}>
-          <Typography variant="body1" color="primary">
-            noted.
-          </Typography>
+          <Box mx={3}>
+            <Typography variant="h6" color="primary">
+              noted.
+            </Typography>
+          </Box>
+        </Grid>
+        <Grid item md={5} xs={8}>
+          <input
+            type="text"
+            placeholder="Search notes.."
+            className={classes.inputField}
+          />
+        </Grid>
+        <Grid item md={2} xs={2} display="flex">
+          <Typography variant="body1">Hey, Louis</Typography>
+          <Box
+            mx={1.5}
+            width="45%"
+            display="flex"
+            justifyContent="space-around"
+          >
+            <Badge badgeContent={4} color="primary">
+              <NotificationsNoneIcon />
+            </Badge>
+            <PersonIcon color="primary" />
+          </Box>
         </Grid>
       </Grid>
     </ThemeProvider>
