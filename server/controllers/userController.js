@@ -1,5 +1,6 @@
 const { User, Document } = require("../models/index");
 const jwt = require("jsonwebtoken");
+const bcrypt = require("bcryptjs");
 
 module.exports = {
   //sign-in controller
@@ -11,13 +12,12 @@ module.exports = {
       if (userExists)
         return res.status(400).json({ message: "email is already in use" });
 
-      //TODO: hash the password
-      // const hashedPwd = await brcpt.hash(req.body.password, 12);
+      const hashedPwd = await brcpyt.hash(req.body.password, 12);
 
       //create a new user
       const newUser = new User({
         eMail: req.body.eMail,
-        password: req.body.password,
+        password: hashedPwd,
         fullName: req.body.fullName,
       });
 
@@ -29,7 +29,7 @@ module.exports = {
         ID: savedUser._id,
       });
 
-      const savedDoc = await newDocument.save();
+      await newDocument.save();
 
       //assign a token to the user
       const token = jwt.sign(
@@ -52,12 +52,15 @@ module.exports = {
     try {
       //find the user in database
       const user = await User.findOne({ email: req.body.email });
-      if (!user)
-        return res
-          .status(401)
-          .json({ message: "email or password incorrect!" });
+      if (!user) return res.json({ error: "email or password incorrect!" });
 
-      //TODO: compare the hashed user password with the req.body.password
+      const comparedPassword = await bcrypt.compare(
+        user.password,
+        req.body.password
+      );
+      if (!comparedPassword)
+        return res.json({ error: "email or password is incorrect!" });
+      console.log(comparedPassword);
 
       //create a token to send along
       const token = jwt.sign(
