@@ -5,12 +5,15 @@ import TextField from "@mui/material/TextField";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
+import LockIcon from "@mui/icons-material/Lock";
 
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
 
 import { useSnackbar, VariantType } from "notistack";
+import Loader from "react-loader-spinner";
 
+// import { RootState } from ''
 import { LandingPageLayout } from "../../../layout/landingPageLayout";
 import { AuthActionCreator } from "../../../store/actions/authActions/authActions";
 import { useStyles } from "./styles";
@@ -24,6 +27,8 @@ export const SignInPage: FC<AuthProps> = ({ changeView }) => {
 
   const history = useHistory();
   const dispatch = useDispatch();
+
+  const isLoading = useSelector((state: any) => state.auth.isLaoding);
 
   const { enqueueSnackbar } = useSnackbar();
   const handleSnackAction = (text: string, variant: VariantType) => {
@@ -47,6 +52,9 @@ export const SignInPage: FC<AuthProps> = ({ changeView }) => {
       <Grid container justifyContent="center" alignItems="center">
         <Grid item md={6} className={classes.formCard}>
           <div>
+            <Box display="flex" justifyContent="center" alignItems="center">
+              <LockIcon color="secondary" />
+            </Box>
             <Typography variant="body1" align="center">
               hello, kindly sign in to access your notes.
             </Typography>
@@ -72,29 +80,40 @@ export const SignInPage: FC<AuthProps> = ({ changeView }) => {
               />
             </Box>
             <Box my={1}>
-              <Button
-                variant="contained"
-                color="secondary"
-                fullWidth
-                onClick={() => {
-                  formFields.eMail !== "" && formFields.password !== ""
-                    ? dispatch(
-                        AuthActionCreator(
-                          formFields,
-                          "sign-in",
-                          history,
-                          handleSnackAction
+              {isLoading ? (
+                <Box display="flex" justifyContent="center" alignItems="center">
+                  <Loader
+                    type="ThreeDots"
+                    color="#800080"
+                    height={100}
+                    width={100}
+                  />
+                </Box>
+              ) : (
+                <Button
+                  variant="contained"
+                  color="secondary"
+                  fullWidth
+                  onClick={() => {
+                    formFields.eMail !== "" && formFields.password !== ""
+                      ? dispatch(
+                          AuthActionCreator(
+                            formFields,
+                            "sign-in",
+                            history,
+                            handleSnackAction
+                          )
                         )
-                      )
-                    : handleSnackAction(
-                        "e-mail and password cannot be empty",
-                        "error"
-                      );
-                  clearFormFields();
-                }}
-              >
-                sign in
-              </Button>
+                      : handleSnackAction(
+                          "e-mail and password cannot be empty",
+                          "error"
+                        );
+                    clearFormFields();
+                  }}
+                >
+                  sign in
+                </Button>
+              )}
             </Box>
             <Box display="flex" justifyContent="center">
               <Typography variant="body2">Don't have an account?</Typography>

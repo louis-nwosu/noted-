@@ -5,6 +5,7 @@ import TextField from "@mui/material/TextField";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
+import AssignmentIndIcon from "@mui/icons-material/AssignmentInd";
 
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router";
@@ -43,6 +44,9 @@ export const SignUpPage: FC<AuthProps> = ({ changeView }) => {
       <Grid container justifyContent="center" alignItems="center">
         <Grid item md={6} className={classes.formCard}>
           <div>
+            <Box display="flex" justifyContent="center" alignItems="center">
+              <AssignmentIndIcon color="secondary" />
+            </Box>
             <Typography variant="body1" align="center">
               hello, sign up and join the best jotter community.
             </Typography>
@@ -64,6 +68,7 @@ export const SignUpPage: FC<AuthProps> = ({ changeView }) => {
                 name="eMail"
                 onChange={handleFormFields}
                 value={formFields.eMail}
+                autoComplete="false"
               />
             </Box>
             <Box my={1}>

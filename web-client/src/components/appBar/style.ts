@@ -3,12 +3,20 @@ import { Theme } from "@mui/system";
 
 export const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    inputField: {
+    inputFieldContainer: {
       width: "100%",
-      padding: "10px 6px",
-      borderRadius: "6px",
+      padding: "4px",
+      borderRadius: "10px",
       border: `1.9px solid #800080`,
       color: "#800080",
+      display: "flex",
+      justifyContent: "space-between",
+      alignItems: "center",
+    },
+    inputField: {
+      border: "none",
+      outline: "none",
+      width: "80%",
     },
   })
 );

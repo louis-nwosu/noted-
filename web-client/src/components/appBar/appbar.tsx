@@ -6,6 +6,7 @@ import Grid from "@mui/material/Grid";
 import Badge from "@mui/material/Badge";
 import PersonIcon from "@mui/icons-material/Person";
 import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
+import SearchIcon from '@mui/icons-material/Search';
 
 import { regularTheme } from "../../themes/regular";
 import { ThemeProvider } from "@mui/material/styles";
@@ -24,11 +25,14 @@ export const Appbar: FC = () => {
           </Box>
         </Grid>
         <Grid item md={5} xs={8}>
-          <input
-            type="text"
-            placeholder="Search notes.."
-            className={classes.inputField}
-          />
+          <div className={classes.inputFieldContainer}>
+            <input
+              type="text"
+              placeholder="Search notes.."
+              className={classes.inputField}
+            />
+            <SearchIcon />
+          </div>
         </Grid>
         <Grid item md={2} xs={2} display="flex">
           <Typography variant="body1">Hey, Louis</Typography>

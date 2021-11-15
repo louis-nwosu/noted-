@@ -1,7 +1,5 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import "./index.css";
-import App from "./App";
 import { Provider } from "react-redux";
 import { applyMiddleware, createStore } from "redux";
 import thunk from "redux-thunk";
@@ -10,10 +8,13 @@ import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import { PersistGate } from "redux-persist/integration/react";
 
+import App from "./App";
+import "./index.css";
+
 import { rootReducer } from "./store/reducers/rootReducer";
 
 const persistConfig = {
-  key: "root",
+  key: "noted-root",
   storage,
 };
 

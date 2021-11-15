@@ -10,5 +10,15 @@ export const useStyles = makeStyles((theme: Theme) =>
     mainSec: {
       marginLeft: "auto",
     },
+    sideNav: {
+      // position: "fixed",
+      height: "88vh",
+    },
+    footer: {
+      position: "fixed",
+      bottom: 0,
+      right: 0,
+      left: 0,
+    },
   })
 );

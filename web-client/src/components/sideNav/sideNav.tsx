@@ -20,22 +20,22 @@ export const SideNav: FC = () => {
     {
       text: "All Notes",
       icon: <NotesIcon color="primary" />,
-      link: "",
+      link: "/dashboard/",
     },
     {
       text: "Favorites",
       icon: <FavoriteBorderIcon color="primary" />,
-      link: "",
+      link: "/dashboard/favorites",
     },
     {
       text: "Drafts",
       icon: <DraftsIcon color="primary" />,
-      link: "",
+      link: "/dashboard/drafts",
     },
     {
       text: "Archived",
       icon: <ArchiveIcon color="primary" />,
-      link: "",
+      link: "/dashboard/achived",
     },
     {
       text: "Trash",

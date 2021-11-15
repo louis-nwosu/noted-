@@ -3,18 +3,17 @@ import { Theme } from "@mui/system";
 
 export const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    formCard: {
+    loaderTextStyle: {
+      textAlign: "center",
+      marginLeft: "-50px",
+      fontWeight: "bolder",
+    },
+    container: {
       width: "100%",
-      height: "90vh",
-      marginTop: "50vh",
+      height: "55vh",
       display: "flex",
-      flexDirection: "column",
       justifyContent: "center",
       alignItems: "center",
-      padding: "0 25px",
-    },
-    signUp: {
-      cursor: "pointer",
     },
   })
 );
