@@ -1,1 +1,0 @@
-export { AllNotes } from './allNotes'
