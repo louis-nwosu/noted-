@@ -2,14 +2,16 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { ThemeProvider } from "@mui/styles";
 
 import { LandingPage } from "./pages/landingPage";
-import { appFontTheme } from "./themes/fontThemes";
+import { AuthPage } from "./pages/authPage";
+import { appTheme } from "./themes";
 
 function App() {
   return (
-    <ThemeProvider theme={appFontTheme}>
+    <ThemeProvider theme={appTheme}>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<LandingPage />} />
+          <Route path="/authentication" element={<AuthPage />} />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>

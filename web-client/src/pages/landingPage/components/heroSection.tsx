@@ -6,6 +6,8 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import { makeStyles, createStyles } from "@mui/styles";
 import { Theme } from "@mui/material";
+// import { purple } from "@mui/material/colors";
+import { Link } from "react-router-dom";
 
 import cornerShop from "../../../assets/cornershop-logo.png";
 import headSpace from "../../../assets/headspace-logo.png";
@@ -25,6 +27,9 @@ const useStyles = makeStyles((theme: Theme) =>
       width: "80px",
       height: "18px",
     },
+    link: {
+      textDecoration: "none",
+    },
   })
 );
 
@@ -38,6 +43,7 @@ export const HeroSection: FC = () => {
           fontWeight="bold"
           fontSize={50}
           lineHeight={1}
+          color="secondary"
         >
           One workspace. Every team.
         </Typography>
@@ -48,9 +54,11 @@ export const HeroSection: FC = () => {
           </Typography>
         </Box>
         <div>
-          <Button variant="contained" color="secondary">
-            Get started
-          </Button>
+          <Link to="/authentication" className={classes.link}>
+            <Button variant="contained" color="secondary">
+              Get started
+            </Button>
+          </Link>
         </div>
         <Box my={2}>
           <Typography color="#444" variant="body2">

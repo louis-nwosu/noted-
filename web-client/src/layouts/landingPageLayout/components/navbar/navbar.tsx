@@ -5,6 +5,7 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import { Theme } from "@mui/system";
 import { makeStyles, createStyles, ThemeProvider } from "@mui/styles";
+import { Link } from "react-router-dom";
 
 import { logoTheme } from "../../../../themes/fontThemes";
 
@@ -12,6 +13,7 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     links: {
       cursor: "pointer",
+      textDecoration: "none",
     },
   })
 );
@@ -22,14 +24,16 @@ export const Navbar: FC = () => {
     <Grid container justifyContent="space-between" alignItems="center" p={1}>
       <Grid item md={2}>
         <ThemeProvider theme={logoTheme}>
-          <Typography
-            variant="h4"
-            color="secondary"
-            fontFamily="Neonderthaw"
-            className={classes.links}
-          >
-            noted
-          </Typography>
+          <Link to="/" className={classes.links}>
+            <Typography
+              variant="h4"
+              color="secondary"
+              fontFamily="Neonderthaw"
+              className={classes.links}
+            >
+              noted
+            </Typography>
+          </Link>
         </ThemeProvider>
       </Grid>
       <Grid item md={3} xs={8} sm={5}>
