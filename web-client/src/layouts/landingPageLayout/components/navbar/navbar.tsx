@@ -36,7 +36,7 @@ export const Navbar: FC = () => {
           </Link>
         </ThemeProvider>
       </Grid>
-      <Grid item md={3} xs={8} sm={5}>
+      <Grid item md={3} xs={8} sm={6}>
         <Box display="flex" justifyContent="space-between" alignItems="center">
           <div className={classes.links}>
             <Typography variant="body1" color="#555">
@@ -48,7 +48,7 @@ export const Navbar: FC = () => {
               About
             </Typography>
           </div>
-          <div className={classes.links}>
+          <div className={classes.links} style={{ paddingRight: "10px" }}>
             <Typography variant="body1" color="#555">
               Developer
             </Typography>

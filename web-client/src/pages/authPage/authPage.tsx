@@ -4,6 +4,8 @@ import Container from "@mui/material/Container";
 import { makeStyles, createStyles } from "@mui/styles";
 import { Theme } from "@mui/system";
 
+import { useSelector } from "react-redux";
+
 import { LandingPageLayout } from "../../layouts/landingPageLayout";
 import { SignUp, SignIn } from "./components/";
 

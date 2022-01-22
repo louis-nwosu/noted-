@@ -26,9 +26,19 @@ const useStyles = makeStyles((theme: Theme) =>
     partnerImg: {
       width: "80px",
       height: "18px",
+      [theme.breakpoints.down("sm")]: {
+        width: "60px",
+        height: "15px",
+      },
+      margin: theme.spacing(0, 1),
     },
     link: {
       textDecoration: "none",
+    },
+    ttUsers: {
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
     },
   })
 );
@@ -38,7 +48,7 @@ export const HeroSection: FC = () => {
   return (
     <Grid container className={classes.container}>
       <Grid item md={6} xs={12}>
-        <Typography
+        {/* <Typography
           variant="body1"
           fontWeight="bold"
           fontSize={50}
@@ -46,7 +56,7 @@ export const HeroSection: FC = () => {
           color="secondary"
         >
           One workspace. Every team.
-        </Typography>
+        </Typography> */}
         <Box my={3} pr={10}>
           <Typography variant="body1" color="#555" lineHeight={1.5}>
             We’re more than a doc. Or a table. Customize Notion to work the way
@@ -64,12 +74,7 @@ export const HeroSection: FC = () => {
           <Typography color="#444" variant="body2">
             TRUSTED BY TEAMS AT
           </Typography>
-          <Box
-            py={2}
-            display="flex"
-            justifyContent="space-between"
-            alignItems="center"
-          >
+          <Box py={2} className={classes.ttUsers}>
             <img
               src={cornerShop}
               alt="cornershop"
@@ -91,7 +96,7 @@ export const HeroSection: FC = () => {
         </Box>
       </Grid>
       <Grid item md={6} xs={12}>
-        <svg
+        {/* <svg
           xmlns="http://www.w3.org/2000/svg"
           data-name="Layer 1"
           width="auto"
@@ -291,7 +296,7 @@ export const HeroSection: FC = () => {
             transform="translate(-186.80906 -197.435)"
             fill="#cbcbcb"
           />
-        </svg>
+        </svg> */}
       </Grid>
     </Grid>
   );
