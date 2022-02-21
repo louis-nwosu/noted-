@@ -43,6 +43,7 @@ export const SignIn: FC<SingInProps> = ({ switchComp }) => {
                 placeholder="Username"
                 color="secondary"
                 autoFocus
+
               />
             </Box>
             <Box mb={2}>

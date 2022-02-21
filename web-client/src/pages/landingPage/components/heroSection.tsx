@@ -21,6 +21,7 @@ const useStyles = makeStyles((theme: Theme) =>
       padding: theme.spacing(10, 6, 6, 6),
       [theme.breakpoints.down("sm")]: {
         padding: theme.spacing(4, 3),
+        backgroundColor: "pink",
       },
     },
     partnerImg: {
@@ -96,7 +97,7 @@ export const HeroSection: FC = () => {
         </Box>
       </Grid>
       <Grid item md={6} xs={12}>
-        {/* <svg
+        <svg
           xmlns="http://www.w3.org/2000/svg"
           data-name="Layer 1"
           width="auto"
@@ -296,7 +297,7 @@ export const HeroSection: FC = () => {
             transform="translate(-186.80906 -197.435)"
             fill="#cbcbcb"
           />
-        </svg> */}
+        </svg>
       </Grid>
     </Grid>
   );

@@ -21,6 +21,7 @@ export function signUp(payload: authPayload) {
     dispatch(init());
     try {
       //do your thing
+      const data = await fetch('')
     } catch (error) {
       dispatch(fail());
     }
