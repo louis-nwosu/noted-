@@ -6,6 +6,7 @@ import { makeStyles, createStyles } from "@mui/styles";
 import TabIcon from '@mui/icons-material/Tab';
 import { Theme } from "@mui/system";
 import { purple } from "@mui/material/colors";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -31,36 +32,31 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const navItems: Array<{ path: String; text: String; icon: ReactNode }> = [
+const navItems: Array<{ path: string; text: string; icon: ReactNode }> = [
   {
-    path: "all-docs",
-    text: "All documents",
-    icon: <TabIcon />
+    path: "/app/",
+    text: "Documents",
+    icon: <TabIcon style={{ color: '#fff' }} />
   },
   {
-    path: "drafts",
+    path: "/app/drafts",
     text: "Drafts",
-    icon: <TabIcon />
+    icon: <TabIcon style={{ color: '#fff' }} />
   },
   {
-    path: "favorites",
+    path: "/app/favorite",
     text: "Favorites",
-    icon: <TabIcon />
+    icon: <TabIcon style={{ color: '#fff' }} />
   },
   {
-    path: "private",
+    path: "/app/private",
     text: "Private",
-    icon: <TabIcon />
+    icon: <TabIcon style={{ color: '#fff' }} />
   },
   {
-    path: "recycle-bin",
+    path: "/app/recycle-bin",
     text: "Recycle bin",
-    icon: <TabIcon />
-  },
-  {
-    path: "",
-    text: "",
-    icon: <TabIcon />
+    icon: <TabIcon style={{ color: '#fff' }} />
   },
 ];
 
@@ -84,16 +80,23 @@ export const SideNav: FC = () => {
           </Box>
           <Box>
             {navItems.map((item) => (
-              <Box py={1} className={classes.navItem}>
-                <Typography variant="body1" color="#fff">
-                  {item.text}
-                </Typography>
-              </Box>
+              <Link to={item.path} style={{ textDecoration: 'none' }}>
+                <Box py={1} className={classes.navItem} display='flex' alignItems='center'>
+                  <div>{item.icon}</div>
+                  <Box mx={1.5}>
+                    <Typography variant="body1" color="#fff" fontWeight='bold'>
+                      {item.text}
+                    </Typography>
+                  </Box>
+                </Box>
+              </Link>
             ))}
           </Box>
         </div>
         <Box my={3}>
-          <p>logout</p>
+          <Typography variant="body1" color="#fff" fontWeight='bold'>
+            Log out
+          </Typography>
         </Box>
       </Box>
     </Box>
