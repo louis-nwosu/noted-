@@ -1,11 +1,10 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 
 import Grid from "@mui/material/Grid";
-import Typography from "@mui/material/Typography";
 import { makeStyles, createStyles } from "@mui/styles";
+import { Theme } from "@mui/system";
 
 import { SideNav } from "./components/sideNav";
-import { Theme } from "@mui/system";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -13,23 +12,25 @@ const useStyles = makeStyles((theme: Theme) =>
       width: "100%",
       height: "100vh",
       position: "fixed",
-      [theme.breakpoints.down('sm')]: {
+      [theme.breakpoints.down("sm")]: {
         // transition: 'all 2s ease-in-out',
-        transform: 'translateX(100px)',
+        transform: "translateX(100px)",
         width: "100%",
         height: "100vh",
-        display: 'none'
-      }
+        display: "none",
+      },
     },
   })
 );
 
 export const AppLayout: FC = ({ children }) => {
   const classes = useStyles();
+  const [modalState, setModalState] = useState<boolean>(false);
+  const handleModalState = () => setModalState(true);
   return (
     <Grid container>
       <Grid item md={2} xs={12} className={classes.sideNav}>
-        <SideNav />
+        <SideNav setModalState={handleModalState} />
       </Grid>
       <Grid item md={10} xs={12} style={{ marginLeft: "auto" }}>
         {children}
