@@ -4,6 +4,11 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import { makeStyles, createStyles } from "@mui/styles";
 import TabIcon from "@mui/icons-material/Tab";
+import DraftsIcon from "@mui/icons-material/Drafts";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import DeleteIcon from "@mui/icons-material/Delete";
+import LockIcon from "@mui/icons-material/Lock";
+import LogoutIcon from "@mui/icons-material/Logout";
 import { Theme } from "@mui/system";
 import { purple } from "@mui/material/colors";
 import { Link } from "react-router-dom";
@@ -27,7 +32,8 @@ const useStyles = makeStyles((theme: Theme) =>
       height: "100%",
     },
     profile: {
-      height: "20vh",
+      height: "19vh",
+      marginTop: '-5px'
     },
   })
 );
@@ -35,32 +41,29 @@ const useStyles = makeStyles((theme: Theme) =>
 const navItems: Array<{ path: string; text: string; icon: ReactNode }> = [
   {
     path: "/app/",
-    text: "Documents",
+    text: "All",
     icon: <TabIcon style={{ color: "#fff" }} />,
   },
   {
     path: "/app/drafts",
     text: "Drafts",
-    icon: <TabIcon style={{ color: "#fff" }} />,
+    icon: <DraftsIcon style={{ color: "#fff" }} />,
   },
   {
     path: "/app/favorite",
     text: "Favorites",
-    icon: <TabIcon style={{ color: "#fff" }} />,
+    icon: <FavoriteIcon style={{ color: "#fff" }} />,
   },
-  // {
-  //   path: "/app/private",
-  //   text: "Private",
-  //   icon: <TabIcon style={{ color: '#fff' }} />
-  // },
   {
     path: "/app/recycle-bin",
     text: "Recycle bin",
-    icon: <TabIcon style={{ color: "#fff" }} />,
+    icon: <DeleteIcon style={{ color: "#fff" }} />,
   },
 ];
 
-export const SideNav: FC<{ setModalState: () => void }> = ({ setModalState }) => {
+export const SideNav: FC<{ handleOpenDialog: () => void }> = ({
+  handleOpenDialog,
+}) => {
   const classes = useStyles();
   return (
     <Box className={classes.container}>
@@ -106,10 +109,10 @@ export const SideNav: FC<{ setModalState: () => void }> = ({ setModalState }) =>
                 className={classes.navItem}
                 display="flex"
                 alignItems="center"
-                onClick={setModalState}
+                onClick={handleOpenDialog}
               >
                 <div>
-                  <TabIcon style={{ color: "#fff" }} />
+                  <LockIcon style={{ color: "#fff" }} />
                 </div>
                 <Box mx={1.5}>
                   <Typography variant="body1" color="#fff" fontWeight="bold">
@@ -120,10 +123,19 @@ export const SideNav: FC<{ setModalState: () => void }> = ({ setModalState }) =>
             </Fragment>
           </Box>
         </div>
-        <Box my={3}>
-          <Typography variant="body1" color="#fff" fontWeight="bold">
-            Log out
-          </Typography>
+        <Box
+          my={3}
+          display="flex"
+          alignItems='center'
+          justifyContent="flex-start"
+          style={{ cursor: 'pointer' }}
+        >
+          <LogoutIcon style={{ color: "#fff" }} />
+          <Box ml={1} my={2}>
+            <Typography variant="body1" color="#fff" fontWeight="bold">
+              Log out
+            </Typography>
+          </Box>
         </Box>
       </Box>
     </Box>

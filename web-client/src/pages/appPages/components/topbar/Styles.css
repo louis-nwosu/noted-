@@ -14,3 +14,34 @@ input {
   width: 100%;
   outline: none;
 }
+
+.topNav-span {
+  display: flex;
+  width: 100px;
+  justify-content: flex-end;
+}
+
+.topNav-input-box {
+  width: 100%;
+  border: 1.5px solid purple;
+  padding: 5px 20px;
+  border-radius: 4px;
+}
+
+.topNav-menu {
+  display: none;
+}
+
+@media (max-width: 600px) {
+  .topNav-span {
+    display: none;
+  }
+
+  .topNav-input-box {
+    width: 82%;
+  }
+
+  .topNav-menu {
+    display: block;
+  }
+}
