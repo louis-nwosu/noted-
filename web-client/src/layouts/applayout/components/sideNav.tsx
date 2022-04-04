@@ -19,6 +19,7 @@ const useStyles = makeStyles((theme: Theme) =>
       width: "100%",
       height: "100%",
       backgroundColor: purple[300],
+      overflow: 'hidden'
     },
     navItem: {
       cursor: "pointer",
@@ -37,9 +38,28 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     link: {
       "&.active": {
-        color: "red",
+        fontWeight: 'bold',
+        backgroundColor: '#fff',
+        color: 'purple',
+        borderRadius: '4px',
       },
-      textDecoration: "none"
+      textDecoration: "none",
+      display: 'flex',
+      alignItems: 'center',
+      color: '#fff',
+      transition: "all .2s ease-in-out",
+      height: '30px',
+      width: '300px',
+      padding: '2px 3px',
+      margin: '15px 0'
+    },
+    private: {
+       transition: "all .2s ease-in-out",
+      height: '30px',
+      width: '300px',
+      padding: '2px 3px',
+      cursor: 'pointer',
+      margin: '15px 0'
     },
   })
 );
@@ -48,22 +68,22 @@ const navItems: Array<{ path: string; text: string; icon: ReactNode }> = [
   {
     path: "/app/",
     text: "All",
-    icon: <TabIcon style={{ color: "#fff" }} />,
+    icon: <TabIcon style={{ color: "inherit" }} />,
   },
   {
     path: "/app/drafts",
     text: "Drafts",
-    icon: <DraftsIcon style={{ color: "#fff" }} />,
+    icon: <DraftsIcon style={{ color: "inherit" }} />,
   },
   {
     path: "/app/favorite",
     text: "Favorites",
-    icon: <FavoriteIcon style={{ color: "#fff" }} />,
+    icon: <FavoriteIcon style={{ color: "inherit" }} />,
   },
   {
     path: "/app/recycle-bin",
     text: "Recycle bin",
-    icon: <DeleteIcon style={{ color: "#fff" }} />,
+    icon: <DeleteIcon style={{ color: "inherit" }} />,
   },
 ];
 
@@ -94,30 +114,21 @@ export const SideNav: FC<{ handleOpenDialog: () => void }> = ({
                   to={item.path}
                   className={classes.link}
                 >
-                  link
                   <Box
                     py={1}
                     className={classes.navItem}
                     display="flex"
                     alignItems="center"
+                    mr={1}
                   >
                     <div>{item.icon}</div>
-                    <Box mx={1.5}>
-                      {/* <Typography
-                        variant="body1"
-                        color="#fff"
-                        fontWeight="bold"
-                      >
-                        {item.text}
-                      </Typography> */}
-                      
-                    </Box>
                   </Box>
+                  {item.text}
                 </NavLink>
               ))}
               <Box
                 py={1}
-                className={classes.navItem}
+                className={classes.private}
                 display="flex"
                 alignItems="center"
                 onClick={handleOpenDialog}
@@ -126,7 +137,7 @@ export const SideNav: FC<{ handleOpenDialog: () => void }> = ({
                   <LockIcon style={{ color: "#fff" }} />
                 </div>
                 <Box mx={1.5}>
-                  <Typography variant="body1" color="#fff" fontWeight="bold">
+                  <Typography variant="body1" color="#fff" fontWeight="">
                     Private
                   </Typography>
                 </Box>
@@ -143,7 +154,7 @@ export const SideNav: FC<{ handleOpenDialog: () => void }> = ({
         >
           <LogoutIcon style={{ color: "#fff" }} />
           <Box ml={1} my={2}>
-            <Typography variant="body1" color="#fff" fontWeight="bold">
+            <Typography variant="body1" color="#fff" fontWeight="">
               Log out
             </Typography>
           </Box>

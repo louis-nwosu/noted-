@@ -86,10 +86,10 @@ export const AppLayout: FC = ({ children }) => {
   return (
     <Fragment>
       <Grid container className={classes.container}>
-        <Grid item md={2} xs={12} className={classes.sideNav}>
+        <Grid item md={1.8} xs={12} className={classes.sideNav}>
           <SideNav handleOpenDialog={handleOpenDialog} />
         </Grid>
-        <Grid item md={10} xs={12} style={{ marginLeft: "auto" }}>
+        <Grid item md={10.2} xs={12} style={{ marginLeft: "auto" }}>
           <SideNavContext.Provider
             value={{ func: handleSideNavMob, val: sideNavMob }}
           >

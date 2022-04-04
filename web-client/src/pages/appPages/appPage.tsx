@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme: Theme) =>
     topNav: {
       boxShadow: "2px 10px 50px -1px rgba(0,0,0,0.28)",
       position: "fixed",
-      width: "84%",
+      width: "86%",
       backgroundColor: '#fff',
       [theme.breakpoints.down('sm')]: {
         width: '100%'
