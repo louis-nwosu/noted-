@@ -11,7 +11,7 @@ import LockIcon from "@mui/icons-material/Lock";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { Theme } from "@mui/system";
 import { purple } from "@mui/material/colors";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -33,7 +33,13 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     profile: {
       height: "19vh",
-      marginTop: '-5px'
+      marginTop: "-5px",
+    },
+    link: {
+      "&.active": {
+        color: "red",
+      },
+      textDecoration: "none"
     },
   })
 );
@@ -84,7 +90,11 @@ export const SideNav: FC<{ handleOpenDialog: () => void }> = ({
           <Box>
             <Fragment>
               {navItems.map((item) => (
-                <Link to={item.path} style={{ textDecoration: "none" }}>
+                <NavLink
+                  to={item.path}
+                  className={classes.link}
+                >
+                  link
                   <Box
                     py={1}
                     className={classes.navItem}
@@ -93,16 +103,17 @@ export const SideNav: FC<{ handleOpenDialog: () => void }> = ({
                   >
                     <div>{item.icon}</div>
                     <Box mx={1.5}>
-                      <Typography
+                      {/* <Typography
                         variant="body1"
                         color="#fff"
                         fontWeight="bold"
                       >
                         {item.text}
-                      </Typography>
+                      </Typography> */}
+                      
                     </Box>
                   </Box>
-                </Link>
+                </NavLink>
               ))}
               <Box
                 py={1}
@@ -126,9 +137,9 @@ export const SideNav: FC<{ handleOpenDialog: () => void }> = ({
         <Box
           my={3}
           display="flex"
-          alignItems='center'
+          alignItems="center"
           justifyContent="flex-start"
-          style={{ cursor: 'pointer' }}
+          style={{ cursor: "pointer" }}
         >
           <LogoutIcon style={{ color: "#fff" }} />
           <Box ml={1} my={2}>
