@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme: Theme) =>
       width: '60%',
       textAlign: 'center',
       margin: '0 auto',
-      color: '#666',
+      color: '#777',
       [theme.breakpoints.down('sm')]: {
         width: '90%'
       },
