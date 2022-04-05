@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme: Theme) =>
       width: "100%",
       height: "100%",
       backgroundColor: purple[300],
-      overflow: 'hidden'
+      overflow: "hidden",
     },
     navItem: {
       cursor: "pointer",
@@ -38,28 +38,40 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     link: {
       "&.active": {
-        fontWeight: 'bold',
-        backgroundColor: '#fff',
-        color: 'purple',
-        borderRadius: '4px',
+        fontWeight: "bold",
+        backgroundColor: "#fff",
+        color: "purple",
+        borderRadius: "4px",
       },
       textDecoration: "none",
-      display: 'flex',
-      alignItems: 'center',
-      color: '#fff',
+      display: "flex",
+      alignItems: "center",
+      color: "#fff",
       transition: "all .2s ease-in-out",
-      height: '30px',
-      width: '300px',
-      padding: '2px 3px',
-      margin: '15px 0'
+      height: "30px",
+      width: "300px",
+      padding: "2px 3px",
+      margin: "15px 0",
+      fontFamily: "Raleway, sans-serif",
     },
     private: {
-       transition: "all .2s ease-in-out",
-      height: '30px',
-      width: '300px',
-      padding: '2px 3px',
-      cursor: 'pointer',
-      margin: '15px 0'
+      transition: "all .2s ease-in-out",
+      height: "30px",
+      width: "300px",
+      padding: "2px 3px",
+      cursor: "pointer",
+      margin: "15px 0",
+      fontFamily: "Raleway, sans-serif",
+      color: "#fff",
+    },
+    logOutBtn: {
+      fontFamily: "Raleway, sans-serif",
+      color: "#fff",
+    },
+    nameCard: {
+      fontFamily: "Inter, sans-serif",
+      color: "#fff",
+      marginTop: '2px',
     },
   })
 );
@@ -103,17 +115,12 @@ export const SideNav: FC<{ handleOpenDialog: () => void }> = ({
       >
         <div>
           <Box className={classes.profile}>
-            <Typography variant="h6" component="p" color="#fff">
-              Louis Nwosu
-            </Typography>
+            <p className={classes.nameCard}>Louis Nwosu</p>
           </Box>
           <Box>
             <Fragment>
               {navItems.map((item) => (
-                <NavLink
-                  to={item.path}
-                  className={classes.link}
-                >
+                <NavLink to={item.path} className={classes.link}>
                   <Box
                     py={1}
                     className={classes.navItem}
@@ -137,9 +144,7 @@ export const SideNav: FC<{ handleOpenDialog: () => void }> = ({
                   <LockIcon style={{ color: "#fff" }} />
                 </div>
                 <Box mx={1.5}>
-                  <Typography variant="body1" color="#fff" fontWeight="">
-                    Private
-                  </Typography>
+                  <p>Private</p>
                 </Box>
               </Box>
             </Fragment>
@@ -154,9 +159,7 @@ export const SideNav: FC<{ handleOpenDialog: () => void }> = ({
         >
           <LogoutIcon style={{ color: "#fff" }} />
           <Box ml={1} my={2}>
-            <Typography variant="body1" color="#fff" fontWeight="">
-              Log out
-            </Typography>
+            <p className={classes.logOutBtn}>Log out</p>
           </Box>
         </Box>
       </Box>

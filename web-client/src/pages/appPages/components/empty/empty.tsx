@@ -17,10 +17,11 @@ const useStyles = makeStyles((theme: Theme) =>
       width: '60%',
       textAlign: 'center',
       margin: '0 auto',
-      color: '#555',
+      color: '#666',
       [theme.breakpoints.down('sm')]: {
         width: '90%'
-      }
+      },
+      fontFamily: "Inter, sans-serif",
     },
     btnContainer: {
       display: "flex",

@@ -2,6 +2,7 @@ import { FC, useState, Fragment, createContext } from "react";
 
 import { Grid, Typography, TextField, Box, Button } from "@mui/material";
 import { makeStyles, createStyles } from "@mui/styles";
+import LockIcon from '@mui/icons-material/Lock';
 import { Theme } from "@mui/system";
 
 import { SideNav } from "./components/sideNav";
@@ -66,11 +67,16 @@ const useStyles = makeStyles((theme: Theme) =>
       transform: "translateX(0)",
       transition: "all 0.2s ease-in",
     },
+    dialogHeader: {
+      margin: '0 4px',
+      fontFamily: 'inter',
+      color: 'purple'
+    }
   })
 );
 
 export const SideNavContext = createContext({
-  func: (val: boolean) => {},
+  func: (val: boolean) => { },
   val: false,
 });
 
@@ -105,7 +111,11 @@ export const AppLayout: FC = ({ children }) => {
               onClick={() => setOpenDialog(false)}
             ></div>
             <div className={classes.dialogItem}>
-              <Typography color="secondary" variant="body2" align="center">
+              <Box display='flex' justifyContent='center' alignItems='center' my={1}>
+                <LockIcon style={{ color: 'purple' }} />
+                <span className={classes.dialogHeader}>Private</span>
+              </Box>
+              <Typography color="#666" variant="body2" align="center">
                 Enter pasword to view private documents
               </Typography>
               <Box
