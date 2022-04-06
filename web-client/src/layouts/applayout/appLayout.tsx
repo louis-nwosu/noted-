@@ -42,9 +42,14 @@ const useStyles = makeStyles((theme: Theme) =>
       width: "30%",
       backgroundColor: "#fff",
       padding: "20px 5px",
-      top: "35vh",
+      top: "25vh",
       left: "40%",
       borderRadius: "4px",
+      [theme.breakpoints.down('sm')]: {
+        width: "90%",
+        top: "25vh",
+        left: "3.5%",
+      }
     },
     container: {
       position: "relative",

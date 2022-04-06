@@ -32,14 +32,16 @@ const useTrashCan = makeStyles((theme: Theme) =>
       backgroundColor: 'purple',
       padding: theme.spacing(1),
       color: '#fff',
-      borderRadius: '15px'
+      borderRadius: '15px',
+      fontSize: '13px'
     },
     restore: {
       backgroundColor: '#DDA0DD',
       cursor: 'pointer',
       padding: theme.spacing(1),
       color: '#fff',
-      borderRadius: '15px'
+      borderRadius: '15px',
+      fontSize: '13px'
     }
   })
 );
@@ -62,7 +64,7 @@ const TrashCan: FC = () => {
   const classes = useTrashCan();
   return (
     <div className={classes.container}>
-      <Box width='14%' display='flex' justifyContent='space-between' p={2.5}>
+      <Box width='13%' display='flex' justifyContent='space-between' p={2.5}>
         <span className={classes.restore}>Restore</span>
         <span className={classes.del}>Empty</span>
       </Box>

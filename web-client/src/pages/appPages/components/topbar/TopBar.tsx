@@ -1,6 +1,6 @@
-import { FC, useContext } from "react";
+import { FC, useContext, useState } from "react";
 
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, Drawer } from "@mui/material";
 import PersonIcon from "@mui/icons-material/Person";
 import SettingsIcon from "@mui/icons-material/Settings";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -10,10 +10,14 @@ import SearchIcon from '@mui/icons-material/Search';
 
 import "./Styles.css";
 import { SideNavContext } from "../../../../layouts/applayout/appLayout";
+import { Settings } from "../settings/settings";
 import { logoTheme } from "../../../../themes";
 
 export const TopBar: FC = () => {
   const { func, val } = useContext(SideNavContext);
+
+  const [drawerState, setDrawerState] = useState<boolean>(false);
+  const drawerToggler = (state: boolean) => setDrawerState(state);
 
   return (
     <div className="topnav-container">
@@ -35,20 +39,27 @@ export const TopBar: FC = () => {
             className="topnav-input-container"
             placeholder="Search documents, dates, categories..."
           />
-          <SearchIcon style={{ color: '#DDA0DD', fontSize: '20px'}} />
+          <SearchIcon style={{ color: '#DDA0DD', fontSize: '20px' }} />
         </Box>
       </div>
       <span className="topNav-span">
         <Box mr={1}>
           <PersonIcon style={{ color: "purple" }} />
         </Box>
-        <Box ml={1}>
+        <Box ml={1} onClick={() => drawerToggler(true)}>
           <SettingsIcon style={{ color: "purple" }} />
         </Box>
       </span>
       <span className="topNav-menu" onClick={() => func(true)}>
         {val !== true && <MenuIcon style={{ color: "purple" }} />}
       </span>
+      <Drawer
+        anchor={'right'}
+        open={drawerState}
+        onClose={() => drawerToggler(false)}
+      >
+        <Settings />
+      </Drawer>
     </div>
   );
 };
