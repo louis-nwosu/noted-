@@ -76,3 +76,9 @@ module.exports = {
     }
   },
 };
+
+
+/**
+ * endpoint
+ * client to consume the endpoints
+ */
