@@ -4,15 +4,35 @@
   align-items: center;
 }
 
+.topnav-containerDark {
+  display: flex;
+  padding: 5px 30px;
+  align-items: center;
+  background-color: #353535;
+  color: '#fff'
+}
+
 .topnav-container > div {
   flex: 1;
   margin: 0 3%;
 }
 
-input {
+.topnav-containerDark > div {
+  flex: 1;
+  margin: 0 3%;
+}
+
+.topnav-input-container {
   border: none;
   width: 100%;
   outline: none;
+}
+
+.topnav-input-containerDark {
+  border: none;
+  width: 100%;
+  outline: none;
+  background-color: #353535;
 }
 
 .topNav-span {
@@ -23,7 +43,7 @@ input {
 
 .topNav-input-box {
   width: 100%;
-  border: 1.5px solid #DDA0DD;
+  border: 1.5px solid #dda0dd;
   padding: 5px 20px;
   border-radius: 4px;
   display: flex;

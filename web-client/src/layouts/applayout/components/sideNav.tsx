@@ -1,7 +1,6 @@
-import { FC, ReactNode, Fragment } from "react";
+import { FC, ReactNode, Fragment, useContext } from "react";
 
 import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
 import { makeStyles, createStyles } from "@mui/styles";
 import TabIcon from "@mui/icons-material/Tab";
 import DraftsIcon from "@mui/icons-material/Drafts";
@@ -12,6 +11,8 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import { Theme } from "@mui/system";
 import { purple } from "@mui/material/colors";
 import { NavLink } from "react-router-dom";
+
+import { AppMode } from "../../../App";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -54,6 +55,24 @@ const useStyles = makeStyles((theme: Theme) =>
       margin: "15px 0",
       fontFamily: "Raleway, sans-serif",
     },
+    linkDark: {
+      "&.active": {
+        fontWeight: "bold",
+        backgroundColor: "#252525",
+        color: "#fff",
+        borderRadius: "4px",
+      },
+      textDecoration: "none",
+      display: "flex",
+      alignItems: "center",
+      color: "#fff",
+      transition: "all .2s ease-in-out",
+      height: "30px",
+      width: "300px",
+      padding: "2px 3px",
+      margin: "15px 0",
+      fontFamily: "Raleway, sans-serif",
+    },
     private: {
       transition: "all .2s ease-in-out",
       height: "30px",
@@ -71,7 +90,7 @@ const useStyles = makeStyles((theme: Theme) =>
     nameCard: {
       fontFamily: "Inter, sans-serif",
       color: "#fff",
-      marginTop: '2px',
+      marginTop: "2px",
     },
   })
 );
@@ -103,6 +122,7 @@ export const SideNav: FC<{ handleOpenDialog: () => void }> = ({
   handleOpenDialog,
 }) => {
   const classes = useStyles();
+  const { mode } = useContext(AppMode);
   return (
     <Box className={classes.container}>
       <Box
@@ -120,7 +140,10 @@ export const SideNav: FC<{ handleOpenDialog: () => void }> = ({
           <Box>
             <Fragment>
               {navItems.map((item) => (
-                <NavLink to={item.path} className={classes.link}>
+                <NavLink
+                  to={item.path}
+                  className={mode === "light" ? classes.link : classes.linkDark}
+                >
                   <Box
                     py={1}
                     className={classes.navItem}

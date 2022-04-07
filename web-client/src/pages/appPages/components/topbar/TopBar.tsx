@@ -5,29 +5,29 @@ import PersonIcon from "@mui/icons-material/Person";
 import SettingsIcon from "@mui/icons-material/Settings";
 import MenuIcon from "@mui/icons-material/Menu";
 import { ThemeProvider } from "@mui/styles";
-import { Link } from 'react-router-dom';
-import SearchIcon from '@mui/icons-material/Search';
+import { Link } from "react-router-dom";
+import SearchIcon from "@mui/icons-material/Search";
 
 import "./Styles.css";
 import { SideNavContext } from "../../../../layouts/applayout/appLayout";
+import { AppMode } from "../../../../App";
 import { Settings } from "../settings/settings";
 import { logoTheme } from "../../../../themes";
 
 export const TopBar: FC = () => {
   const { func, val } = useContext(SideNavContext);
+  const { mode } = useContext(AppMode);
 
   const [drawerState, setDrawerState] = useState<boolean>(false);
   const drawerToggler = (state: boolean) => setDrawerState(state);
 
   return (
-    <div className="topnav-container">
+    <div
+      className={mode === "light" ? "topnav-container" : "topnav-containerDark"}
+    >
       <ThemeProvider theme={logoTheme}>
-        <Link to="/" style={{ textDecoration: 'none' }}>
-          <Typography
-            variant="h5"
-            color="secondary"
-            fontFamily="Neonderthaw"
-          >
+        <Link to="/" style={{ textDecoration: "none" }}>
+          <Typography variant="h5" color="secondary" fontFamily="Neonderthaw">
             noted
           </Typography>
         </Link>
@@ -36,10 +36,14 @@ export const TopBar: FC = () => {
         <Box className="topNav-input-box">
           <input
             type="text"
-            className="topnav-input-container"
+            className={
+              mode === "light"
+                ? "topnav-input-container"
+                : "topnav-input-containerDark"
+            }
             placeholder="Search documents, dates, categories..."
           />
-          <SearchIcon style={{ color: '#DDA0DD', fontSize: '20px' }} />
+          <SearchIcon style={{ color: "#DDA0DD", fontSize: "20px" }} />
         </Box>
       </div>
       <span className="topNav-span">
@@ -54,7 +58,7 @@ export const TopBar: FC = () => {
         {val !== true && <MenuIcon style={{ color: "purple" }} />}
       </span>
       <Drawer
-        anchor={'right'}
+        anchor={"right"}
         open={drawerState}
         onClose={() => drawerToggler(false)}
       >
