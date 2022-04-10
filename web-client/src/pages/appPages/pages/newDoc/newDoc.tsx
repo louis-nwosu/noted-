@@ -1,4 +1,6 @@
-import { useCallback, useMemo, useState } from 'react'
+import { FC, Fragment } from "react";
+
+// import { useCallback, useMemo, useState } from 'react'
 // import isHotkey from 'is-hotkey'
 // import { Editable, withReact, useSlate, Slate } from 'slate-react'
 // import {
@@ -9,26 +11,26 @@ import { useCallback, useMemo, useState } from 'react'
 //   Element as SlateElement,
 // } from 'slate'
 // import { withHistory } from 'slate-history'
-// 
+//
 // // import { Button, Icon, Toolbar } from '../components'
-// 
+//
 // const HOTKEYS = {
 //   'mod+b': 'bold',
 //   'mod+i': 'italic',
 //   'mod+u': 'underline',
 //   'mod+`': 'code',
 // }
-// 
+//
 // const LIST_TYPES = ['numbered-list', 'bulleted-list']
 // const TEXT_ALIGN_TYPES = ['left', 'center', 'right', 'justify']
-// 
+//
 // const RichTextExample = () => {
-// 
+//
 //   const [value, setValue] = useState<Descendant[]>(initialValue)
 //   const renderElement = useCallback(props => <Element {...props} />, [])
 //   const renderLeaf = useCallback(props => <Leaf {...props} />, [])
 //   const editor = useMemo(() => withHistory(withReact(createEditor())), [])
-// 
+//
 //   return (
 //     <Slate editor={editor} value={value} onChange={value => setValue(value)}>
 //       <div>
@@ -65,7 +67,7 @@ import { useCallback, useMemo, useState } from 'react'
 //     </Slate>
 //   )
 // }
-// 
+//
 // const toggleBlock = (editor, format) => {
 //   const isActive = isBlockActive(
 //     editor,
@@ -73,7 +75,7 @@ import { useCallback, useMemo, useState } from 'react'
 //     TEXT_ALIGN_TYPES.includes(format) ? 'align' : 'type'
 //   )
 //   const isList = LIST_TYPES.includes(format)
-// 
+//
 //   Transforms.unwrapNodes(editor, {
 //     match: n =>
 //       !Editor.isEditor(n) &&
@@ -93,29 +95,29 @@ import { useCallback, useMemo, useState } from 'react'
 //     }
 //   }
 //   Transforms.setNodes<SlateElement>(editor, newProperties)
-// 
+//
 //   if (!isActive && isList) {
 //     const block = { type: format, children: [] }
 //     Transforms.wrapNodes(editor, block)
 //   }import { FC } from 'react';
-// 
-// 
+//
+//
 // }
-// 
+//
 // const toggleMark = (editor, format) => {
 //   const isActive = isMarkActive(editor, format)
-// 
+//
 //   if (isActive) {
 //     Editor.removeMark(editor, format)
 //   } else {
 //     Editor.addMark(editor, format, true)
 //   }
 // }
-// 
+//
 // const isBlockActive = (editor, format, blockType = 'type') => {
 //   const { selection } = editor
 //   if (!selection) return false
-// 
+//
 //   const [match] = Array.from(
 //     Editor.nodes(editor, {
 //       at: Editor.unhangRange(editor, selection),
@@ -125,15 +127,15 @@ import { useCallback, useMemo, useState } from 'react'
 //         n[blockType] === format,
 //     })
 //   )
-// 
+//
 //   return !!match
 // }
-// 
+//
 // const isMarkActive = (editor, format) => {
 //   const marks = Editor.marks(editor)
 //   return marks ? marks[format] === true : false
 // }
-// 
+//
 // const Element = ({ attributes, children, element }) => {
 //   const style = { textAlign: element.align }
 //   switch (element.type) {
@@ -181,27 +183,27 @@ import { useCallback, useMemo, useState } from 'react'
 //       )
 //   }
 // }
-// 
+//
 // const Leaf = ({ attributes, children, leaf }) => {
 //   if (leaf.bold) {
 //     children = <strong>{children}</strong>
 //   }
-// 
+//
 //   if (leaf.code) {
 //     children = <code>{children}</code>
 //   }
-// 
+//
 //   if (leaf.italic) {
 //     children = <em>{children}</em>
 //   }
-// 
+//
 //   if (leaf.underline) {
 //     children = <u>{children}</u>
 //   }
-// 
+//
 //   return <span {...attributes}>{children}</span>
 // }
-// 
+//
 // const BlockButton = ({ format, icon }) => {
 //   const editor = useSlate()
 //   return (
@@ -220,7 +222,7 @@ import { useCallback, useMemo, useState } from 'react'
 //     </Button>
 //   )
 // }
-// 
+//
 // const MarkButton = ({ format, icon }) => {
 //   const editor = useSlate()
 //   return (
@@ -235,7 +237,7 @@ import { useCallback, useMemo, useState } from 'react'
 //     </Button>
 //   )
 // }
-// 
+//
 // const initialValue: Descendant[] = [
 //   {
 //     type: 'paragraph',
@@ -259,10 +261,10 @@ import { useCallback, useMemo, useState } from 'react'
 //       { text: 'bold', bold: true },
 //       {
 //         text:import { FC } from 'react';
-// 
+//
 // import { FC } from 'react';
-// 
-// 
+//
+//
 //           ', or add a semantically rendered block quote in the middle of the page, like this:',
 //       },
 //     ],
@@ -277,5 +279,11 @@ import { useCallback, useMemo, useState } from 'react'
 //     children: [{ text: 'Try it out for yourself!' }],
 //   },
 // ]
-// 
+//
 // export default RichTextExample
+
+export const NewDoc: FC = () => {
+  return <div></div>;
+};
+
+export { NewDoc as default };

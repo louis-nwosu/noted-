@@ -3,6 +3,7 @@ import { FC, useContext } from "react";
 import { Box, Button } from "@mui/material";
 import { makeStyles, createStyles, ThemeProvider } from "@mui/styles";
 import { Theme } from "@mui/system";
+import { Link } from "react-router-dom";
 
 import { appTheme } from "../../../../themes";
 import { AppMode } from "../../../../App";
@@ -63,9 +64,11 @@ export const EmptyPage: FC<{ text: string }> = ({ text }) => {
         </p>
         <Box my={2} className={classes.btnContainer}>
           <ThemeProvider theme={appTheme}>
-            <Button variant="contained" color="secondary">
-              Add Document
-            </Button>
+            <Link to="/app/new" style={{ textDecoration: "none" }}>
+              <Button variant="contained" color="secondary">
+                Add Document
+              </Button>
+            </Link>
           </ThemeProvider>
         </Box>
       </div>

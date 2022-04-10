@@ -34,7 +34,7 @@ export const SignIn: FC<SingInProps> = ({ switchComp }) => {
         <Grid item md={12} xs={10}>
           <Box display="flex" className={classes.formTop} mb={5}>
             <AssignmentIndIcon color="secondary" fontSize="large" />
-            <Typography variant="h5">Hello, Kindly sign up</Typography>
+            <Typography variant="h5">Hello, Kindly sign in</Typography>
           </Box>
           <Box className={classes.formCard}>
             <Box mb={2}>

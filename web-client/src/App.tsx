@@ -8,17 +8,20 @@ import {
   FavoritePage,
   Drafts,
   Trash,
-} from "./pages/appPages/components";
+  NewDoc
+} from "./pages/appPages/pages";
 import { appTheme } from "./themes";
+
+type appModes = "dark" | "light";
 
 export const AppMode = createContext({
   mode: "dark",
-  setMode: (mode: "dark" | "light") => {},
+  setMode: (mode: appModes) => {},
 });
 
 function App() {
-  const [appMode, setAppMode] = useState<"dark" | "light">("light");
-  const handleAppModeChange = (mode: "dark" | "light") => setAppMode(mode);
+  const [appMode, setAppMode] = useState<appModes>("light");
+  const handleAppModeChange = (mode: appModes) => setAppMode(mode);
   return (
     <ThemeProvider theme={appTheme}>
       <AppMode.Provider value={{ mode: appMode, setMode: handleAppModeChange }}>
@@ -26,6 +29,7 @@ function App() {
           <Routes>
             <Route path="/" element={<LandingPage />} />
             <Route path="/authentication" element={<AuthPage />} />
+            <Route path="/app/new" element={<NewDoc />} />
             <Route path="/app" element={<AppDashboard />}>
               <Route path="/app/" element={<AllDocs />} />
               <Route path="/app/favorite" element={<FavoritePage />} />

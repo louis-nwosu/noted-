@@ -4,7 +4,7 @@ import { makeStyles, createStyles } from "@mui/styles";
 import { Theme } from "@mui/system";
 
 import { AppLayout } from "../../layouts/applayout/appLayout";
-import { TopBar } from "./components/topbar/TopBar";
+import { TopBar } from "./pages/topbar/TopBar";
 import { AppMode } from "../../App";
 
 const useStyles = makeStyles((theme: Theme) =>
