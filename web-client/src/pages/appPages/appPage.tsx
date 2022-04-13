@@ -17,6 +17,7 @@ const useStyles = makeStyles((theme: Theme) =>
       [theme.breakpoints.down("sm")]: {
         width: "100%",
       },
+      zIndex: 100
     },
     topNavDark: {
       boxShadow: "1px 3px 12px 0px rgba(200,200,200,0.28)",

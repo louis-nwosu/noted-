@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme: Theme) =>
     container: {
       width: "100%",
       height: "100%",
-      backgroundColor: purple[300],
+      backgroundColor: purple[800],
       overflow: "hidden",
     },
     navItem: {
@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme: Theme) =>
       height: "100%",
     },
     profile: {
-      height: "19vh",
+      height: "10vh",
       marginTop: "-5px",
     },
     link: {

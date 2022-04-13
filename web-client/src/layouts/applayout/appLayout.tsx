@@ -2,7 +2,7 @@ import { FC, useState, Fragment, createContext } from "react";
 
 import { Grid, Typography, TextField, Box, Button } from "@mui/material";
 import { makeStyles, createStyles } from "@mui/styles";
-import LockIcon from '@mui/icons-material/Lock';
+import LockIcon from "@mui/icons-material/Lock";
 import { Theme } from "@mui/system";
 
 import { SideNav } from "./components/sideNav";
@@ -27,6 +27,7 @@ const useStyles = makeStyles((theme: Theme) =>
       width: "100%",
       height: "100vh",
       top: "0",
+      zIndex: 200,
     },
     hideDialog: {
       display: "none",
@@ -45,11 +46,11 @@ const useStyles = makeStyles((theme: Theme) =>
       top: "25vh",
       left: "40%",
       borderRadius: "4px",
-      [theme.breakpoints.down('sm')]: {
+      [theme.breakpoints.down("sm")]: {
         width: "90%",
         top: "25vh",
         left: "3.5%",
-      }
+      },
     },
     container: {
       position: "relative",
@@ -73,15 +74,15 @@ const useStyles = makeStyles((theme: Theme) =>
       transition: "all 0.2s ease-in",
     },
     dialogHeader: {
-      margin: '0 4px',
-      fontFamily: 'inter',
-      color: 'purple'
-    }
+      margin: "0 4px",
+      fontFamily: "inter",
+      color: "purple",
+    },
   })
 );
 
 export const SideNavContext = createContext({
-  func: (val: boolean) => { },
+  func: (val: boolean) => {},
   val: false,
 });
 
@@ -116,8 +117,13 @@ export const AppLayout: FC = ({ children }) => {
               onClick={() => setOpenDialog(false)}
             ></div>
             <div className={classes.dialogItem}>
-              <Box display='flex' justifyContent='center' alignItems='center' my={1}>
-                <LockIcon style={{ color: 'purple' }} />
+              <Box
+                display="flex"
+                justifyContent="center"
+                alignItems="center"
+                my={1}
+              >
+                <LockIcon style={{ color: "purple" }} />
                 <span className={classes.dialogHeader}>Private</span>
               </Box>
               <Typography color="#666" variant="body2" align="center">

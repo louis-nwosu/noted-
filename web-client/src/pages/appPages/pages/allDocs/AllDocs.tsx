@@ -1,4 +1,4 @@
-import { FC, Fragment } from "react";
+import { FC } from "react";
 
 // import { useSelector } from "react-redux";
 import { Box } from "@mui/material";
@@ -22,10 +22,12 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export const AllDocs: FC = () => {
   const classes = useStyles();
+
   // const state = useSelector((state: any) => state)
   return (
     <Box p={2}>
       {dummyDoc.length !== 0 ? (
+        
         <Box my={7} className={classes.container}>
           {dummyDoc.map((item: any) => (
             <DocPreview />
