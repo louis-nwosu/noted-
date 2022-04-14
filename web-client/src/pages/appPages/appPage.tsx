@@ -10,17 +10,18 @@ import { AppMode } from "../../App";
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     topNav: {
-      boxShadow: "2px 10px 50px -1px rgba(0,0,0,0.28)",
+      boxShadow: "rgba(149, 157, 165, 0.2) 0px 8px 24px",
       position: "fixed",
       width: "86%",
       backgroundColor: "#fff",
       [theme.breakpoints.down("sm")]: {
         width: "100%",
       },
-      zIndex: 100
+      zIndex: 100,
     },
     topNavDark: {
-      boxShadow: "1px 3px 12px 0px rgba(200,200,200,0.28)",
+      boxShadow:
+        "rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px",
       position: "fixed",
       width: "86%",
       backgroundColor: "#fff",
@@ -36,7 +37,7 @@ export const AppDashboard: FC = () => {
   const { mode } = useContext(AppMode);
   return (
     <AppLayout>
-      <div className={mode === 'light' ? classes.topNav : classes.topNavDark}>
+      <div className={mode === "light" ? classes.topNav : classes.topNavDark}>
         <TopBar />
       </div>
       <Outlet />
