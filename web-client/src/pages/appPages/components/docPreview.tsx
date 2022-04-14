@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 
 import { Box, Typography } from "@mui/material";
 import { makeStyles, createStyles } from "@mui/styles";
@@ -57,11 +57,27 @@ const useStyles = makeStyles((theme: Theme) =>
       color: "#fff",
       borderRadius: theme.spacing(0.5),
     },
-    contentHeader: {
+    contentPreviewHide: {
+      transition: "all .5s ease-in-out",
+      transform: "translateY(10px)",
+      opacity: 0,
+    },
+    contentHeaderHide: {
+      transition: "all .5s ease-in-out",
+      transform: "translateX(150px) translateY(25px)  scale(2)",
+      color: "#fff",
+    },
+    contentPreviewShow: {
+      transition: "all .5s ease-in-out",
+      transform: "translateY(0)",
+      opacity: 1,
+    },
+    contentHeaderShow: {
+      transition: "all .5s ease-in-out",
+      transform: "translateX(0) translateY(0)  scale(1)",
       color: "#fff",
       margin: theme.spacing(4, 0.5),
     },
-    contentPreview: {},
   })
 );
 
@@ -71,6 +87,8 @@ export const DocPreview: FC<{
   preview: string;
 }> = ({ PreviewType, content, preview }) => {
   const classes = useStyles();
+  const [hidePreview, setHidePreview] = useState<boolean>(false);
+  const handleSetPreview = () => setHidePreview(!hidePreview);
   return (
     <div className={classes.container}>
       <Box
@@ -81,8 +99,24 @@ export const DocPreview: FC<{
         }
       >
         <div className={classes.backdrop}>
-          <p className={classes.contentHeader}>{content}</p>
-          <Box marginTop={-3} mx={0.5}>
+          <p
+            className={
+              hidePreview
+                ? classes.contentHeaderHide
+                : classes.contentHeaderShow
+            }
+          >
+            {content}
+          </p>
+          <Box
+            marginTop={-3.8}
+            mx={0.5}
+            className={
+              hidePreview
+                ? classes.contentPreviewHide
+                : classes.contentPreviewShow
+            }
+          >
             <Typography fontSize={"14px"} color={"#fff"}>
               {preview}
             </Typography>
@@ -109,11 +143,19 @@ export const DocPreview: FC<{
               >
                 {PreviewType}
               </span>
-              <RemoveRedEyeIcon
-                style={{ fontSize: "inherit", color: "inherit" }}
-              />
+              {hidePreview ? (
+                <VisibilityOffIcon
+                  style={{ fontSize: "inherit", color: "inherit" }}
+                  onClick={handleSetPreview}
+                />
+              ) : (
+                <RemoveRedEyeIcon
+                  style={{ fontSize: "inherit", color: "inherit" }}
+                  onClick={handleSetPreview}
+                />
+              )}
             </Box>
-            <Box flex={1} onClick={() => console.log("i was clicked")}></Box>
+            <Box flex={1}></Box>
             <Box
               p={0.5}
               style={{ fontSize: "12.5px" }}

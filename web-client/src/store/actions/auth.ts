@@ -1,6 +1,6 @@
 import { Dispatch } from "redux";
 
-import { ActionTypes, authPayload } from "./types";
+import { ActionTypes, authPayload } from '../types'
 import { NotedAction } from "./actionTypes";
 
 const init = (): ActionTypes => ({
