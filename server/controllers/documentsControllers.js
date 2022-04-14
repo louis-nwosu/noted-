@@ -22,6 +22,7 @@ module.exports = {
       if (!userDoc) {
         return res.status(401).json({ message: "oops something went wrong" });
       }
+      
       let newDoc;
       if (req.body.doc_type == "single") {
         newDoc = new singleDocs({
@@ -38,6 +39,7 @@ module.exports = {
           docColl: [],
         });
       }
+
       if (userDoc.user_Docs.length == 0) {
         userDoc.user_Docs.push({
           date: req.body.date,
