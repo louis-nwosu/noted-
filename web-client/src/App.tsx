@@ -8,7 +8,7 @@ import {
   FavoritePage,
   Drafts,
   Trash,
-  NewDoc
+  NewDoc,
 } from "./pages/appPages/pages";
 import { appTheme } from "./themes";
 
@@ -29,13 +29,13 @@ function App() {
           <Routes>
             <Route path="/" element={<LandingPage />} />
             <Route path="/authentication" element={<AuthPage />} />
-            <Route path="/app/new" element={<NewDoc />} />
             <Route path="/app" element={<AppDashboard />}>
               <Route path="/app/" element={<AllDocs />} />
               <Route path="/app/favorite" element={<FavoritePage />} />
               <Route path="/app/drafts" element={<Drafts />} />
               <Route path="/app/recycle-bin" element={<Trash />} />
             </Route>
+            <Route path="/app/new" element={<NewDoc />} />
           </Routes>
         </BrowserRouter>
       </AppMode.Provider>

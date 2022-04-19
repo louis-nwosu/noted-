@@ -14,3 +14,13 @@ export interface authPayload {
   username: string;
   password: string;
 }
+
+export interface AuthTypes {
+  user: any;
+  isLoading: boolean;
+  hasError: boolean;
+}
+
+export interface StateTypes {
+  auth: AuthTypes;
+}

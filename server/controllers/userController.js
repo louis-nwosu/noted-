@@ -1,6 +1,6 @@
 const { User, Document } = require("../models/index");
 const jwt = require("jsonwebtoken");
-const bcrypt = require("bcryptjs");
+// const bcrypt = require("bcrypt");
 
 module.exports = {
   sign_up: async (req, res) => {
@@ -8,13 +8,13 @@ module.exports = {
     try {
       const userExists = await User.findOne({ eMail: req.body.eMail });
       if (userExists)
-        return res.status(400).json({ message: "email is already in use" });
+        return res.status(200).json({ error: "email is already in use" });
 
-      const hashedPwd = await brcpyt.hash(req.body.password, 12);
+      // const hashedPwd = await brcpyt.hash(req.body.password, 12);
 
       const newUser = new User({
         eMail: req.body.eMail,
-        password: hashedPwd,
+        password: req.body.password,
         fullName: req.body.fullName,
       });
 

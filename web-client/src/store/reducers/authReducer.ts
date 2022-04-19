@@ -1,15 +1,11 @@
 import { NotedAction } from "../actions/actionTypes";
-
-interface AuthTypes {
-  user: any;
-  isLoading: boolean;
-  hasError: boolean;
-}
+import { AuthTypes } from "../types";
 
 const initialAuth: AuthTypes = {
   user: {
     name: "",
     email: "",
+    password: "",
   },
   isLoading: false,
   hasError: false,
@@ -17,7 +13,6 @@ const initialAuth: AuthTypes = {
 
 export function authReducer(state = initialAuth, action: any): AuthTypes {
   switch (action.type) {
-    //auth actions
     case NotedAction.auth.init: {
       return {
         ...state,
@@ -35,7 +30,7 @@ export function authReducer(state = initialAuth, action: any): AuthTypes {
     case NotedAction.auth.success: {
       return {
         ...state,
-        user: action.payload.data,
+        user: action.payload.savedUser,
         isLoading: false,
         hasError: false,
       };

@@ -26,14 +26,64 @@ const dummyDoc: Array<{
       },
       {
         content: 1234567,
+        type: "collection",
+        preview: "once upon a very very blue moon...",
+      },
+      {
+        content: 1234567,
         type: "single",
         preview: "once upon a very very blue moon...",
       },
-      // { content: 1234567, type: "single" },
-      // { content: 1234567, type: "collection" },
-      // { content: 1234567, type: "collection" },
-      // { content: 1234567, type: "single" },
-      // { content: 1234567, type: "collection" },
+      {
+        content: 1234567,
+        type: "collection",
+        preview: "once upon a very very blue moon...",
+      },
+      {
+        content: 1234567,
+        type: "single",
+        preview: "once upon a very very blue moon...",
+      },
+      {
+        content: 1234567,
+        type: "collection",
+        preview: "once upon a very very blue moon...",
+      },
+      {
+        content: 1234567,
+        type: "single",
+        preview: "once upon a very very blue moon...",
+      },
+      {
+        content: 1234567,
+        type: "collection",
+        preview: "once upon a very very blue moon...",
+      },
+      {
+        content: 1234567,
+        type: "collection",
+        preview: "once upon a very very blue moon...",
+      },
+      {
+        content: 1234567,
+        type: "collection",
+        preview: "once upon a very very blue moon...",
+      },
+      {
+        content: 1234567,
+        type: "collection",
+        preview: "once upon a very very blue moon...",
+      },
+      {
+        content: 1234567,
+        type: "collection",
+        preview: "once upon a very very blue moon...",
+      },
+      {
+        content: 1234567,
+        type: "collection",
+        preview: "once upon a very very blue moon...",
+      },
     ],
   },
 ];
@@ -57,9 +107,9 @@ export const AllDocs: FC = () => {
 
   // const state = useSelector((state: any) => state)
   return (
-    <Box p={2}>
+    <Box>
       {dummyDoc.length !== 0 ? (
-        <Box my={7} className={classes.container}>
+        <Box my={7} p={2} className={classes.container}>
           {dummyDoc.map(
             (item: {
               date: string;
@@ -84,7 +134,7 @@ export const AllDocs: FC = () => {
                         <DocPreview
                           PreviewType={docs.type}
                           content={docs.content}
-                          preview={docs.preview} 
+                          preview={docs.preview}
                         />
                       )
                     )}
