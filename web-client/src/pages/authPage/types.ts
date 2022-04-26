@@ -1,5 +1,5 @@
 export interface FormFields {
-  username: string;
-  eMail?: string;
+  username?: string;
+  email?: string;
   password: string;
 }

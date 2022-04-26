@@ -12,6 +12,7 @@ import { useDispatch } from "react-redux";
 import BeatLoader from "react-spinners/BeatLoader";
 import { useSelector } from "react-redux";
 import { useSnackbar } from "notistack";
+import { useNavigate } from "react-router-dom";
 
 import { signUp } from "../../../store/actions/creators/auth";
 import { FormFields } from "../types";
@@ -43,6 +44,7 @@ interface SignInProps {
 export const SignUp: FC<SignInProps> = ({ switchComp }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
   const { isLoading } = useSelector((state: StateTypes) => state.auth);
 
@@ -54,7 +56,7 @@ export const SignUp: FC<SignInProps> = ({ switchComp }) => {
 
   const [formFields, setFormField] = useState<FormFields>({
     username: "",
-    eMail: "",
+    email: "",
     password: "",
   });
   const handleFormFields = (e: ChangeEvent<HTMLInputElement>) =>
@@ -64,8 +66,8 @@ export const SignUp: FC<SignInProps> = ({ switchComp }) => {
     }));
 
   const signUpDispatcher = () => {
-    dispatch(signUp(formFields, handleSnackbarOpen));
-    setFormField({ username: "", eMail: "", password: "" });
+    dispatch(signUp(formFields, handleSnackbarOpen, navigate));
+    setFormField({ username: "", email: "", password: "" });
   };
 
   return (
@@ -88,8 +90,8 @@ export const SignUp: FC<SignInProps> = ({ switchComp }) => {
                 placeholder="E-mail"
                 color="secondary"
                 autoFocus
-                value={formFields.eMail}
-                name={"eMail"}
+                value={formFields.email}
+                name={"email"}
                 onChange={handleFormFields}
               />
             </Box>

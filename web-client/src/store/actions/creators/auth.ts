@@ -1,15 +1,10 @@
-import { env } from "process";
+import { VariantType } from "notistack";
+import { NavigateFunction } from "react-router-dom";
 import { Dispatch } from "redux";
 
 import { UnauthenticatedNotedAPI } from "../../../api/instance";
 import { ActionTypes, authPayload } from "../../types";
 import { NotedAction } from "../actionTypes";
-
-interface ResSuccessType {
-  username: string;
-  eMail: string;
-  password: string;
-}
 
 const init = (): ActionTypes => ({
   type: NotedAction.auth.init,
@@ -24,33 +19,52 @@ const success = (data: any): ActionTypes => ({
   payload: data,
 });
 
-export function signUp(payload: authPayload, snackbar: (text: string) => void) {
+export function signUp(
+  payload: authPayload,
+  snackbar: (text: string, snackType: VariantType) => void,
+  navigate: NavigateFunction
+) {
   return async (dispatch: Dispatch) => {
     dispatch(init());
     try {
-      const data = await UnauthenticatedNotedAPI.post<any>("/sign-up", payload);
-      console.log(data)
+      const data = await UnauthenticatedNotedAPI.post("/sign-up", payload);
       if (data.data.error) {
-        snackbar(data.data.error);
+        snackbar(data.data.error, "error");
         dispatch(fail());
-        console.log(data.data.error);
         return;
       }
       localStorage.setItem("noted/v2-token", data.data.token);
       dispatch(success(data.data));
+      navigate("/app/");
     } catch (error) {
       dispatch(fail());
+      snackbar("an unexpected error ocurred!!", "error");
     }
   };
 }
 
-export function signIn(payload: authPayload) {
+export function signIn(
+  payload: authPayload,
+  snackbar: (text: string, snackType: VariantType) => void,
+  navigate: NavigateFunction
+) {
   return async (dispatch: Dispatch) => {
     dispatch(init());
+    console.log(payload)
     try {
-      //do your thing
+      const data = await UnauthenticatedNotedAPI.post("log-in", payload);
+      console.log(data);
+      if (data.data.error) {
+        snackbar(data.data.error, "error");
+        dispatch(fail());
+        return;
+      }
+      localStorage.setItem("noted/v2-token", data.data.token);
+      dispatch(success(data.data.user));
+      navigate("/app/");
     } catch (error) {
       dispatch(fail());
+      snackbar("an unexpected error ocurred!!", "error");
     }
   };
 }

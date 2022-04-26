@@ -11,7 +11,7 @@ export interface Actions {
 
 export interface authPayload {
   email?: string;
-  username: string;
+  username?: string;
   password: string;
 }
 

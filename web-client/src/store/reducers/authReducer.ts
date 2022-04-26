@@ -28,9 +28,10 @@ export function authReducer(state = initialAuth, action: any): AuthTypes {
       };
     }
     case NotedAction.auth.success: {
+      // const { eMail, password } =;
       return {
         ...state,
-        user: action.payload.savedUser,
+        user:  action.payload.user,
         isLoading: false,
         hasError: false,
       };
