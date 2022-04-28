@@ -44,11 +44,11 @@ export const SignIn: FC<SingInProps> = ({ switchComp }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  // const location = useLocation();
   const { enqueueSnackbar } = useSnackbar();
   const { isLoading, user, hasError } = useSelector(
     (rootState: StateTypes) => rootState.auth
   );
-  console.log(user, isLoading, hasError);
 
   const handleSnackbarOpen = (text: string, snackType: VariantType) => {
     enqueueSnackbar(text, {
@@ -85,7 +85,7 @@ export const SignIn: FC<SingInProps> = ({ switchComp }) => {
                 color="secondary"
                 autoFocus
                 name={"email"}
-                value={formFields.username}
+                value={formFields.email}
                 onChange={handleFormFields}
               />
             </Box>

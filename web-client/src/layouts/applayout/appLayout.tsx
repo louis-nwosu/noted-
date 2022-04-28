@@ -1,8 +1,9 @@
-import { FC, useState, createContext, useContext } from "react";
+import { FC, useState, createContext, useContext, Fragment } from "react";
 
 import { Grid, Box } from "@mui/material";
 import { makeStyles, createStyles } from "@mui/styles";
 import { Theme } from "@mui/system";
+import { useLocation, Navigate } from "react-router-dom";
 
 import {
   SideNav,
@@ -79,8 +80,10 @@ export const SideNavContext = createContext({
 
 export const AppLayout: FC = ({ children }) => {
   const classes = useStyles();
-
   const { mode } = useContext(AppMode);
+  const location = useLocation();
+
+  const token = localStorage.getItem("noted/v2-token");
 
   const [openDialog, setOpenDialog] = useState<boolean>(false);
   const [sideNavMob, setSideNavMob] = useState<boolean>(false);
@@ -89,36 +92,51 @@ export const AppLayout: FC = ({ children }) => {
   const handleSideNavMob = (val: boolean) => setSideNavMob(val);
 
   return (
-    <Grid
-      container
-      className={
-        openDialog ? classes.containerDialogOpen : classes.containerDialogClose
-      }
-    >
-      <Grid item md={1.8} xs={12} className={classes.sideNav}>
-        <SideNav handleOpenDialog={handleOpenDialog} />
-      </Grid>
-      <Grid item md={10.2} xs={12} style={{ marginLeft: "auto" }}>
-        <SideNavContext.Provider
-          value={{ func: handleSideNavMob, val: sideNavMob }}
+    <Fragment>
+      {token ? (
+        <Grid
+          container
+          className={
+            openDialog
+              ? classes.containerDialogOpen
+              : classes.containerDialogClose
+          }
         >
+          <Grid item md={1.8} xs={12} className={classes.sideNav}>
+            <SideNav handleOpenDialog={handleOpenDialog} />
+          </Grid>
+          <Grid item md={10.2} xs={12} style={{ marginLeft: "auto" }}>
+            <SideNavContext.Provider
+              value={{ func: handleSideNavMob, val: sideNavMob }}
+            >
+              <div
+                className={
+                  mode === "light" ? classes.topNav : classes.topNavDark
+                }
+              >
+                <TopBar />
+              </div>
+              <Box pr={4}>{children}</Box>
+            </SideNavContext.Provider>
+          </Grid>
           <div
-            className={mode === "light" ? classes.topNav : classes.topNavDark}
+            className={sideNavMob ? classes.sideNavMobShow : classes.sideNavMob}
           >
-            <TopBar />
+            <SideNavContext.Provider
+              value={{ func: handleSideNavMob, val: sideNavMob }}
+            >
+              <SideNavMobile />
+            </SideNavContext.Provider>
           </div>
-          <Box pr={4}>{children}</Box>
-        </SideNavContext.Provider>
-      </Grid>
-      <div className={sideNavMob ? classes.sideNavMobShow : classes.sideNavMob}>
-        <SideNavContext.Provider
-          value={{ func: handleSideNavMob, val: sideNavMob }}
-        >
-          <SideNavMobile />
-        </SideNavContext.Provider>
-      </div>
-      <DialogComp dialogState={openDialog} handleDialogState={setOpenDialog} />
-    </Grid>
+          <DialogComp
+            dialogState={openDialog}
+            handleDialogState={setOpenDialog}
+          />
+        </Grid>
+      ) : (
+        <Navigate to={"/authentication"} replace state={{ from: location }} />
+      )}
+    </Fragment>
   );
 };
 

@@ -10,7 +10,7 @@ import LockIcon from "@mui/icons-material/Lock";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { Theme } from "@mui/system";
 import { purple } from "@mui/material/colors";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 import { AppMode } from "../../../App";
 
@@ -123,6 +123,13 @@ export const SideNav: FC<{ handleOpenDialog: () => void }> = ({
 }) => {
   const classes = useStyles();
   const { mode } = useContext(AppMode);
+  const navigation = useNavigate();
+
+  const logout = () => {
+    localStorage.removeItem("noted/v2-token");
+    navigation("/");
+  };
+
   return (
     <Box className={classes.container}>
       <Box
@@ -179,6 +186,7 @@ export const SideNav: FC<{ handleOpenDialog: () => void }> = ({
           alignItems="center"
           justifyContent="flex-start"
           style={{ cursor: "pointer" }}
+          onClick={logout}
         >
           <LogoutIcon style={{ color: "#fff" }} />
           <Box ml={1} my={2}>

@@ -1,6 +1,6 @@
 import { FC } from "react";
 
-// import { useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { Box } from "@mui/material";
 import { makeStyles, createStyles } from "@mui/styles";
 import { Theme } from "@mui/material";
@@ -15,78 +15,7 @@ const dummyDoc: Array<{
     type: "single" | "collection";
     preview: string;
   }>;
-}> = [
-  {
-    date: "14-apr-2022",
-    docArr: [
-      {
-        content: 1234567,
-        type: "single",
-        preview: "once upon a very very blue moon...",
-      },
-      {
-        content: 1234567,
-        type: "collection",
-        preview: "once upon a very very blue moon...",
-      },
-      {
-        content: 1234567,
-        type: "single",
-        preview: "once upon a very very blue moon...",
-      },
-      {
-        content: 1234567,
-        type: "collection",
-        preview: "once upon a very very blue moon...",
-      },
-      {
-        content: 1234567,
-        type: "single",
-        preview: "once upon a very very blue moon...",
-      },
-      {
-        content: 1234567,
-        type: "collection",
-        preview: "once upon a very very blue moon...",
-      },
-      {
-        content: 1234567,
-        type: "single",
-        preview: "once upon a very very blue moon...",
-      },
-      {
-        content: 1234567,
-        type: "collection",
-        preview: "once upon a very very blue moon...",
-      },
-      {
-        content: 1234567,
-        type: "collection",
-        preview: "once upon a very very blue moon...",
-      },
-      {
-        content: 1234567,
-        type: "collection",
-        preview: "once upon a very very blue moon...",
-      },
-      {
-        content: 1234567,
-        type: "collection",
-        preview: "once upon a very very blue moon...",
-      },
-      {
-        content: 1234567,
-        type: "collection",
-        preview: "once upon a very very blue moon...",
-      },
-      {
-        content: 1234567,
-        type: "collection",
-        preview: "once upon a very very blue moon...",
-      },
-    ],
-  },
-];
+}> = [];
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -105,7 +34,7 @@ const useStyles = makeStyles((theme: Theme) =>
 export const AllDocs: FC = () => {
   const classes = useStyles();
 
-  // const state = useSelector((state: any) => state)
+  // const { user } = useSelector((state: any) => state.auth);
   return (
     <Box>
       {dummyDoc.length !== 0 ? (

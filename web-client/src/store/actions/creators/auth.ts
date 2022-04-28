@@ -34,7 +34,8 @@ export function signUp(
         return;
       }
       localStorage.setItem("noted/v2-token", data.data.token);
-      dispatch(success(data.data));
+      console.log(data.data);
+      dispatch(success(data.data.user));
       navigate("/app/");
     } catch (error) {
       dispatch(fail());
@@ -50,21 +51,19 @@ export function signIn(
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(init());
-    console.log(payload)
     try {
       const data = await UnauthenticatedNotedAPI.post("log-in", payload);
-      console.log(data);
       if (data.data.error) {
         snackbar(data.data.error, "error");
         dispatch(fail());
         return;
       }
       localStorage.setItem("noted/v2-token", data.data.token);
-      dispatch(success(data.data.user));
+      dispatch(success(data.data));
       navigate("/app/");
     } catch (error) {
       dispatch(fail());
-      snackbar("an unexpected error ocurred!!", "error");
+      snackbar("an unexpected error ocurred!", "error");
     }
   };
 }

@@ -55,7 +55,7 @@ export const SignUp: FC<SignInProps> = ({ switchComp }) => {
   };
 
   const [formFields, setFormField] = useState<FormFields>({
-    username: "",
+    fullName: "",
     email: "",
     password: "",
   });
@@ -67,7 +67,7 @@ export const SignUp: FC<SignInProps> = ({ switchComp }) => {
 
   const signUpDispatcher = () => {
     dispatch(signUp(formFields, handleSnackbarOpen, navigate));
-    setFormField({ username: "", email: "", password: "" });
+    setFormField({ fullName: "", email: "", password: "" });
   };
 
   return (
@@ -98,10 +98,10 @@ export const SignUp: FC<SignInProps> = ({ switchComp }) => {
             <Box mb={2}>
               <TextField
                 fullWidth
-                placeholder="Username"
+                placeholder="Fullname"
                 color="secondary"
-                value={formFields.username}
-                name={"username"}
+                value={formFields.fullName}
+                name={"fullName"}
                 onChange={handleFormFields}
               />
             </Box>
