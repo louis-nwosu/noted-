@@ -11,8 +11,10 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import { Theme } from "@mui/system";
 import { purple } from "@mui/material/colors";
 import { NavLink, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 import { AppMode } from "../../../App";
+import { StateTypes } from "../../../store/types";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -91,6 +93,7 @@ const useStyles = makeStyles((theme: Theme) =>
       fontFamily: "Inter, sans-serif",
       color: "#fff",
       marginTop: "2px",
+      textTransform: "capitalize",
     },
   })
 );
@@ -124,6 +127,9 @@ export const SideNav: FC<{ handleOpenDialog: () => void }> = ({
   const classes = useStyles();
   const { mode } = useContext(AppMode);
   const navigation = useNavigate();
+  const { fullName } = useSelector((state: StateTypes) =>
+    state.auth.user.user ? state.auth.user.user : state.auth.user
+  );
 
   const logout = () => {
     localStorage.removeItem("noted/v2-token");
@@ -142,7 +148,7 @@ export const SideNav: FC<{ handleOpenDialog: () => void }> = ({
       >
         <div>
           <Box className={classes.profile}>
-            <p className={classes.nameCard}>Louis Nwosu</p>
+            <p className={classes.nameCard}>Hello, {fullName.split(" ")[0]}</p>
           </Box>
           <Box>
             <Fragment>

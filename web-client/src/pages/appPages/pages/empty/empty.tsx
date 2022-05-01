@@ -1,6 +1,10 @@
 import { FC, useContext } from "react";
 
-import { Box, Button } from "@mui/material";
+import { Box, SpeedDial, SpeedDialIcon, SpeedDialAction } from "@mui/material";
+import FileCopyIcon from "@mui/icons-material/FileCopyOutlined";
+import SaveIcon from "@mui/icons-material/Save";
+import PrintIcon from "@mui/icons-material/Print";
+import ShareIcon from "@mui/icons-material/Share";
 import { makeStyles, createStyles, ThemeProvider } from "@mui/styles";
 import { Theme } from "@mui/system";
 import { Link } from "react-router-dom";
@@ -48,6 +52,13 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
+const actions = [
+  { icon: <FileCopyIcon />, name: "Copy" },
+  { icon: <SaveIcon />, name: "Save" },
+  { icon: <PrintIcon />, name: "Print" },
+  { icon: <ShareIcon />, name: "Share" },
+];
+
 export const EmptyPage: FC<{ text: string }> = ({ text }) => {
   const classes = useStyles();
   const { mode } = useContext(AppMode);
@@ -64,11 +75,7 @@ export const EmptyPage: FC<{ text: string }> = ({ text }) => {
         </p>
         <Box my={2} className={classes.btnContainer}>
           <ThemeProvider theme={appTheme}>
-            <Link to="/app/new" style={{ textDecoration: "none" }}>
-              <Button variant="contained" color="secondary">
-                Add Document
-              </Button>
-            </Link>
+            {/* <Link to="/app/new" style={{ textDecoration: "none" }}></Link> */}
           </ThemeProvider>
         </Box>
       </div>

@@ -102,20 +102,12 @@ export const SignIn: FC<SingInProps> = ({ switchComp }) => {
             <Box mb={2}>
               {isLoading ? (
                 <Box display={"flex"} justifyContent={"center"}>
-                  {/* <BeatLoader
+                  <BeatLoader
                     color={"purple"}
                     loading={isLoading}
                     // css={override}
                     size={35}
-                  /> */}
-                  <Button
-                    variant="contained"
-                    color="secondary"
-                    fullWidth
-                    onClick={signInHandler}
-                  >
-                    Sign In
-                  </Button>
+                  />
                 </Box>
               ) : (
                 <Button

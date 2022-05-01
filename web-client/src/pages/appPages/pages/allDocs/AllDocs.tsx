@@ -34,7 +34,6 @@ const useStyles = makeStyles((theme: Theme) =>
 export const AllDocs: FC = () => {
   const classes = useStyles();
 
-  // const { user } = useSelector((state: any) => state.auth);
   return (
     <Box>
       {dummyDoc.length !== 0 ? (
