@@ -1,15 +1,10 @@
 import { FC, useContext } from "react";
 
-import { Box, SpeedDial, SpeedDialIcon, SpeedDialAction } from "@mui/material";
-import FileCopyIcon from "@mui/icons-material/FileCopyOutlined";
-import SaveIcon from "@mui/icons-material/Save";
-import PrintIcon from "@mui/icons-material/Print";
-import ShareIcon from "@mui/icons-material/Share";
-import { makeStyles, createStyles, ThemeProvider } from "@mui/styles";
+import { Box } from "@mui/material";
+import { makeStyles, createStyles } from "@mui/styles";
 import { Theme } from "@mui/system";
-import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 
-import { appTheme } from "../../../../themes";
 import { AppMode } from "../../../../App";
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -44,20 +39,8 @@ const useStyles = makeStyles((theme: Theme) =>
       },
       fontFamily: "Inter, sans-serif",
     },
-    btnContainer: {
-      display: "flex",
-      justifyContent: "center",
-      alignItems: "center",
-    },
   })
 );
-
-const actions = [
-  { icon: <FileCopyIcon />, name: "Copy" },
-  { icon: <SaveIcon />, name: "Save" },
-  { icon: <PrintIcon />, name: "Print" },
-  { icon: <ShareIcon />, name: "Share" },
-];
 
 export const EmptyPage: FC<{ text: string }> = ({ text }) => {
   const classes = useStyles();
@@ -70,14 +53,14 @@ export const EmptyPage: FC<{ text: string }> = ({ text }) => {
       className={mode === "light" ? classes.container : classes.containerDark}
     >
       <div>
-        <p className={mode === "light" ? classes.text : classes.textDark}>
+        <motion.p
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.6, duration: 0.3 }}
+          className={mode === "light" ? classes.text : classes.textDark}
+        >
           You don't have any {text}, hit the button below to add a new document
-        </p>
-        <Box my={2} className={classes.btnContainer}>
-          <ThemeProvider theme={appTheme}>
-            {/* <Link to="/app/new" style={{ textDecoration: "none" }}></Link> */}
-          </ThemeProvider>
-        </Box>
+        </motion.p>
       </div>
     </Box>
   );

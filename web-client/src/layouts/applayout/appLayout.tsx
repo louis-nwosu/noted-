@@ -1,9 +1,18 @@
 import { FC, useState, createContext, useContext, Fragment } from "react";
 
-import { Grid, Box } from "@mui/material";
-import { makeStyles, createStyles } from "@mui/styles";
+import {
+  Grid,
+  Box,
+  SpeedDial,
+  SpeedDialIcon,
+  SpeedDialAction,
+} from "@mui/material";
+import AddIcon from "@mui/icons-material/Add";
+import QueueIcon from "@mui/icons-material/Queue";
+import { makeStyles, createStyles, ThemeProvider } from "@mui/styles";
 import { Theme } from "@mui/system";
 import { useLocation, Navigate } from "react-router-dom";
+import { purple } from "@mui/material/colors";
 
 import {
   SideNav,
@@ -12,6 +21,7 @@ import {
   TopBar,
 } from "./components";
 import { AppMode } from "../../App";
+import { appTheme } from "../../themes";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -78,6 +88,11 @@ export const SideNavContext = createContext({
   val: false,
 });
 
+const actions = [
+  { icon: <AddIcon />, name: "single" },
+  { icon: <QueueIcon />, name: "collection" },
+];
+
 export const AppLayout: FC = ({ children }) => {
   const classes = useStyles();
   const { mode } = useContext(AppMode);
@@ -132,6 +147,30 @@ export const AppLayout: FC = ({ children }) => {
             dialogState={openDialog}
             handleDialogState={setOpenDialog}
           />
+          <ThemeProvider theme={appTheme}>
+            <Box
+              sx={{
+                height: "100%",
+                width: "100%",
+                transform: "translateZ(0px)",
+                flexGrow: 1,
+              }}
+            >
+              <SpeedDial
+                ariaLabel="SpeedDial add doc action"
+                sx={{ position: "absolute", bottom: 28, right: 24 }}
+                icon={<SpeedDialIcon />}
+              >
+                {actions.map((action) => (
+                  <SpeedDialAction
+                    key={action.name}
+                    icon={action.icon}
+                    tooltipTitle={action.name}
+                  />
+                ))}
+              </SpeedDial>
+            </Box>
+          </ThemeProvider>
         </Grid>
       ) : (
         <Navigate to={"/authentication"} replace state={{ from: location }} />

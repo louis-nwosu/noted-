@@ -1,18 +1,15 @@
 import { FC, Fragment, useState, ChangeEvent } from "react";
 
-import Button from "@mui/material/Button";
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
-import Grid from "@mui/material/Grid";
-import TextField from "@mui/material/TextField";
+import { Button, Box, Typography, Grid, TextField } from "@mui/material";
 import { makeStyles, createStyles } from "@mui/styles";
 import { Theme } from "@mui/system";
 import AssignmentIndIcon from "@mui/icons-material/AssignmentInd";
-import { useDispatch } from "react-redux";
 import BeatLoader from "react-spinners/BeatLoader";
+import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { useSnackbar } from "notistack";
 import { useNavigate } from "react-router-dom";
+import { useForm, SubmitHandler } from "react-hook-form";
 
 import { signUp } from "../../../store/actions/creators/auth";
 import { FormFields } from "../types";
@@ -37,6 +34,11 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
+type Inputs = {
+  example: string;
+  exampleRequired: string;
+};
+
 interface SignInProps {
   switchComp: () => void;
 }
@@ -47,6 +49,12 @@ export const SignUp: FC<SignInProps> = ({ switchComp }) => {
   const navigate = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
   const { isLoading } = useSelector((state: StateTypes) => state.auth);
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm<Inputs>();
 
   const handleSnackbarOpen = (text: string) => {
     enqueueSnackbar(text, {
@@ -118,12 +126,7 @@ export const SignUp: FC<SignInProps> = ({ switchComp }) => {
             <Box mb={2}>
               {isLoading ? (
                 <Box display={"flex"} justifyContent={"center"}>
-                  <BeatLoader
-                    color={"purple"}
-                    loading={isLoading}
-                    // css={override}
-                    size={35}
-                  />
+                  <BeatLoader color={"purple"} loading={isLoading} size={35} />
                 </Box>
               ) : (
                 <Button

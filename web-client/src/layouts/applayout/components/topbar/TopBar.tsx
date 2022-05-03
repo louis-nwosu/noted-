@@ -7,6 +7,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import { ThemeProvider } from "@mui/styles";
 import { Link } from "react-router-dom";
 import SearchIcon from "@mui/icons-material/Search";
+import { motion } from "framer-motion";
 
 import "./Styles.css";
 import { SideNavContext } from "../../appLayout";
@@ -32,20 +33,25 @@ export const TopBar: FC = () => {
           </Typography>
         </Link>
       </ThemeProvider>
-      <div>
-        <Box className="topNav-input-box">
-          <input
-            type="text"
-            className={
-              mode === "light"
-                ? "topnav-input-container"
-                : "topnav-input-containerDark"
-            }
-            placeholder="Search documents, dates, categories..."
-          />
+      <motion.div
+        className="topNav-input-box"
+        initial={{ opacity: 0, y: -30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.3, duration: 0.3 }}
+      >
+        <input
+          type="text"
+          className={
+            mode === "light"
+              ? "topnav-input-container"
+              : "topnav-input-containerDark"
+          }
+          placeholder="Search documents, dates, categories..."
+        />
+        <motion.span whileTap={{ scale: 0.5 }}>
           <SearchIcon style={{ color: "#DDA0DD", fontSize: "20px" }} />
-        </Box>
-      </div>
+        </motion.span>
+      </motion.div>
       <span className="topNav-span">
         <Box mr={1}>
           <PersonIcon style={{ color: "purple" }} />

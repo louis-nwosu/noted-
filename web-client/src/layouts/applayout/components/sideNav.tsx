@@ -12,6 +12,7 @@ import { Theme } from "@mui/system";
 import { purple } from "@mui/material/colors";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { motion } from "framer-motion";
 
 import { AppMode } from "../../../App";
 import { StateTypes } from "../../../store/types";
@@ -148,10 +149,21 @@ export const SideNav: FC<{ handleOpenDialog: () => void }> = ({
       >
         <div>
           <Box className={classes.profile}>
-            <p className={classes.nameCard}>Hello, {fullName.split(" ")[0]}</p>
+            <motion.p
+              initial={{ y: -30 }}
+              animate={{ y: 0 }}
+              transition={{ delay: 0.3, duration: 0.3 }}
+              className={classes.nameCard}
+            >
+              Hello, {fullName.split(" ")[0]}
+            </motion.p>
           </Box>
           <Box>
-            <Fragment>
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.3, duration: 0.3 }}
+            >
               {navItems.map((item) => (
                 <NavLink
                   to={item.path}
@@ -183,7 +195,7 @@ export const SideNav: FC<{ handleOpenDialog: () => void }> = ({
                   <p>Private</p>
                 </Box>
               </Box>
-            </Fragment>
+            </motion.div>
           </Box>
         </div>
         <Box
