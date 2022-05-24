@@ -87,6 +87,7 @@ export const SignIn: FC<SingInProps> = ({ switchComp }) => {
                 name={"email"}
                 value={formFields.email}
                 onChange={handleFormFields}
+                size="medium"
               />
             </Box>
             <Box mb={2}>
@@ -97,6 +98,7 @@ export const SignIn: FC<SingInProps> = ({ switchComp }) => {
                 name={"password"}
                 value={formFields.password}
                 onChange={handleFormFields}
+                size="medium"
               />
             </Box>
             <Box mb={2}>

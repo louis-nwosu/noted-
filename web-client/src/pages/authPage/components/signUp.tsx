@@ -101,6 +101,7 @@ export const SignUp: FC<SignInProps> = ({ switchComp }) => {
                 value={formFields.email}
                 name={"email"}
                 onChange={handleFormFields}
+                size="medium"
               />
             </Box>
             <Box mb={2}>
@@ -111,6 +112,7 @@ export const SignUp: FC<SignInProps> = ({ switchComp }) => {
                 value={formFields.fullName}
                 name={"fullName"}
                 onChange={handleFormFields}
+                size="medium"
               />
             </Box>
             <Box mb={2}>
@@ -121,6 +123,7 @@ export const SignUp: FC<SignInProps> = ({ switchComp }) => {
                 value={formFields.password}
                 name={"password"}
                 onChange={handleFormFields}
+                size="medium"
               />
             </Box>
             <Box mb={2}>

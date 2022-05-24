@@ -1,0 +1,1 @@
+export { NewDocLayout } from "./newDocLayout";

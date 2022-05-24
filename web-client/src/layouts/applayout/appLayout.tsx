@@ -11,8 +11,7 @@ import AddIcon from "@mui/icons-material/Add";
 import QueueIcon from "@mui/icons-material/Queue";
 import { makeStyles, createStyles, ThemeProvider } from "@mui/styles";
 import { Theme } from "@mui/system";
-import { useLocation, Navigate } from "react-router-dom";
-import { purple } from "@mui/material/colors";
+import { useLocation, Navigate, Link } from "react-router-dom";
 
 import {
   SideNav,
@@ -80,6 +79,11 @@ const useStyles = makeStyles((theme: Theme) =>
         width: "100%",
       },
     },
+    speedDial: {
+      backgroundColor: "pink",
+      color: "pink",
+    },
+    linkItem: {},
   })
 );
 
@@ -89,7 +93,21 @@ export const SideNavContext = createContext({
 });
 
 const actions = [
-  { icon: <AddIcon />, name: "single" },
+  {
+    icon: (
+      <Link
+        to={"/app/new"}
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <AddIcon />
+      </Link>
+    ),
+    name: "single",
+  },
   { icon: <QueueIcon />, name: "collection" },
 ];
 
@@ -160,6 +178,7 @@ export const AppLayout: FC = ({ children }) => {
                 ariaLabel="SpeedDial add doc action"
                 sx={{ position: "absolute", bottom: 28, right: 24 }}
                 icon={<SpeedDialIcon />}
+                classes={{ fab: classes.speedDial }}
               >
                 {actions.map((action) => (
                   <SpeedDialAction
