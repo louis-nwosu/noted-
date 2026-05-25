@@ -1,1 +1,0 @@
-export { NewDocLayout } from "./newDocLayout";
