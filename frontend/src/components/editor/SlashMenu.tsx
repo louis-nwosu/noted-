@@ -2,9 +2,10 @@
 
 import { useEffect, useRef, useState, useCallback } from 'react';
 import type { Editor } from '@tiptap/react';
+import '@/lib/extensions/types';
 import {
   Type, Heading1, Heading2, Heading3, List, ListOrdered,
-  CheckSquare, Quote, Code2, Table, Image, Minus,
+  CheckSquare, Quote, Code2, Table, Image, Minus, Sigma,
 } from 'lucide-react';
 
 interface SlashMenuProps {
@@ -30,6 +31,8 @@ const items: SlashItem[] = [
   { icon: Code2, label: 'Code Block', description: 'Code with syntax highlighting', action: (e) => e.chain().focus().toggleCodeBlock().run() },
   { icon: Table, label: 'Table', description: 'Insert a 3x3 table', action: (e) => e.chain().focus().insertTable({ rows: 3, cols: 3, withHeaderRow: true }).run() },
   { icon: Minus, label: 'Divider', description: 'Horizontal rule', action: (e) => e.chain().focus().setHorizontalRule().run() },
+  { icon: Sigma, label: 'Inline Math', description: 'LaTeX inline equation', action: (e) => e.chain().focus().setMathInline('').run() },
+  { icon: Sigma, label: 'Display Math', description: 'LaTeX display equation', action: (e) => e.chain().focus().setMathDisplay('').run() },
 ];
 
 export function SlashMenu({ editor }: SlashMenuProps) {

@@ -7,6 +7,7 @@ const createNoteSchema = z.object({
   content: z.any().default({}),
   tags: z.array(z.string()).default([]),
   isPrivate: z.boolean().default(true),
+  folderId: z.string().nullable().optional(),
 });
 
 const updateNoteSchema = z.object({
@@ -43,8 +44,12 @@ export async function listNotes(req: Request, res: Response) {
   const query: any = { userId, deletedAt: null };
 
   if (filter === 'private') query.isPrivate = true;
-  else if (filter === 'shared') query.isPrivate = false;
+  else if (filter === 'shared') query.shareToken = { $ne: null };
   else if (filter === 'pinned') query.pinnedAt = { $ne: null };
+
+  const folderId = req.query.folderId as string;
+  if (folderId === 'null') query.folderId = null;
+  else if (folderId) query.folderId = folderId;
 
   const total = await Note.countDocuments(query);
   const notes = await Note.find(query)
@@ -78,6 +83,7 @@ export async function createNote(req: Request, res: Response) {
   const note = await Note.create({
     userId,
     ...data,
+    folderId: data.folderId || null,
     wordCount,
     readingTime: computeReadingTime(wordCount),
   });

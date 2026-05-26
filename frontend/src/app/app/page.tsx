@@ -3,9 +3,16 @@
 import { useEffect, useRef, useCallback, useState } from "react";
 import { useRouter } from "next/navigation";
 import api from "@/lib/api";
-import { Search, PanelLeftClose, PanelLeft, GripVertical, Plus } from "lucide-react";
+import {
+  Search,
+  PanelLeftClose,
+  PanelLeft,
+  GripVertical,
+  Plus,
+} from "lucide-react";
 import { useNotesStore } from "@/lib/store";
 import { NoteList } from "../../components/notes/NoteList";
+import { FolderTree } from "../../components/notes/FolderTree";
 import { TopNav } from "../../components/ui/TopNav";
 
 export default function AppPage() {
@@ -25,29 +32,42 @@ export default function AppPage() {
   const resizing = useRef(false);
   const [isMobile, setIsMobile] = useState(false);
 
+  const fetchNotes = useCallback(
+    async (f?: string, q?: string) => {
+      const activeFilter = f ?? filter;
+      const activeQuery = q ?? searchQuery;
+      if (activeFilter === "trash") {
+        api
+          .get("/notes/trash")
+          .then(({ data }) => {
+            if (data.success) setNotes(data.data);
+          })
+          .catch(() => {});
+        return;
+      }
+      const params = new URLSearchParams({ page: "1", limit: "50" });
+      if (activeFilter !== "all") params.set("filter", activeFilter);
+      if (activeQuery) params.set("q", activeQuery);
+      api
+        .get(`/notes?${params}`)
+        .then(({ data }) => {
+          if (data.success) setNotes(data.data);
+        })
+        .catch(() => {});
+    },
+    [filter, searchQuery, setNotes],
+  );
+
   useEffect(() => {
-    const check = () => setIsMobile(window.innerWidth < 768);
-    check();
-    window.addEventListener("resize", check);
-    return () => window.removeEventListener("resize", check);
-  }, []);
+    fetchNotes();
+  }, [fetchNotes]);
 
-  const fetchNotes = useCallback(() => {
-    if (filter === "trash") {
-      api.get("/notes/trash").then(({ data }) => {
-        if (data.success) setNotes(data.data);
-      }).catch(() => {});
-      return;
-    }
-    const params = new URLSearchParams({ page: "1", limit: "50" });
-    if (filter !== "all") params.set("filter", filter);
-    if (searchQuery) params.set("q", searchQuery);
-    api.get(`/notes?${params}`).then(({ data }) => {
-      if (data.success) setNotes(data.data);
-    }).catch(() => {});
-  }, [filter, searchQuery, setNotes]);
-
-  useEffect(() => { fetchNotes(); }, [fetchNotes]);
+  const handleFilterClick = (
+    f: "all" | "private" | "shared" | "pinned" | "trash",
+  ) => {
+    setFilter(f);
+    fetchNotes(f, searchQuery);
+  };
 
   const handleCreate = async () => {
     try {
@@ -102,43 +122,43 @@ export default function AppPage() {
                 />
               </div>
             </div>
-            {filter !== "trash" && (
-              <button
-                onClick={handleCreate}
-                className="max-md:hidden flex w-full items-center justify-center gap-2 rounded bg-[var(--nt-accent)] py-1.5 font-mono text-xs font-medium text-[var(--nt-bg)] hover:opacity-90 transition-all cursor-pointer"
-              >
-                + New note
-              </button>
-            )}
           </div>
 
           <div className="flex gap-1 p-3 border-b border-[var(--nt-border)] shrink-0 overflow-x-auto">
-            {(["all", "private", "shared", "pinned", "trash"] as const).map((f) => (
-              <button
-                key={f}
-                onClick={() => setFilter(f)}
-                className={`px-2.5 py-1 rounded font-mono text-[10px] tracking-wider uppercase transition-colors cursor-pointer whitespace-nowrap ${
-                  filter === f
-                    ? "bg-[var(--nt-accent)] text-[var(--nt-bg)]"
-                    : "text-[var(--nt-text-muted)] hover:text-[var(--nt-text-primary)]"
-                }`}
-              >
-                {f}
-              </button>
-            ))}
+            {(["all", "private", "shared", "pinned", "trash"] as const).map(
+              (f) => (
+                <button
+                  key={f}
+                  onClick={() => handleFilterClick(f)}
+                  className={`px-2.5 py-1 rounded font-mono text-[10px] tracking-wider uppercase transition-colors cursor-pointer whitespace-nowrap ${
+                    filter === f
+                      ? "bg-[var(--nt-accent)] text-[var(--nt-bg)]"
+                      : "text-[var(--nt-text-muted)] hover:text-[var(--nt-text-primary)]"
+                  }`}
+                >
+                  {f}
+                </button>
+              ),
+            )}
           </div>
 
-          <div className="flex-1 overflow-y-auto">
-            <NoteList
-              notes={notes}
-              trash={filter === "trash"}
-              onTrashAction={fetchNotes}
-              onSelectNote={isMobile ? toggleSidebar : undefined}
-            />
+          <div className="flex-1 overflow-y-auto hide-scrollbar">
+            {filter === "trash" ? (
+              <NoteList
+                notes={notes}
+                trash={true}
+                onTrashAction={fetchNotes}
+                onSelectNote={isMobile ? toggleSidebar : undefined}
+              />
+            ) : (
+              <FolderTree onSelectNote={isMobile ? toggleSidebar : undefined} />
+            )}
           </div>
           {isMobile && sidebarOpen && filter !== "trash" && (
             <button
-              onClick={handleCreate}
+              onClick={() => {
+                handleCreate();
+              }}
               className="fixed bottom-6 right-6 z-[60] flex h-12 w-12 items-center justify-center rounded-full bg-[var(--nt-accent)] text-[var(--nt-bg)] shadow-xl hover:opacity-90 transition-all cursor-pointer"
             >
               <Plus className="h-5 w-5" />
@@ -153,8 +173,11 @@ export default function AppPage() {
           >
             <GripVertical className="h-4 w-4 text-[var(--nt-text-muted)] opacity-0 group-hover:opacity-100 transition-opacity" />
             <button
-              onClick={(e) => { e.stopPropagation(); toggleSidebar(); }}
-                className="absolute top-1/2 -translate-y-1/2 flex items-center justify-center w-5 h-8 rounded-r bg-[var(--nt-surface)] border border-[var(--nt-border)] border-l-0 text-[var(--nt-text-muted)] hover:text-[var(--nt-text-primary)] hover:bg-[var(--nt-ink)] transition-all opacity-0 group-hover:opacity-100 cursor-pointer -right-5"
+              onClick={(e) => {
+                e.stopPropagation();
+                toggleSidebar();
+              }}
+              className="absolute top-1/2 -translate-y-1/2 flex items-center justify-center w-5 h-8 rounded-r bg-[var(--nt-surface)] border border-[var(--nt-border)] border-l-0 text-[var(--nt-text-muted)] hover:text-[var(--nt-text-primary)] hover:bg-[var(--nt-ink)] transition-all opacity-0 group-hover:opacity-100 cursor-pointer -right-5"
               title="Close sidebar"
             >
               <PanelLeftClose className="h-3.5 w-3.5" />
@@ -165,7 +188,7 @@ export default function AppPage() {
         {!sidebarOpen && !isMobile && (
           <button
             onClick={toggleSidebar}
-              className="shrink-0 flex items-center gap-1.5 self-center rounded-r border border-[var(--nt-border)] border-l-0 bg-[var(--nt-surface)] pl-2 pr-3 py-2 text-[var(--nt-text-muted)] hover:text-[var(--nt-text-primary)] hover:bg-[var(--nt-ink)] transition-all cursor-pointer"
+            className="shrink-0 flex items-center gap-1.5 self-center rounded-r border border-[var(--nt-border)] border-l-0 bg-[var(--nt-surface)] pl-2 pr-3 py-2 text-[var(--nt-text-muted)] hover:text-[var(--nt-text-primary)] hover:bg-[var(--nt-ink)] transition-all cursor-pointer"
             title="Open sidebar"
           >
             <PanelLeft className="h-4 w-4" />

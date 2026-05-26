@@ -22,12 +22,17 @@ import TableHeader from '@tiptap/extension-table-header';
 import { SharePopover } from '../share/SharePopover';
 import { ExportDropdown } from './ExportDropdown';
 import { SlashMenu } from './SlashMenu';
+import { QuizModal } from '../ai/QuizModal';
+import { MathInline } from '@/lib/extensions/MathInline';
+import { MathDisplay } from '@/lib/extensions/MathDisplay';
+import '@/lib/extensions/types';
+import 'katex/dist/katex.min.css';
 import {
-  Mic, Headphones, Trash2, Circle,
+  Mic, Headphones, Trash2, Circle, Sparkles,
   Bold, Italic, Underline as UnderlineIcon, Strikethrough, Code,
   Heading1, Heading2, Heading3, List, ListOrdered,
   Quote, Code2, Table as TableIcon, Image, Link as LinkIcon,
-  Minus, CheckSquare, Undo2, Redo2, Palette, X,
+  Minus, CheckSquare, Undo2, Redo2, Palette, X, Sigma,
 } from 'lucide-react';
 import api, { API_BASE } from '@/lib/api';
 import { useSpeechRecognition } from '@/hooks/useSpeechRecognition';
@@ -58,9 +63,12 @@ export function Editor({ note, onSave, onDelete, onWordCountChange }: EditorProp
   const [uploading, setUploading] = useState(false);
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
   const [showLinkPrompt, setShowLinkPrompt] = useState(false);
+  const [showMathPrompt, setShowMathPrompt] = useState(false);
+  const [mathMode, setMathMode] = useState<'inline' | 'display'>('inline');
   const [coverImage, setCoverImage] = useState<string | null>(note?.coverImage || null);
   const [showColorPicker, setShowColorPicker] = useState(false);
   const [uploadingCover, setUploadingCover] = useState(false);
+  const [showQuizModal, setShowQuizModal] = useState(false);
   const coverInputRef = useRef<HTMLInputElement>(null);
   const colorPickerRef = useRef<HTMLDivElement>(null);
   const { toast } = useToast();
@@ -121,6 +129,8 @@ export function Editor({ note, onSave, onDelete, onWordCountChange }: EditorProp
       TableRow,
       TableCell,
       TableHeader,
+      MathInline,
+      MathDisplay,
     ],
     content: note?.content || '',
     onUpdate: ({ editor: ed }) => {
@@ -389,6 +399,12 @@ export function Editor({ note, onSave, onDelete, onWordCountChange }: EditorProp
       <button onClick={() => setShowLinkPrompt(true)} title="Insert link" className={btnClass(editor.isActive('link'))}>
         <LinkIcon className="h-3.5 w-3.5" />
       </button>
+      <button onClick={() => { setMathMode('inline'); setShowMathPrompt(true); }} title="Inline math" className={btnClass(false)}>
+        <Sigma className="h-3.5 w-3.5" />
+      </button>
+      <button onClick={() => { setMathMode('display'); setShowMathPrompt(true); }} title="Display math" className={btnClass(false)}>
+        <Sigma className="h-3.5 w-3.5" />
+      </button>
       <input ref={fileInputRef} type="file" accept="image/*" className="hidden" onChange={handleImageUpload} />
     </div>
   );
@@ -437,6 +453,13 @@ export function Editor({ note, onSave, onDelete, onWordCountChange }: EditorProp
           </button>
           <SharePopover noteId={note._id} isPrivate={note.isPrivate} shareToken={note.shareToken} />
           <ExportDropdown getHTML={() => editor.getHTML()} title={title} />
+          <button
+            onClick={() => setShowQuizModal(true)}
+            className="flex items-center gap-1 rounded px-1.5 md:px-2 py-1 font-mono text-[10px] text-[var(--nt-text-muted)] hover:text-[var(--nt-accent)] hover:bg-[var(--nt-accent)]/10 transition-all cursor-pointer"
+          >
+            <Sparkles className="h-3 w-3" />
+            <span className="hidden md:inline">Quiz</span>
+          </button>
           <button
             onClick={() => setShowDeleteDialog(true)}
             className="flex items-center gap-1 rounded px-1.5 md:px-2 py-1 font-mono text-[10px] text-[var(--nt-text-muted)] hover:text-red-400 hover:bg-red-500/10 transition-all cursor-pointer"
@@ -563,6 +586,29 @@ export function Editor({ note, onSave, onDelete, onWordCountChange }: EditorProp
         placeholder="https://example.com"
         submitLabel="Insert"
       />
+
+      <Prompt
+        open={showMathPrompt}
+        onClose={() => setShowMathPrompt(false)}
+        onSubmit={(latex) => {
+          if (mathMode === 'inline') {
+            editor?.chain().focus().setMathInline(latex).run();
+          } else {
+            editor?.chain().focus().setMathDisplay(latex).run();
+          }
+          setShowMathPrompt(false);
+        }}
+        title={mathMode === 'inline' ? 'Inline math (LaTeX)' : 'Display math (LaTeX)'}
+        placeholder="e.g. E = mc^2"
+        submitLabel="Insert"
+      />
+
+      {showQuizModal && (
+        <QuizModal
+          noteContent={editor ? JSON.stringify(editor.getJSON()) : '{}'}
+          onClose={() => setShowQuizModal(false)}
+        />
+      )}
 
     </div>
   );

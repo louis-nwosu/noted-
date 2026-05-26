@@ -4,7 +4,7 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import path from "path";
 import mongoose from "mongoose";
-import { authRoutes, notesRoutes, mediaRoutes, shareRoutes } from "./routes";
+import { authRoutes, notesRoutes, mediaRoutes, shareRoutes, aiRoutes, folderRoutes } from "./routes";
 import { getStats } from "./controllers/notes.controller";
 
 const app = express();
@@ -28,6 +28,8 @@ app.use("/api/auth", authRoutes);
 app.use("/api/notes", notesRoutes);
 app.use("/api/media", mediaRoutes);
 app.use("/api/share", shareRoutes);
+app.use("/api/ai", aiRoutes);
+app.use("/api/folders", folderRoutes);
 
 app.use("/uploads", express.static(path.join(__dirname, "../uploads")));
 

@@ -7,6 +7,8 @@ import { useNotesStore } from '@/lib/store';
 import { Editor } from '../../../../components/editor/Editor';
 import { TopNav } from '../../../../components/ui/TopNav';
 import { NoteList } from '../../../../components/notes/NoteList';
+import { FolderTree } from '../../../../components/notes/FolderTree';
+import { ResearchPanel } from '../../../../components/ai/ResearchPanel';
 import { Search, PanelLeftClose, PanelLeft, GripVertical, Plus } from 'lucide-react';
 
 export default function NoteEditorPage() {
@@ -39,18 +41,25 @@ export default function NoteEditorPage() {
       .finally(() => setLoading(false));
   }, [params.id, router]);
 
-  const fetchNotes = useCallback(() => {
-    if (filter === 'trash') {
+  const fetchNotes = useCallback(async (f?: string, q?: string) => {
+    const activeFilter = f ?? filter;
+    const activeQuery = q ?? searchQuery;
+    if (activeFilter === 'trash') {
       api.get('/notes/trash').then(({ data }) => { if (data.success) setNotes(data.data); }).catch(() => {});
       return;
     }
     const p = new URLSearchParams({ page: '1', limit: '50' });
-    if (filter !== 'all') p.set('filter', filter);
-    if (searchQuery) p.set('q', searchQuery);
+    if (activeFilter !== 'all') p.set('filter', activeFilter);
+    if (activeQuery) p.set('q', activeQuery);
     api.get(`/notes?${p}`).then(({ data }) => { if (data.success) setNotes(data.data); }).catch(() => {});
   }, [filter, searchQuery, setNotes]);
 
   useEffect(() => { fetchNotes(); }, [fetchNotes]);
+
+  const handleFilterClick = (f: "all" | "private" | "shared" | "pinned" | "trash") => {
+    setFilter(f);
+    fetchNotes(f, searchQuery);
+  };
 
   const handleSave = async (title: string, content: any) => {
     if (!note) return;
@@ -127,21 +136,13 @@ export default function NoteEditorPage() {
                 />
               </div>
             </div>
-            {filter !== 'trash' && (
-              <button
-                onClick={handleCreate}
-                className="max-md:hidden flex w-full items-center justify-center gap-2 rounded bg-[var(--nt-accent)] py-1.5 font-mono text-xs font-medium text-[var(--nt-bg)] hover:opacity-90 transition-all cursor-pointer"
-              >
-                + New note
-              </button>
-            )}
           </div>
 
           <div className="flex gap-1 p-3 border-b border-[var(--nt-border)] shrink-0 overflow-x-auto">
             {(['all', 'private', 'shared', 'pinned', 'trash'] as const).map((f) => (
               <button
                 key={f}
-                onClick={() => setFilter(f)}
+                onClick={() => handleFilterClick(f)}
                 className={`px-2.5 py-1 rounded font-mono text-[10px] tracking-wider uppercase transition-colors cursor-pointer whitespace-nowrap ${
                   filter === f
                     ? 'bg-[var(--nt-accent)] text-[var(--nt-bg)]'
@@ -153,12 +154,16 @@ export default function NoteEditorPage() {
             ))}
           </div>
 
-          <div className="flex-1 overflow-y-auto">
-            <NoteList notes={notes} selectedId={filter !== 'trash' ? (params.id as string) : undefined} onSelectNote={isMobile ? toggleSidebar : undefined} trash={filter === 'trash'} onTrashAction={fetchNotes} />
+          <div className="flex-1 overflow-y-auto hide-scrollbar">
+            {filter === 'trash' ? (
+              <NoteList notes={notes} selectedId={undefined} onSelectNote={isMobile ? toggleSidebar : undefined} trash={true} onTrashAction={fetchNotes} />
+            ) : (
+              <FolderTree selectedNoteId={params.id as string} onSelectNote={isMobile ? toggleSidebar : undefined} />
+            )}
           </div>
           {isMobile && sidebarOpen && filter !== 'trash' && (
             <button
-              onClick={handleCreate}
+              onClick={() => { handleCreate(); }}
               className="fixed bottom-6 right-6 z-[60] flex h-12 w-12 items-center justify-center rounded-full bg-[var(--nt-accent)] text-[var(--nt-bg)] shadow-xl hover:opacity-90 transition-all cursor-pointer"
             >
               <Plus className="h-5 w-5" />
@@ -197,38 +202,41 @@ export default function NoteEditorPage() {
           </>
         )}
 
-        <div className="flex flex-1 flex-col overflow-hidden">
-          <main className="flex-1 overflow-y-auto">
-            {loading ? (
-              <div className="pt-32 text-center">
-                <div className="font-mono text-sm text-[var(--nt-text-muted)] animate-pulse">Loading note…</div>
-              </div>
-            ) : note ? (
-              <div>
-                {isMobile && (
-                  <div className="flex items-center gap-2 px-4 pt-3 pb-0">
-                    <button
-                      onClick={toggleSidebar}
-                      className="p-1.5 rounded text-[var(--nt-text-muted)] hover:text-[var(--nt-text-primary)] hover:bg-[var(--nt-ink)] transition-all cursor-pointer"
-                      title="Open notes list"
-                    >
-                      <PanelLeft className="h-4 w-4" />
-                    </button>
-                    <span className="font-mono text-xs text-[var(--nt-text-muted)] truncate">{note?.title || 'Untitled'}</span>
-                  </div>
-                )}
-                <Editor key={params.id as string} note={note} onSave={handleSave} onDelete={handleDelete} onWordCountChange={setWordCount} />
-              </div>
-            ) : (
-              <div className="pt-32 text-center">
-                <div className="font-mono text-sm text-[var(--nt-text-muted)]">Note not found</div>
-              </div>
-            )}
-          </main>
-          <div className="flex items-center gap-4 border-t border-[var(--nt-border)] px-6 py-2 font-mono text-[10px] text-[var(--nt-text-muted)] shrink-0">
-            <span>{wordCount} words</span>
-            <span>{readingTime} min read</span>
+        <div className="flex flex-1 overflow-hidden">
+          <div className="flex flex-1 flex-col overflow-hidden">
+            <main className="flex-1 overflow-y-auto hide-scrollbar">
+              {loading ? (
+                <div className="pt-32 text-center">
+                  <div className="font-mono text-sm text-[var(--nt-text-muted)] animate-pulse">Loading note…</div>
+                </div>
+              ) : note ? (
+                <div>
+                  {isMobile && (
+                    <div className="flex items-center gap-2 px-4 pt-3 pb-0">
+                      <button
+                        onClick={toggleSidebar}
+                        className="p-1.5 rounded text-[var(--nt-text-muted)] hover:text-[var(--nt-text-primary)] hover:bg-[var(--nt-ink)] transition-all cursor-pointer"
+                        title="Open notes list"
+                      >
+                        <PanelLeft className="h-4 w-4" />
+                      </button>
+                      <span className="font-mono text-xs text-[var(--nt-text-muted)] truncate">{note?.title || 'Untitled'}</span>
+                    </div>
+                  )}
+                  <Editor key={params.id as string} note={note} onSave={handleSave} onDelete={handleDelete} onWordCountChange={setWordCount} />
+                </div>
+              ) : (
+                <div className="pt-32 text-center">
+                  <div className="font-mono text-sm text-[var(--nt-text-muted)]">Note not found</div>
+                </div>
+              )}
+            </main>
+            <div className="flex items-center gap-4 border-t border-[var(--nt-border)] px-6 py-2 font-mono text-[10px] text-[var(--nt-text-muted)] shrink-0">
+              <span>{wordCount} words</span>
+              <span>{readingTime} min read</span>
+            </div>
           </div>
+          <ResearchPanel noteContent={note ? JSON.stringify(note.content) : '{}'} />
         </div>
       </div>
     </div>

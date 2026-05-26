@@ -217,3 +217,11 @@ body {
   align-items: flex-start;
   gap: 0.5em;
 }
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}

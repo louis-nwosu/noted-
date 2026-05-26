@@ -9,6 +9,7 @@ export interface IAudioAttachment {
 
 export interface INote extends Document {
   userId: mongoose.Types.ObjectId;
+  folderId: mongoose.Types.ObjectId | null;
   title: string;
   content: object;
   plainTextPreview: string;
@@ -39,6 +40,7 @@ const AudioAttachmentSchema = new Schema<IAudioAttachment>(
 const NoteSchema = new Schema<INote>(
   {
     userId: { type: Schema.Types.ObjectId, ref: 'User', required: true, index: true },
+    folderId: { type: Schema.Types.ObjectId, ref: 'Folder', default: null, index: true },
     title: { type: String, default: 'Untitled', trim: true },
     content: { type: Schema.Types.Mixed, default: {} },
     plainTextPreview: { type: String, default: '', maxlength: 200 },
