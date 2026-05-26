@@ -195,6 +195,15 @@ export async function permanentDelete(req: Request, res: Response) {
   res.json({ success: true, data: null });
 }
 
+export async function listTrash(req: Request, res: Response) {
+  const userId = req.user!.userId;
+  const notes = await Note.find({ userId, deletedAt: { $ne: null } })
+    .sort({ deletedAt: -1 })
+    .select('-content');
+
+  res.json({ success: true, data: notes });
+}
+
 export async function searchNotes(req: Request, res: Response) {
   const userId = req.user!.userId;
   const q = (req.query.q as string) || '';

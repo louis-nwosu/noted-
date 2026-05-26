@@ -2,7 +2,9 @@
 
 import { useEditor, EditorContent } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
+import ImageExt from '@tiptap/extension-image';
 import Link from 'next/link';
+import { API_BASE } from '@/lib/api';
 
 interface PublicViewerProps {
   note: {
@@ -20,10 +22,33 @@ interface PublicViewerProps {
   };
 }
 
+function prefixImageSrcs(node: any): any {
+  if (!node || typeof node !== 'object') return node;
+  if (node.type === 'image' && node.attrs?.src?.startsWith('/')) {
+    return { ...node, attrs: { ...node.attrs, src: `${API_BASE}${node.attrs.src}` } };
+  }
+  if (node.content) {
+    return { ...node, content: node.content.map(prefixImageSrcs) };
+  }
+  return node;
+}
+
+const imageUrl = (src: string) => {
+  if (src.startsWith('/')) return `${API_BASE}${src}`;
+  return src;
+};
+
 export function PublicViewer({ note }: PublicViewerProps) {
+  const content = note.content
+    ? (Array.isArray(note.content) ? note.content.map(prefixImageSrcs) : prefixImageSrcs(note.content))
+    : '';
+
   const editor = useEditor({
-    extensions: [StarterKit],
-    content: note.content || '',
+    extensions: [
+      StarterKit,
+      ImageExt.configure({ inline: false }),
+    ],
+    content,
     editable: false,
     editorProps: {
       attributes: {
@@ -37,6 +62,8 @@ export function PublicViewer({ note }: PublicViewerProps) {
     month: 'long',
     day: 'numeric',
   });
+
+  const coverSrc = note.coverImage ? imageUrl(note.coverImage) : null;
 
   return (
     <div className="min-h-screen bg-[var(--nt-bg)]">
@@ -55,6 +82,16 @@ export function PublicViewer({ note }: PublicViewerProps) {
       </header>
 
       <article className="mx-auto max-w-3xl px-6 py-12">
+        {coverSrc && (
+          <div className="mb-8">
+            <img
+              src={coverSrc}
+              alt="Cover"
+              className="w-full rounded-lg object-cover max-h-80"
+            />
+          </div>
+        )}
+
         <div className="mb-8">
           <h1 className="font-display text-4xl sm:text-5xl text-[var(--nt-text-primary)] leading-tight mb-4">
             {note.title}

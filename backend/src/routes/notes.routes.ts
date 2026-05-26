@@ -8,6 +8,7 @@ import {
   deleteNote,
   restoreNote,
   permanentDelete,
+  listTrash,
   searchNotes,
   shareNote,
   revokeShare,
@@ -21,6 +22,7 @@ router.use(authGuard);
 router.get('/', listNotes);
 router.post('/', createNote);
 router.get('/search', searchNotes);
+router.get('/trash', listTrash);
 router.get('/:id', getNote);
 router.put('/:id', updateNote);
 router.patch('/:id', updateNote);

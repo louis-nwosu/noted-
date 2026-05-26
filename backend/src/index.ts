@@ -2,6 +2,7 @@ import "dotenv/config";
 import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
+import path from "path";
 import mongoose from "mongoose";
 import { authRoutes, notesRoutes, mediaRoutes, shareRoutes } from "./routes";
 import { getStats } from "./controllers/notes.controller";
@@ -22,6 +23,8 @@ app.use("/api/auth", authRoutes);
 app.use("/api/notes", notesRoutes);
 app.use("/api/media", mediaRoutes);
 app.use("/api/share", shareRoutes);
+
+app.use("/uploads", express.static(path.join(__dirname, "../uploads")));
 
 app.get("/api/stats", getStats);
 

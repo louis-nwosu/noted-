@@ -4,7 +4,6 @@ import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuthStore } from '@/lib/store';
 import api from '@/lib/api';
-import { TransitionLayout } from '@/components/ui/TransitionLayout';
 
 export default function AppLayout({ children }: { children: React.ReactNode }) {
   const router = useRouter();
@@ -40,9 +39,5 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
     );
   }
 
-  return (
-    <TransitionLayout>
-      {children}
-    </TransitionLayout>
-  );
+  return <>{children}</>;
 }

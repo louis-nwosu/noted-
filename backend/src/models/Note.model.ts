@@ -59,5 +59,6 @@ const NoteSchema = new Schema<INote>(
 NoteSchema.index({ userId: 1, createdAt: -1 });
 NoteSchema.index({ userId: 1, isPrivate: 1 });
 NoteSchema.index({ title: 'text', plainTextPreview: 'text' });
+NoteSchema.index({ deletedAt: 1 }, { expireAfterSeconds: 259200 });
 
 export default mongoose.model<INote>('Note', NoteSchema);

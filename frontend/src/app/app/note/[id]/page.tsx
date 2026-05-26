@@ -7,7 +7,7 @@ import { useNotesStore } from '@/lib/store';
 import { Editor } from '../../../../components/editor/Editor';
 import { TopNav } from '../../../../components/ui/TopNav';
 import { NoteList } from '../../../../components/notes/NoteList';
-import { Search, PanelLeftClose, PanelLeft, GripVertical, ArrowLeft } from 'lucide-react';
+import { Search, PanelLeftClose, PanelLeft, GripVertical, Plus } from 'lucide-react';
 
 export default function NoteEditorPage() {
   const params = useParams();
@@ -39,12 +39,18 @@ export default function NoteEditorPage() {
       .finally(() => setLoading(false));
   }, [params.id, router]);
 
-  useEffect(() => {
+  const fetchNotes = useCallback(() => {
+    if (filter === 'trash') {
+      api.get('/notes/trash').then(({ data }) => { if (data.success) setNotes(data.data); }).catch(() => {});
+      return;
+    }
     const p = new URLSearchParams({ page: '1', limit: '50' });
     if (filter !== 'all') p.set('filter', filter);
     if (searchQuery) p.set('q', searchQuery);
     api.get(`/notes?${p}`).then(({ data }) => { if (data.success) setNotes(data.data); }).catch(() => {});
   }, [filter, searchQuery, setNotes]);
+
+  useEffect(() => { fetchNotes(); }, [fetchNotes]);
 
   const handleSave = async (title: string, content: any) => {
     if (!note) return;
@@ -100,17 +106,17 @@ export default function NoteEditorPage() {
       <div className="flex flex-1 overflow-hidden">
         <aside
           className="flex flex-col bg-[var(--nt-surface)] border-r border-[var(--nt-border)] overflow-hidden shrink-0
-            max-md:fixed max-md:inset-y-0 max-md:left-0 max-md:z-50 max-md:w-full
-            max-md:shadow-2xl max-md:border-r-0
+            max-md:fixed max-md:top-12 max-md:left-0 max-md:z-50 max-md:w-full
+            max-md:shadow-2xl max-md:border-r-0 max-md:bottom-0
             md:relative md:transition-[width] md:duration-200"
           style={{ width: isMobile ? (sidebarOpen ? '100%' : 0) : (sidebarOpen ? sidebarWidth : 0) }}
         >
           {sidebarOpen && isMobile && (
-            <div className="fixed inset-0 bg-black/50 -z-10" onClick={toggleSidebar} />
+            <div className="fixed top-12 inset-x-0 bottom-0 bg-black/50 -z-10" onClick={toggleSidebar} />
           )}
           <div className="p-3 border-b border-[var(--nt-border)] space-y-2 shrink-0">
             <div className="flex items-center gap-2">
-              <div className="relative flex-1">
+              <div className="relative flex-1 min-w-0">
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-[var(--nt-text-muted)]" />
                 <input
                   type="text"
@@ -120,32 +126,19 @@ export default function NoteEditorPage() {
                   className="w-full rounded border border-[var(--nt-border)] bg-[var(--nt-bg)] pl-9 pr-3 py-2 font-mono text-xs text-[var(--nt-text-primary)] outline-none focus:border-[var(--nt-accent)] transition-colors"
                 />
               </div>
-              <button
-                onClick={toggleSidebar}
-                className="shrink-0 p-1.5 rounded text-[var(--nt-text-muted)] hover:text-[var(--nt-text-primary)] hover:bg-[var(--nt-ink)] transition-all cursor-pointer"
-                title="Close sidebar"
-              >
-                <PanelLeftClose className="h-4 w-4" />
-              </button>
             </div>
-            <button
-              onClick={handleCreate}
-              className="flex w-full items-center justify-center gap-2 rounded bg-[var(--nt-accent)] py-2 font-mono text-xs font-medium text-[var(--nt-bg)] hover:opacity-90 transition-all cursor-pointer"
-            >
-              + New note
-            </button>
-            {isMobile && (
+            {filter !== 'trash' && (
               <button
-                onClick={() => router.push('/app')}
-                className="flex w-full items-center justify-center gap-2 rounded border border-[var(--nt-border)] py-2 font-mono text-xs text-[var(--nt-text-muted)] hover:text-[var(--nt-text-primary)] transition-all cursor-pointer"
+                onClick={handleCreate}
+                className="max-md:hidden flex w-full items-center justify-center gap-2 rounded bg-[var(--nt-accent)] py-1.5 font-mono text-xs font-medium text-[var(--nt-bg)] hover:opacity-90 transition-all cursor-pointer"
               >
-                <ArrowLeft className="h-3.5 w-3.5" /> Back to notes
+                + New note
               </button>
             )}
           </div>
 
           <div className="flex gap-1 p-3 border-b border-[var(--nt-border)] shrink-0 overflow-x-auto">
-            {(['all', 'private', 'shared', 'pinned'] as const).map((f) => (
+            {(['all', 'private', 'shared', 'pinned', 'trash'] as const).map((f) => (
               <button
                 key={f}
                 onClick={() => setFilter(f)}
@@ -161,28 +154,44 @@ export default function NoteEditorPage() {
           </div>
 
           <div className="flex-1 overflow-y-auto">
-            <NoteList notes={notes} selectedId={params.id as string} onSelectNote={toggleSidebar} />
+            <NoteList notes={notes} selectedId={filter !== 'trash' ? (params.id as string) : undefined} onSelectNote={isMobile ? toggleSidebar : undefined} trash={filter === 'trash'} onTrashAction={fetchNotes} />
           </div>
+          {isMobile && sidebarOpen && filter !== 'trash' && (
+            <button
+              onClick={handleCreate}
+              className="fixed bottom-6 right-6 z-[60] flex h-12 w-12 items-center justify-center rounded-full bg-[var(--nt-accent)] text-[var(--nt-bg)] shadow-xl hover:opacity-90 transition-all cursor-pointer"
+            >
+              <Plus className="h-5 w-5" />
+            </button>
+          )}
         </aside>
 
         {!isMobile && (
           <>
             {sidebarOpen && (
               <div
-                className="w-1.5 shrink-0 cursor-col-resize hover:bg-[var(--nt-accent)]/30 active:bg-[var(--nt-accent)]/50 transition-colors flex items-center justify-center group"
+                className="w-2 shrink-0 cursor-col-resize bg-[var(--nt-border)]/20 hover:bg-[var(--nt-accent)]/25 active:bg-[var(--nt-accent)]/40 transition-colors flex flex-col items-center justify-center group relative"
                 onMouseDown={handleMouseDown}
               >
                 <GripVertical className="h-4 w-4 text-[var(--nt-text-muted)] opacity-0 group-hover:opacity-100 transition-opacity" />
+                <button
+                  onClick={(e) => { e.stopPropagation(); toggleSidebar(); }}
+                  className="absolute top-1/2 -translate-y-1/2 flex items-center justify-center w-5 h-8 rounded-r bg-[var(--nt-surface)] border border-[var(--nt-border)] border-l-0 text-[var(--nt-text-muted)] hover:text-[var(--nt-text-primary)] hover:bg-[var(--nt-ink)] transition-all opacity-0 group-hover:opacity-100 cursor-pointer -right-5"
+                  title="Close sidebar"
+                >
+                  <PanelLeftClose className="h-3.5 w-3.5" />
+                </button>
               </div>
             )}
 
             {!sidebarOpen && (
               <button
                 onClick={toggleSidebar}
-                className="shrink-0 p-1 self-center rounded text-[var(--nt-text-muted)] hover:text-[var(--nt-text-primary)] hover:bg-[var(--nt-ink)] transition-all cursor-pointer ml-1"
+                className="shrink-0 flex items-center gap-1.5 self-center rounded-r border border-[var(--nt-border)] border-l-0 bg-[var(--nt-surface)] pl-2 pr-3 py-2 text-[var(--nt-text-muted)] hover:text-[var(--nt-text-primary)] hover:bg-[var(--nt-ink)] transition-all cursor-pointer"
                 title="Open sidebar"
               >
                 <PanelLeft className="h-4 w-4" />
+                <span className="font-mono text-[10px] tracking-wider uppercase">Sidebar</span>
               </button>
             )}
           </>
