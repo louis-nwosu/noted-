@@ -10,9 +10,14 @@ import { getStats } from "./controllers/notes.controller";
 const app = express();
 const PORT = process.env.PORT || 4000;
 
+const allowedOrigins = [
+  process.env.CLIENT_URL || "http://localhost:3000",
+  "https://note-take-x.vercel.app",
+].filter(Boolean);
+
 app.use(
   cors({
-    origin: process.env.CLIENT_URL || "http://localhost:3000",
+    origin: allowedOrigins,
     credentials: true,
   }),
 );
