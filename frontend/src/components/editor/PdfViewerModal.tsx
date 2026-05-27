@@ -145,16 +145,14 @@ export function PdfViewerModal({ pdfUrl, filename, summary, rawText, isScanned, 
           </div>
         </div>
 
-        <div className="flex-1 overflow-hidden">
+        <div className="flex-1 min-h-0 overflow-y-auto [&::-webkit-scrollbar]:w-1 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-[var(--nt-ink)] [&::-webkit-scrollbar-track]:bg-transparent">
           {tab === 'pdf' && (
-            <iframe
-              src={fullUrl}
-              className="w-full h-full min-h-[70vh]"
-              title={filename}
-            />
+            <div className="h-full">
+              <iframe src={fullUrl} className="w-full h-full" title={filename} />
+            </div>
           )}
           {tab === 'summary' && parsedSummary && (
-            <div className="h-full min-h-[70vh] overflow-y-auto p-4 md:p-6 space-y-4">
+            <div className="p-4 md:p-6 space-y-4">
               {Object.entries(parsedSummary).map(([key, value]) => {
                 if (!value) return null;
                 const config = sectionConfig[key] || {
@@ -186,12 +184,12 @@ export function PdfViewerModal({ pdfUrl, filename, summary, rawText, isScanned, 
             </div>
           )}
           {tab === 'summary' && !parsedSummary && summary && (
-            <div className="h-full min-h-[70vh] overflow-y-auto p-6 font-serif text-[15px] leading-relaxed text-[var(--nt-text-primary)] whitespace-pre-wrap">
+            <div className="p-6 font-serif text-[15px] leading-relaxed text-[var(--nt-text-primary)] whitespace-pre-wrap">
               {summary}
             </div>
           )}
           {tab === 'raw' && (
-            <div className="h-full min-h-[70vh] overflow-y-auto p-6">
+            <div className="p-6">
               {rawText ? (
                 <pre className="font-mono text-[13px] leading-relaxed text-[var(--nt-text-primary)] whitespace-pre-wrap">
                   {rawText}

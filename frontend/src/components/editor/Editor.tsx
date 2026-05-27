@@ -709,6 +709,25 @@ export function Editor({ note, onSave, onDelete, onWordCountChange }: EditorProp
         />
       )}
 
+      {uploadingPdf && (
+        <div className="fixed inset-0 z-[200] flex items-center justify-center bg-black/60">
+          <div className="flex flex-col items-center gap-4 rounded-xl border border-[var(--nt-border)] bg-[var(--nt-surface)] px-8 py-10 shadow-2xl">
+            <div className="relative flex items-center justify-center">
+              <div className="h-10 w-10 animate-spin rounded-full border-2 border-[var(--nt-border)] border-t-[var(--nt-accent)]" />
+              <FileText className="absolute h-5 w-5 text-[var(--nt-accent)]" />
+            </div>
+            <div className="text-center">
+              <p className="font-mono text-sm font-medium text-[var(--nt-text-primary)]">
+                Processing PDF
+              </p>
+              <p className="font-mono text-[10px] text-[var(--nt-text-muted)] mt-1">
+                Extracting text &amp; generating AI summary...
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
+
     </div>
   );
 }
