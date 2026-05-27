@@ -7,7 +7,7 @@ import { Note, useNotesStore } from '@/lib/store';
 import { ContextMenu } from '../ui/ContextMenu';
 import { Dialog } from '../ui/Dialog';
 import { useToast } from '../ui/Toast';
-import { Lock, Globe, Pin, Trash2 } from 'lucide-react';
+import { Lock, Globe, Pin, PinOff, Trash2 } from 'lucide-react';
 
 interface NoteCardProps {
   note: Note;
@@ -22,7 +22,7 @@ export function NoteCard({ note, selected, onSelect }: NoteCardProps) {
   const [contextMenu, setContextMenu] = useState<{ x: number; y: number } | null>(null);
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
 
-  const preview = note.plainTextPreview || 'No content';
+  const preview = note.plainTextPreview || 'Empty note';
   const date = new Date(note.createdAt).toLocaleDateString('en-US', {
     month: 'short',
     day: 'numeric',
@@ -31,6 +31,19 @@ export function NoteCard({ note, selected, onSelect }: NoteCardProps) {
   const handleContextMenu = (e: React.MouseEvent) => {
     e.preventDefault();
     setContextMenu({ x: e.clientX, y: e.clientY });
+  };
+
+  const handlePinToggle = async (e?: React.MouseEvent) => {
+    e?.preventDefault();
+    e?.stopPropagation();
+    try {
+      const pinnedAt = note.pinnedAt ? null : new Date().toISOString();
+      const { data } = await api.put(`/notes/${note._id}`, { pinnedAt });
+      if (data.success) {
+        setNotes(useNotesStore.getState().notes.map((n) => (n._id === note._id ? { ...n, pinnedAt } : n)));
+        toast(note.pinnedAt ? 'Note unpinned' : 'Note pinned', 'success');
+      }
+    } catch {}
   };
 
   const handleDelete = async () => {
@@ -71,6 +84,13 @@ export function NoteCard({ note, selected, onSelect }: NoteCardProps) {
 
         <div className="flex items-center gap-1.5 shrink-0">
           <button
+            onClick={handlePinToggle}
+            className="opacity-0 group-hover:opacity-100 p-1 rounded text-[var(--nt-text-muted)] hover:text-[var(--nt-accent-warm)] hover:bg-amber-500/10 transition-all cursor-pointer"
+            title={note.pinnedAt ? 'Unpin note' : 'Pin note'}
+          >
+            {note.pinnedAt ? <PinOff className="h-3 w-3" /> : <Pin className="h-3 w-3" />}
+          </button>
+          <button
             onClick={(e) => { e.preventDefault(); e.stopPropagation(); setShowDeleteDialog(true); }}
             className="opacity-0 group-hover:opacity-100 p-1 rounded text-[var(--nt-text-muted)] hover:text-red-400 hover:bg-red-500/10 transition-all cursor-pointer"
             title="Delete note"
@@ -93,7 +113,8 @@ export function NoteCard({ note, selected, onSelect }: NoteCardProps) {
           y={contextMenu.y}
           onClose={() => setContextMenu(null)}
           actions={[
-            { label: 'Delete', icon: <Trash2 className="h-3.5 w-3.5" />, onClick: () => setShowDeleteDialog(true), danger: true },
+            { label: note.pinnedAt ? 'Unpin' : 'Pin', icon: note.pinnedAt ? <PinOff className="h-3.5 w-3.5" /> : <Pin className="h-3.5 w-3.5" />, onClick: handlePinToggle },
+            { label: 'Delete', icon: <Trash2 className="h-3.5 w-3.5" />, onClick: () => setShowDeleteDialog(true), danger: true, separator: true },
           ]}
         />
       )}

@@ -2,9 +2,11 @@
 
 import { useState, useRef, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { Note } from '@/lib/store';
+import api from '@/lib/api';
+import { Note, useNotesStore } from '@/lib/store';
 import { ContextMenu } from '../ui/ContextMenu';
-import { FileText, Lock, Globe, Trash2, Pencil } from 'lucide-react';
+import { useToast } from '../ui/Toast';
+import { FileText, Lock, Globe, Trash2, Pencil, Pin, PinOff } from 'lucide-react';
 
 interface NoteTreeItemProps {
   note: Note;
@@ -17,6 +19,8 @@ interface NoteTreeItemProps {
 
 export function NoteTreeItem({ note, selected, onSelect, depth = 0, onDelete, onRename }: NoteTreeItemProps) {
   const router = useRouter();
+  const { setNotes } = useNotesStore();
+  const { toast } = useToast();
   const [ctxMenu, setCtxMenu] = useState<{ x: number; y: number } | null>(null);
   const [renaming, setRenaming] = useState(false);
   const [renameValue, setRenameValue] = useState(note.title);
@@ -33,6 +37,17 @@ export function NoteTreeItem({ note, selected, onSelect, depth = 0, onDelete, on
     e.preventDefault();
     e.stopPropagation();
     setCtxMenu({ x: e.clientX, y: e.clientY });
+  };
+
+  const handlePinToggle = async () => {
+    try {
+      const pinnedAt = note.pinnedAt ? null : new Date().toISOString();
+      const { data } = await api.put(`/notes/${note._id}`, { pinnedAt });
+      if (data.success) {
+        setNotes(useNotesStore.getState().notes.map((n) => (n._id === note._id ? { ...n, pinnedAt } : n)));
+        toast(note.pinnedAt ? 'Note unpinned' : 'Note pinned', 'success');
+      }
+    } catch {}
   };
 
   const handleRenameSubmit = () => {
@@ -106,6 +121,7 @@ export function NoteTreeItem({ note, selected, onSelect, depth = 0, onDelete, on
           onClose={() => setCtxMenu(null)}
           actions={[
             { label: 'Rename', icon: <Pencil className="h-3.5 w-3.5" />, onClick: () => setRenaming(true) },
+            { label: note.pinnedAt ? 'Unpin' : 'Pin', icon: note.pinnedAt ? <PinOff className="h-3.5 w-3.5" /> : <Pin className="h-3.5 w-3.5" />, onClick: handlePinToggle },
             { label: 'Delete', icon: <Trash2 className="h-3.5 w-3.5" />, onClick: () => onDelete?.(note._id), danger: true, separator: true },
           ]}
         />

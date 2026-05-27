@@ -16,17 +16,17 @@ export function CtaSection() {
 
         <AnimateIn delay={100}>
           <h2 className="font-display text-4xl sm:text-6xl lg:text-7xl text-[var(--nt-text-primary)] leading-tight">
-            Start your first note
+            Try Folio free.
             <br />
-            <span className="italic text-[var(--nt-accent-warm)]">tonight.</span>
+            <span className="italic text-[var(--nt-accent-warm)]">Forever.</span>
           </h2>
         </AnimateIn>
 
         <AnimateIn delay={200}>
           <p className="mt-6 font-serif text-lg text-[var(--nt-text-muted)]">
-            No credit card. No time limit.
+            No credit card. No time limit. No data mining.
             <br />
-            Your notes stay yours.
+            Just the best notes experience you&apos;ll ever have.
           </p>
         </AnimateIn>
 

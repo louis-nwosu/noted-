@@ -37,7 +37,7 @@ export default function LoginPage() {
     <div className="w-full max-w-sm px-6">
       <div className="text-center mb-8">
         <h1 className="font-display text-3xl text-[var(--nt-text-primary)]">Welcome back</h1>
-        <p className="font-mono text-xs text-[var(--nt-text-muted)] mt-2">Sign in to NoteTake</p>
+        <p className="font-mono text-xs text-[var(--nt-text-muted)] mt-2">Sign in to Folio</p>
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-4">

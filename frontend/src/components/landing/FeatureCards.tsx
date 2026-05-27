@@ -81,9 +81,9 @@ export function FeatureCards() {
         <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-20">
           <AnimateIn delay={100}>
             <h2 className="font-display text-5xl sm:text-6xl lg:text-7xl text-[var(--nt-text-primary)] leading-tight max-w-3xl">
-              Everything you need to
+              Five capabilities.
               <br />
-              <span className="italic text-[var(--nt-accent-warm)]">write, learn, and remember.</span>
+              <span className="italic text-[var(--nt-accent-warm)]">Zero compromises.</span>
             </h2>
           </AnimateIn>
           <AnimateIn delay={200}>

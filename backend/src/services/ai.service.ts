@@ -54,7 +54,7 @@ function stripMarkdown(text: string): string {
   return text.replace(/```(?:json)?\s*/gi, "").replace(/```$/gm, "").trim();
 }
 
-async function generate(systemPrompt: string, userContent: string): Promise<string> {
+export async function generate(systemPrompt: string, userContent: string): Promise<string> {
   if (!API_KEY) {
     throw new Error("OPENROUTER_API_KEY is not set in environment variables");
   }
@@ -65,7 +65,7 @@ async function generate(systemPrompt: string, userContent: string): Promise<stri
       "Content-Type": "application/json",
       Authorization: `Bearer ${API_KEY}`,
       "HTTP-Referer": process.env.CLIENT_URL || "https://note-take-x.vercel.app",
-      "X-Title": "NoteTake",
+      "X-Title": "Folio",
     },
     body: JSON.stringify({
       model: MODEL,

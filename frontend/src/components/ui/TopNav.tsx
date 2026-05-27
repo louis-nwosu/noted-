@@ -31,7 +31,7 @@ export function TopNav() {
     <header className="flex h-12 items-center justify-between border-b border-[var(--nt-border)] bg-[var(--nt-surface)] px-4">
       <div className="flex items-center gap-3">
         <span className="font-mono text-sm font-medium tracking-wider text-[var(--nt-text-primary)]">
-          NOTETAKE
+          FOLIO
         </span>
         <span className="font-mono text-[10px] text-[var(--nt-text-muted)] border border-[var(--nt-ink)] px-1.5 py-0.5 rounded">
           APP

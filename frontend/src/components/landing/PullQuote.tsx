@@ -5,13 +5,13 @@ import { AnimateIn } from "./AnimateIn";
 
 const quotes = [
   {
-    text: "NoteTake is the first notes app where I've never wished I was in a different one.",
+    text: "Folio is the first notes app where I've never wished I was in a different one.",
     author: "Adaeze O.",
     role: "Product Designer",
     location: "Lagos",
   },
   {
-    text: "I've tried everything — Notion, Obsidian, Craft. NoteTake is the only one that stays out of my way and lets me write.",
+    text: "I've tried everything — Notion, Obsidian, Craft. Folio is the only one that stays out of my way and lets me write.",
     author: "Marcus L.",
     role: "Engineering Lead",
     location: "Berlin",

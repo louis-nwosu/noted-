@@ -150,6 +150,12 @@ export default function AppPage() {
                 onTrashAction={fetchNotes}
                 onSelectNote={isMobile ? toggleSidebar : undefined}
               />
+            ) : filter !== "all" ? (
+              <NoteList
+                notes={notes}
+                selectedId={undefined}
+                onSelectNote={isMobile ? toggleSidebar : undefined}
+              />
             ) : (
               <FolderTree onSelectNote={isMobile ? toggleSidebar : undefined} />
             )}
@@ -205,7 +211,7 @@ export default function AppPage() {
                 Select a note
               </div>
               <p className="font-mono text-xs text-[var(--nt-text-muted)]">
-                or create a new one to get started
+                or create a new one from the sidebar
               </p>
             </div>
           </main>

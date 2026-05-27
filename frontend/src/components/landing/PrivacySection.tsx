@@ -39,8 +39,8 @@ export function PrivacySection() {
               <span className="italic text-[var(--nt-accent-warm)]">Public on your terms.</span>
             </h2>
             <p className="font-serif mt-4 text-sm leading-relaxed text-[var(--nt-text-muted)] max-w-md">
-              No public inboxes, no follower counts, no &ldquo;what&rsquo;s on your mind&rdquo; prompts.
-              Just notes. Yours until you decide otherwise.
+              Every note starts invisible. No public profiles, no activity feeds, no algorithm.
+              Your data stays yours — we never share, sell, or train on your content.
             </p>
 
             <div className="mt-10 space-y-5">
@@ -104,7 +104,7 @@ export function PrivacySection() {
                   <div className="rounded-lg border border-dashed border-[var(--nt-border)] bg-[var(--nt-surface)]/50 p-3">
                     <div className="flex items-center justify-center gap-2">
                       <Link className="h-3 w-3 text-[var(--nt-text-muted)]" />
-                      <span className="font-mono text-[10px] text-[var(--nt-text-muted)]">noted.app/s/••••••</span>
+                      <span className="font-mono text-[10px] text-[var(--nt-text-muted)]">folio.app/s/••••••</span>
                     </div>
                   </div>
                 </div>

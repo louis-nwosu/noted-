@@ -6,7 +6,7 @@ import { AnimateIn } from "./AnimateIn";
 
 const faqs = [
   {
-    q: "Is NoteTake really free?",
+    q: "Is Folio really free?",
     a: "Yes. No credit card required. There are no paid plans, no hidden limits, and no time restrictions. If that ever changes, grandfathered users keep everything.",
   },
   {
@@ -20,6 +20,10 @@ const faqs = [
   {
     q: "How does speech-to-text work?",
     a: "Click the microphone icon in the editor to start dictating. Your speech is transcribed in real-time using your browser's built-in speech recognition. Click stop and the text is inserted at your cursor. No server upload, no third-party services — everything stays local.",
+  },
+  {
+    q: "How is Folio different from Notion, Obsidian, or Apple Notes?",
+    a: "Folio is built for one thing: writing without friction. Notion is a database, Obsidian is a knowledge graph, Apple Notes is locked to Apple. Folio gives you a fast, beautiful editor with AI that actually helps — research, quizzes, voice input — all private by default, all in one place. No learning curve, no vendor lock-in.",
   },
   {
     q: "What are AI auto-research and quizzes?",

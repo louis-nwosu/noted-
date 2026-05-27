@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback } from 'react';
 
 type Theme = 'dark' | 'light' | 'system';
 
-const STORAGE_KEY = 'notetake-theme';
+const STORAGE_KEY = 'folio-theme';
 
 function getStoredTheme(): Theme {
   if (typeof window === 'undefined') return 'system';

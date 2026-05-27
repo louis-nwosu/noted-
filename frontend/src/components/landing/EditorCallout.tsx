@@ -68,10 +68,10 @@ export function EditorCallout() {
             </AnimateIn>
             <AnimateIn delay={100}>
               <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl text-[var(--nt-text-primary)] leading-tight">
-                Everything you need.
+                A surface built for
                 <br />
-                <span className="italic text-[var(--nt-text-muted)]">
-                  Nothing you don&apos;t.
+                <span className="italic text-[var(--nt-accent-warm)]">
+                  focus, not friction.
                 </span>
               </h2>
             </AnimateIn>
@@ -101,7 +101,7 @@ export function EditorCallout() {
                   <div className="h-3 w-3 rounded-full bg-green-500/80" />
                 </div>
                 <span className="ml-3 font-mono text-[10px] text-[var(--nt-text-muted)]">
-                  untitled — NoteTake
+                  untitled — Folio
                 </span>
                 <span className="ml-auto font-mono text-[10px] text-[var(--nt-accent)]">
                   auto-save on

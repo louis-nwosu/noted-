@@ -61,12 +61,12 @@ export default function NoteEditorPage() {
     fetchNotes(f, searchQuery);
   };
 
-  const handleSave = async (title: string, content: any) => {
+  const handleSave = async (title: string, content: any, wc?: number) => {
     if (!note) return;
     try {
       const { data } = await api.put(`/notes/${note._id}`, {
         title, content,
-        wordCount: JSON.stringify(content).split(/\s+/).length,
+        wordCount: wc ?? wordCount,
       });
       if (data.success) {
         setNote(data.data);
@@ -157,6 +157,8 @@ export default function NoteEditorPage() {
           <div className="flex-1 overflow-y-auto hide-scrollbar">
             {filter === 'trash' ? (
               <NoteList notes={notes} selectedId={undefined} onSelectNote={isMobile ? toggleSidebar : undefined} trash={true} onTrashAction={fetchNotes} />
+            ) : filter !== 'all' ? (
+              <NoteList notes={notes} selectedId={params.id as string} onSelectNote={isMobile ? toggleSidebar : undefined} />
             ) : (
               <FolderTree selectedNoteId={params.id as string} onSelectNote={isMobile ? toggleSidebar : undefined} />
             )}

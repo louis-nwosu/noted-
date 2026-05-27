@@ -27,7 +27,7 @@ export function LandingFooter() {
 
         <div className="mt-8 flex flex-col items-center gap-4 sm:flex-row sm:justify-between">
           <div className="font-mono text-[11px] text-[var(--nt-text-muted)] tracking-wider">
-            ● NOTETAKE · EST. MMXXVI · v1.0.0
+            ● FOLIO · EST. MMXXVI · v1.0.0
           </div>
           <div className="flex flex-wrap justify-center gap-6 font-mono text-[11px] text-[var(--nt-text-muted)]">
             <Link

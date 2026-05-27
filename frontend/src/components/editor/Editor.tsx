@@ -23,6 +23,8 @@ import { SharePopover } from '../share/SharePopover';
 import { ExportDropdown } from './ExportDropdown';
 import { SlashMenu } from './SlashMenu';
 import { QuizModal } from '../ai/QuizModal';
+import { PdfViewerModal } from './PdfViewerModal';
+import { MediaBrowser } from '../media/MediaBrowser';
 import { MathInline } from '@/lib/extensions/MathInline';
 import { MathDisplay } from '@/lib/extensions/MathDisplay';
 import '@/lib/extensions/types';
@@ -32,14 +34,14 @@ import {
   Bold, Italic, Underline as UnderlineIcon, Strikethrough, Code,
   Heading1, Heading2, Heading3, List, ListOrdered,
   Quote, Code2, Table as TableIcon, Image, Link as LinkIcon,
-  Minus, CheckSquare, Undo2, Redo2, Palette, X, Sigma,
+  Minus, CheckSquare, Undo2, Redo2, Palette, X, Sigma, FileText, Pin, PinOff,
 } from 'lucide-react';
 import api, { API_BASE } from '@/lib/api';
 import { useSpeechRecognition } from '@/hooks/useSpeechRecognition';
 
 interface EditorProps {
   note: any;
-  onSave: (title: string, content: any) => void;
+  onSave: (title: string, content: any, wordCount?: number) => void;
   onDelete?: () => void;
   onWordCountChange?: (words: number) => void;
 }
@@ -69,9 +71,15 @@ export function Editor({ note, onSave, onDelete, onWordCountChange }: EditorProp
   const [showColorPicker, setShowColorPicker] = useState(false);
   const [uploadingCover, setUploadingCover] = useState(false);
   const [showQuizModal, setShowQuizModal] = useState(false);
+  const [showMediaBrowser, setShowMediaBrowser] = useState(false);
+  const [showPdfModal, setShowPdfModal] = useState(false);
+  const [pdfResult, setPdfResult] = useState<{ url: string; filename: string; summary: string; rawText: string; isScanned: boolean } | null>(null);
+  const [uploadingPdf, setUploadingPdf] = useState(false);
+  const pdfFileInputRef = useRef<HTMLInputElement>(null);
   const coverInputRef = useRef<HTMLInputElement>(null);
   const colorPickerRef = useRef<HTMLDivElement>(null);
   const { toast } = useToast();
+  const [isPinned, setIsPinned] = useState(!!note?.pinnedAt);
   const pendingTranscriptRef = useRef('');
 
   const {
@@ -142,7 +150,7 @@ export function Editor({ note, onSave, onDelete, onWordCountChange }: EditorProp
       if (saveTimer.current) clearTimeout(saveTimer.current);
       saveTimer.current = setTimeout(() => {
         setSaveStatus('saving');
-        onSave(title, ed.getJSON());
+        onSave(title, ed.getJSON(), words);
         setTimeout(() => setSaveStatus('saved'), 500);
       }, 2000);
     },
@@ -156,6 +164,7 @@ export function Editor({ note, onSave, onDelete, onWordCountChange }: EditorProp
 
   useEffect(() => {
     setTitle(note?.title || '');
+    setIsPinned(!!note?.pinnedAt);
     if (editor && note?.content) {
       editor.commands.setContent(note.content);
     }
@@ -208,11 +217,11 @@ export function Editor({ note, onSave, onDelete, onWordCountChange }: EditorProp
       if (saveTimer.current) clearTimeout(saveTimer.current);
       saveTimer.current = setTimeout(() => {
         setSaveStatus('saving');
-        onSave(newTitle, editor?.getJSON() || {});
+        onSave(newTitle, editor?.getJSON() || {}, wordCount);
         setTimeout(() => setSaveStatus('saved'), 500);
       }, 2000);
     },
-    [editor, onSave]
+    [editor, onSave, wordCount]
   );
 
   const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -265,7 +274,7 @@ export function Editor({ note, onSave, onDelete, onWordCountChange }: EditorProp
       if (data.success) {
         const imageUrl = `${API_BASE}${data.data.url}`;
         setCoverImage(imageUrl);
-        onSave(title, editor?.getJSON() || {});
+        onSave(title, editor?.getJSON() || {}, wordCount);
         try { await api.put(`/notes/${note._id}`, { coverImage: imageUrl }); } catch {}
         toast('Cover image set', 'success');
       }
@@ -281,7 +290,47 @@ export function Editor({ note, onSave, onDelete, onWordCountChange }: EditorProp
     if (!note) return;
     setCoverImage(null);
     try { await api.put(`/notes/${note._id}`, { coverImage: null }); } catch {}
-    onSave(title, editor?.getJSON() || {});
+    onSave(title, editor?.getJSON() || {}, wordCount);
+  };
+
+  const handlePinToggle = async () => {
+    if (!note) return;
+    try {
+      const pinnedAt = isPinned ? null : new Date().toISOString();
+      const { data } = await api.put(`/notes/${note._id}`, { pinnedAt });
+      if (data.success) {
+        setIsPinned(!!pinnedAt);
+        toast(pinnedAt ? 'Note pinned' : 'Note unpinned', 'success');
+      }
+    } catch {}
+  };
+
+  const handlePdfUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file || !note) return;
+
+    setUploadingPdf(true);
+    try {
+      const formData = new FormData();
+      formData.append('file', file);
+      if (note._id) formData.append('noteId', note._id);
+
+      const { data } = await api.post('/pdf/upload', formData, {
+        headers: { 'Content-Type': 'multipart/form-data' },
+      });
+
+      if (data.success) {
+        setPdfResult({ url: data.data.url, filename: data.data.filename, summary: data.data.summary, rawText: data.data.rawText, isScanned: data.data.isScanned });
+        setShowPdfModal(true);
+        toast('PDF uploaded and summarized', 'success');
+      }
+    } catch (err) {
+      console.error('PDF upload failed', err);
+      toast('PDF upload failed', 'error');
+    } finally {
+      setUploadingPdf(false);
+      e.target.value = '';
+    }
   };
 
   useEffect(() => {
@@ -451,6 +500,18 @@ export function Editor({ note, onSave, onDelete, onWordCountChange }: EditorProp
           <button title="Listen \u2014 coming soon" disabled className="flex items-center gap-1 rounded px-2 py-1 font-mono text-[10px] text-[var(--nt-text-muted)] opacity-40 cursor-not-allowed">
             <Headphones className="h-3 w-3" /> <span className="hidden md:inline">Listen</span>
           </button>
+          <button
+            onClick={handlePinToggle}
+            className={`flex items-center gap-1 rounded px-1.5 md:px-2 py-1 font-mono text-[10px] transition-all cursor-pointer ${
+              isPinned
+                ? 'text-[var(--nt-accent-warm)] bg-amber-500/10 hover:bg-amber-500/20'
+                : 'text-[var(--nt-text-muted)] hover:text-[var(--nt-text-primary)] hover:bg-[var(--nt-ink)]'
+            }`}
+            title={isPinned ? 'Unpin note' : 'Pin note'}
+          >
+            {isPinned ? <PinOff className="h-3 w-3" /> : <Pin className="h-3 w-3" />}
+            <span className="hidden md:inline">{isPinned ? 'Pinned' : 'Pin'}</span>
+          </button>
           <SharePopover noteId={note._id} isPrivate={note.isPrivate} shareToken={note.shareToken} />
           <ExportDropdown getHTML={() => editor.getHTML()} title={title} />
           <button
@@ -459,6 +520,26 @@ export function Editor({ note, onSave, onDelete, onWordCountChange }: EditorProp
           >
             <Sparkles className="h-3 w-3" />
             <span className="hidden md:inline">Quiz</span>
+          </button>
+          <button
+            onClick={() => setShowMediaBrowser(true)}
+            className="flex items-center gap-1 rounded px-1.5 md:px-2 py-1 font-mono text-[10px] text-[var(--nt-text-muted)] hover:text-[var(--nt-accent)] hover:bg-[var(--nt-accent)]/10 transition-all cursor-pointer"
+          >
+            <Image className="h-3 w-3" />
+            <span className="hidden md:inline">Media</span>
+          </button>
+          <input ref={pdfFileInputRef} type="file" accept="application/pdf" className="hidden" onChange={handlePdfUpload} />
+          <button
+            onClick={() => pdfFileInputRef.current?.click()}
+            disabled={uploadingPdf}
+            className="flex items-center gap-1 rounded px-1.5 md:px-2 py-1 font-mono text-[10px] text-[var(--nt-text-muted)] hover:text-[var(--nt-accent)] hover:bg-[var(--nt-accent)]/10 transition-all cursor-pointer"
+          >
+            {uploadingPdf ? (
+              <span className="h-3 w-3 animate-pulse rounded-full bg-[var(--nt-accent)]" />
+            ) : (
+              <FileText className="h-3 w-3" />
+            )}
+            <span className="hidden md:inline">{uploadingPdf ? 'Uploading' : 'Upload PDF'}</span>
           </button>
           <button
             onClick={() => setShowDeleteDialog(true)}
@@ -607,6 +688,24 @@ export function Editor({ note, onSave, onDelete, onWordCountChange }: EditorProp
         <QuizModal
           noteContent={editor ? JSON.stringify(editor.getJSON()) : '{}'}
           onClose={() => setShowQuizModal(false)}
+        />
+      )}
+
+      {showPdfModal && pdfResult && (
+        <PdfViewerModal
+          pdfUrl={pdfResult.url}
+          filename={pdfResult.filename}
+          summary={pdfResult.summary}
+          rawText={pdfResult.rawText}
+          isScanned={pdfResult.isScanned}
+          onClose={() => setShowPdfModal(false)}
+        />
+      )}
+
+      {showMediaBrowser && (
+        <MediaBrowser
+          noteId={note._id}
+          onClose={() => setShowMediaBrowser(false)}
         />
       )}
 

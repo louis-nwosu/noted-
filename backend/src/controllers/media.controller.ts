@@ -39,6 +39,20 @@ export async function uploadMedia(req: Request, res: Response) {
   res.status(201).json({ success: true, data: { ...result, id: asset._id } });
 }
 
+export async function getMediaForNote(req: Request, res: Response) {
+  try {
+    const userId = req.user!.userId;
+    const { noteId } = req.params;
+
+    const assets = await MediaAsset.find({ userId, noteId }).sort({ uploadedAt: -1 });
+
+    res.json({ success: true, data: assets });
+  } catch (err: any) {
+    console.error('Get media error:', err);
+    res.status(500).json({ success: false, error: { code: 'MEDIA_ERROR', message: err.message } });
+  }
+}
+
 export async function unfurl(req: Request, res: Response) {
   const url = req.query.url as string;
 

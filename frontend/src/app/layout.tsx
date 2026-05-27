@@ -4,12 +4,12 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_URL || "http://localhost:3000"),
-  title: "NoteTake — Rich notes with full editorial control",
+  title: "Folio — Distraction-free notes with AI",
   description:
-    "Write, embed, organise, and share. A full rich-text editor for notes that respect your editorial instincts and your privacy.",
+    "Fast, private, AI-powered notes. Write freely, organise with folders, auto-research topics, generate quizzes, and share on your terms.",
   openGraph: {
-    title: "NoteTake",
-    description: "Full editorial control for your notes.",
+    title: "Folio",
+    description: "Fast, private notes with AI research & quizzes.",
     images: ["/og-image.png"],
     type: "website",
   },

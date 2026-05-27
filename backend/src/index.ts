@@ -4,7 +4,7 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import path from "path";
 import mongoose from "mongoose";
-import { authRoutes, notesRoutes, mediaRoutes, shareRoutes, aiRoutes, folderRoutes } from "./routes";
+import { authRoutes, notesRoutes, mediaRoutes, shareRoutes, aiRoutes, folderRoutes, pdfRoutes } from "./routes";
 import { getStats } from "./controllers/notes.controller";
 
 const app = express();
@@ -30,6 +30,7 @@ app.use("/api/media", mediaRoutes);
 app.use("/api/share", shareRoutes);
 app.use("/api/ai", aiRoutes);
 app.use("/api/folders", folderRoutes);
+app.use("/api/pdf", pdfRoutes);
 
 app.use("/uploads", express.static(path.join(__dirname, "../uploads")));
 
@@ -54,7 +55,7 @@ async function start() {
   }
 
   app.listen(PORT, () => {
-    console.log(`NoteTake API running on http://localhost:${PORT}`);
+    console.log(`Folio API running on http://localhost:${PORT}`);
   });
 }
 

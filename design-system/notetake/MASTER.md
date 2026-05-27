@@ -6,7 +6,7 @@
 
 ---
 
-**Project:** NoteTake
+**Project:** Folio
 **Generated:** 2026-03-01 20:26:41
 **Category:** SaaS (General)
 

@@ -5,8 +5,8 @@ import Link from "next/link";
 import { AnimateIn } from "./AnimateIn";
 
 const words = [
-  "Rich text", "Voice input", "AI research", "AI quizzes",
-  "Code blocks", "Tables", "Share links", "Markdown export",
+  "Rich text editing", "Voice dictation", "AI auto-research", "AI quizzes",
+  "Code blocks", "Tables & math", "Share links", "PDF export",
 ];
 
 export function HeroSection() {
@@ -32,15 +32,16 @@ export function HeroSection() {
           <div className="flex flex-col justify-center">
             <AnimateIn delay={100}>
               <h1 className="font-display text-4xl leading-tight sm:text-6xl lg:text-8xl text-[var(--nt-text-primary)]">
-                Write anything.
+                Your thoughts,
                 <br />
-                <span className="italic">Own everything.</span>
+                <span className="italic">instantly captured.</span>
               </h1>
             </AnimateIn>
             <AnimateIn delay={200}>
               <p className="font-serif mt-6 text-lg leading-relaxed text-[var(--nt-text-muted)] max-w-lg">
-                Notes with full editorial control — rich text, embedded media,
-                private by default, shareable on your terms.
+                Fast, distraction-free notes that stay organized automatically.
+                Rich text, AI research, voice input, and privacy you control —
+                all in one place.
               </p>
             </AnimateIn>
             <AnimateIn delay={300}>
@@ -71,7 +72,7 @@ export function HeroSection() {
                     <div className="h-3 w-3 rounded-full bg-green-500" />
                   </div>
                   <span className="ml-3 font-mono text-[10px] text-[var(--nt-text-muted)]">
-                    untitled — NoteTake
+                    untitled — Folio
                   </span>
                   <span className="ml-auto font-mono text-[10px] text-[var(--nt-accent)]">
                     auto-save on

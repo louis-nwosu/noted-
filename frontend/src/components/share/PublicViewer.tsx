@@ -70,13 +70,13 @@ export function PublicViewer({ note }: PublicViewerProps) {
       <header className="border-b border-[var(--nt-border)]">
         <div className="mx-auto max-w-3xl px-6 py-3 flex items-center justify-between">
           <span className="font-mono text-sm font-medium tracking-wider text-[var(--nt-text-primary)]">
-            NOTETAKE
+            FOLIO
           </span>
           <Link
             href="/register"
             className="font-mono text-[10px] text-[var(--nt-accent)] hover:underline cursor-pointer"
           >
-            Get NoteTake →
+            Get Folio →
           </Link>
         </div>
       </header>
@@ -133,7 +133,7 @@ export function PublicViewer({ note }: PublicViewerProps) {
           <p className="font-mono text-[10px] text-[var(--nt-text-muted)]">
             Published with{' '}
             <Link href="/" className="text-[var(--nt-accent)] hover:underline cursor-pointer">
-              NoteTake
+              Folio
             </Link>
           </p>
         </div>

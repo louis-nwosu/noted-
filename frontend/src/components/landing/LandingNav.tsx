@@ -8,10 +8,10 @@ export function LandingNav() {
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6">
         <div className="flex items-center gap-3">
           <span className="font-mono text-sm font-medium tracking-wider text-[var(--nt-text-primary)]">
-            NOTETAKE
+            FOLIO
           </span>
           <span className="font-mono text-[10px] text-[var(--nt-text-muted)] border border-[var(--nt-ink)] px-1.5 py-0.5 rounded">
-            VOL. 01
+            BETA
           </span>
         </div>
         <div className="flex items-center gap-4">
